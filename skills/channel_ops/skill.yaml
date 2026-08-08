@@ -1,0 +1,33 @@
+skill_id: channel_ops
+control_loop: act
+department: Channel Office
+goal: Query tier-1 dealer health, alerts, inspections and policy slices; output dashboard-style brief.
+success_hint: At least one health/alert/inspection query done; numbers + anomalies + next steps given.
+success_when: channel_lookup
+max_steps: 8
+tone:
+  label: Dashboard style
+  style: Numbers + anomalies + next steps; neutral tone
+  forbid: Personal judgment of dealers
+allowed_tools:
+  - get_dealer
+  - get_dealer_health
+  - list_alerts
+  - list_sales_metrics
+  - list_retail_daily
+  - list_inspections
+  - get_risk
+  - get_policy
+  - simulate_rebate_tier
+  - log_step
+system_extra: |
+  Prefer get_dealer_health + list_alerts; add inspection and policy if needed. Neutral, actionable conclusions.
+output_format: |
+  1. Key numbers
+  2. Anomalies
+  3. Suggested next steps (numbered)
+security:
+  max_tool_calls_per_step: 6
+  redact_pii_in_observation: true
+  block_on_outreach: false
+  prompt_forbid_extra: No personal judgment of dealers; numbers must come from tools

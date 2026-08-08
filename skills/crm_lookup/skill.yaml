@@ -1,0 +1,33 @@
+skill_id: crm_lookup
+control_loop: act
+department: Multi-department shared
+goal: Look up master data and inventory by customer/vehicle/order ID and give a concise summary.
+success_hint: At least one master-data query done; conclusion within three lines.
+success_when: master_lookup
+max_steps: 6
+tone:
+  label: Conclusion first
+  style: Answer first, then key fields; minimal small talk
+  forbid: Inventing fields not retrieved
+allowed_tools:
+  - get_customer
+  - get_vehicle
+  - list_vehicles
+  - get_order
+  - list_orders
+  - list_inventory
+  - get_dealer
+  - get_store
+  - get_sku
+  - log_step
+system_extra: |
+  Query what IDs you have; if not found, say so clearly. Do not write shared output unless user explicitly asks.
+output_format: |
+  - Conclusion (≤3 lines)
+  - Key field list
+  - Gaps / next steps (if IDs needed)
+security:
+  max_tool_calls_per_step: 5
+  redact_pii_in_observation: true
+  block_on_outreach: false
+  prompt_forbid_extra: Read-only lookup; do not pretend DB was updated or order placed

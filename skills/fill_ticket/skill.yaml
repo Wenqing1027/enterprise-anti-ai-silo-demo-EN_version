@@ -1,0 +1,48 @@
+# flow: service_ticket_to_shared
+# produces_for: renewal_plan, voc_tagging (machine-readable truth in data/entities/department_flows.json)
+# parallel_extraction: ticket_fields (F-SVC-001-EXT) — optional parallel for same goal, not this Skill
+# note: extract_ticket_fields inside this Skill = ReAct rule extraction; ≠ Extraction Agent / ticket_fields
+skill_id: fill_ticket
+control_loop: act
+department: Service Division
+goal: From complaint/consultation text, draft a ticket, apply VoC tags, and write shared AI output for renewal and other Skills to consume.
+success_hint: write_ai_output succeeded; payload includes customer_id and tag_id (or key ticket fields).
+success_when: wrote_ai_output
+max_steps: 8
+tone:
+  label: Cautious confirmation
+  style: Restate question first; short factual confirmation; give actionable next steps
+  forbid: Over-promising "will definitely fix/must compensate"
+allowed_tools:
+  - get_customer
+  - get_vehicle
+  - get_ticket
+  - list_tickets
+  - extract_ticket_fields  # ReAct rule tool; parallel Extraction path uses skill ticket_fields
+  - suggest_voc_tags
+  - get_tag
+  - write_ai_output
+  - log_step
+system_extra: |
+  [Separation note] Full Extraction Agent path is parallel Skill "ticket_fields" (card F-SVC-001-EXT),
+  schema→extract→validate; do not mix with this ReAct Skill in the same control loop.
+  extract_ticket_fields here is rule-based field extraction for multi-step reasoning only.
+  Recommended steps:
+  1) log_step start (optional)
+  2) If customer_id/vin present, get_customer / get_vehicle to verify
+  3) list_tickets for open tickets
+  4) extract_ticket_fields + suggest_voc_tags
+  5) write_ai_output: producer_skill must be fill_ticket;
+     consumer_allow should include renewal_plan, voc_tagging;
+     payload at least customer_id, vin, tag_id, sentiment, ticket summary fields
+  Stop calling tools after write; output final answer.
+output_format: |
+  1. Question restatement (one sentence)
+  2. Ticket draft highlights (type/summary/tags/sentiment)
+  3. Shared output id (if written)
+  4. Suggested next step (human handoff/callback/policy check, no compensation promise)
+security:
+  max_tool_calls_per_step: 6
+  redact_pii_in_observation: true
+  block_on_outreach: false
+  prompt_forbid_extra: Do not promise must-compensate/must-fix; do not write plaintext phone or API Key

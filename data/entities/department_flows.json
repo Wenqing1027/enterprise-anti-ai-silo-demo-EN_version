@@ -1,0 +1,585 @@
+{
+  "version": "v2",
+  "description": "In-department function relationship spec (machine-readable). Nodes = independently runnable Skills or shared read/write points. Edges mode=sequence = data dependency via shared layer; parallel = independent demo. Hand-maintained; generate_synthetic_data.py must not overwrite.",
+  "node_kinds": [
+    "skill",
+    "placeholder",
+    "store_read",
+    "store_write"
+  ],
+  "control_loops": [
+    "retrieve",
+    "act",
+    "extract",
+    "plan"
+  ],
+  "flows": [
+    {
+      "flow_id": "service_ticket_to_shared",
+      "department_id": "service",
+      "name": "Support fill-ticket assetize",
+      "demo_ready": true,
+      "feature_ids": [
+        "F-SVC-001",
+        "F-SVC-001-EXT"
+      ],
+      "edges": [
+        {
+          "from": "n1",
+          "to": "n2",
+          "mode": "parallel",
+          "via": "AIOutput · Story1 run one or both"
+        }
+      ],
+      "notes": "Story1 parallel paths: Extraction ticket_fields and ReAct fill_ticket can each write shared layer independently. ReAct may call extract tool internally. Two demo cards run side by side on web.",
+      "nodes": [
+        {
+          "node_id": "n1",
+          "kind": "skill",
+          "skill_id": "ticket_fields",
+          "control_loop": "extract",
+          "label": "Extraction ticket-only"
+        },
+        {
+          "node_id": "n2",
+          "kind": "skill",
+          "skill_id": "fill_ticket",
+          "control_loop": "act",
+          "label": "ReAct multi-step fill ticket"
+        }
+      ],
+      "parallel_groups": [
+        {
+          "group_id": "pg_story1_alt",
+          "node_ids": [
+            "n1",
+            "n2"
+          ],
+          "label": "Story1 parallel optional brains"
+        }
+      ]
+    },
+    {
+      "flow_id": "service_repair_qa",
+      "department_id": "service",
+      "name": "Repair knowledge base RAG Q&A",
+      "demo_ready": true,
+      "feature_ids": [
+        "F-SVC-002",
+        "F-SVC-004"
+      ],
+      "edges": [],
+      "notes": "Single-node RAG · repair_kb; orthogonal to Story1 fill flow. API=POST /v1/rag/runs.",
+      "nodes": [
+        {
+          "node_id": "n_rag",
+          "kind": "skill",
+          "skill_id": "repair_kb",
+          "control_loop": "retrieve",
+          "label": "RAG repair Q&A"
+        }
+      ],
+      "parallel_groups": []
+    },
+    {
+      "flow_id": "user_ops_app_qa",
+      "department_id": "user_ops",
+      "name": "App smart Q&A (reuses repair domain)",
+      "demo_ready": true,
+      "feature_ids": [
+        "F-UO-009"
+      ],
+      "edges": [],
+      "notes": "Single-node RAG · repair_kb; unrelated to renewal gate (gate does not read RAG).",
+      "nodes": [
+        {
+          "node_id": "n_rag",
+          "kind": "skill",
+          "skill_id": "repair_kb",
+          "control_loop": "retrieve",
+          "label": "App RAG Q&A"
+        }
+      ],
+      "parallel_groups": []
+    },
+    {
+      "flow_id": "order_policy_qa",
+      "department_id": "order_policy",
+      "name": "Policy RAG Q&A",
+      "demo_ready": true,
+      "feature_ids": [
+        "F-POL-RAG"
+      ],
+      "edges": [],
+      "notes": "Single-node RAG · policy_kb; parallel to order_policy_review demo, does not replace rule tier gate.",
+      "nodes": [
+        {
+          "node_id": "n_rag",
+          "kind": "skill",
+          "skill_id": "policy_kb",
+          "control_loop": "retrieve",
+          "label": "RAG policy Q&A"
+        }
+      ],
+      "parallel_groups": []
+    },
+    {
+      "flow_id": "hr_policy_qa",
+      "department_id": "hr",
+      "name": "HR policy / SOP RAG Q&A",
+      "demo_ready": true,
+      "feature_ids": [
+        "F-HR-001"
+      ],
+      "edges": [],
+      "notes": "Single-node RAG · hr_rules; cross-dept read-only same hr domain, no copy.",
+      "nodes": [
+        {
+          "node_id": "n_rag",
+          "kind": "skill",
+          "skill_id": "hr_rules",
+          "control_loop": "retrieve",
+          "label": "RAG policy Q&A"
+        }
+      ],
+      "parallel_groups": []
+    },
+    {
+      "flow_id": "user_ops_renewal_gate",
+      "department_id": "user_ops",
+      "name": "Renewal outreach complaint gate",
+      "demo_ready": true,
+      "feature_ids": [
+        "F-UO-001",
+        "F-UO-017",
+        "F-UO-019"
+      ],
+      "edges": [
+        {
+          "from": "n_read",
+          "to": "n_gate",
+          "mode": "sequence",
+          "via": "tag_id:TAG-open-complaint"
+        },
+        {
+          "from": "n_gate",
+          "to": "n_plan_out",
+          "mode": "sequence",
+          "via": "Same-run plan fields (on pass)"
+        },
+        {
+          "from": "n_gate",
+          "to": "n_crm",
+          "mode": "sequence",
+          "via": "allow_outreach=true · separate run"
+        },
+        {
+          "from": "n_gate",
+          "to": "n_score",
+          "mode": "sequence",
+          "via": "allow_outreach=true · illustrative parallel"
+        },
+        {
+          "from": "n_crm",
+          "to": "n_score",
+          "mode": "parallel",
+          "via": null
+        }
+      ],
+      "notes": "Story2: read shared → separate renewal_plan run (gate + short plan on pass). crm_lookup / scoring placeholders optional parallel after pass; separate runs; do not call renewal_plan twice.",
+      "nodes": [
+        {
+          "node_id": "n_read",
+          "kind": "store_read",
+          "skill_id": null,
+          "control_loop": null,
+          "label": "read_shared_tags / AIOutput",
+          "note": "Shared layer read/write point (not a Skill runtime node)"
+        },
+        {
+          "node_id": "n_gate",
+          "kind": "skill",
+          "skill_id": "renewal_plan",
+          "control_loop": "plan",
+          "label": "Renewal outreach gate + plan · renewal_plan",
+          "note": "One run: read shared → check_outreach_block → (pass) route/score short plan"
+        },
+        {
+          "node_id": "n_plan_out",
+          "kind": "placeholder",
+          "skill_id": null,
+          "control_loop": "plan",
+          "label": "Outreach plan output (same run)",
+          "note": "Not standalone Skill; on pass n_gate outputs plan.channels / renew_pool_layer same run. Do not run renewal_plan twice."
+        },
+        {
+          "node_id": "n_crm",
+          "kind": "skill",
+          "skill_id": "crm_lookup",
+          "control_loop": "act",
+          "label": "crm_lookup",
+          "note": "F-UO-019; separate run after gate pass, not a Plan pipeline step"
+        },
+        {
+          "node_id": "n_score",
+          "kind": "placeholder",
+          "skill_id": null,
+          "control_loop": "plan",
+          "label": "Renewal pool / intent scoring (illustrative)",
+          "note": "Placeholder; scoring tool called in renewal_plan pass path. Extension rule_llm → plan",
+          "extension_type": "rule_llm"
+        }
+      ],
+      "parallel_groups": [
+        {
+          "group_id": "pg_lookup",
+          "node_ids": [
+            "n_crm",
+            "n_score"
+          ]
+        }
+      ]
+    },
+    {
+      "flow_id": "channel_ops_board",
+      "department_id": "channel",
+      "name": "Channel dashboard prep",
+      "demo_ready": false,
+      "feature_ids": [],
+      "edges": [
+        {
+          "from": "n_ops",
+          "to": "n_rag",
+          "mode": "parallel",
+          "via": null
+        },
+        {
+          "from": "n_ops",
+          "to": "n_board",
+          "mode": "sequence",
+          "via": "AIOutput"
+        },
+        {
+          "from": "n_rag",
+          "to": "n_board",
+          "mode": "sequence",
+          "via": "citations / AIOutput"
+        }
+      ],
+      "notes": "ReAct channel_ops ∥ RAG policy_kb may prepare in parallel; dashboard merge still planned (no auto chain). RAG node uses policy_kb (no dedicated channel_kb in phase 1).",
+      "nodes": [
+        {
+          "node_id": "n_ops",
+          "kind": "skill",
+          "skill_id": "channel_ops",
+          "control_loop": "act",
+          "label": "Channel ops lookup"
+        },
+        {
+          "node_id": "n_rag",
+          "kind": "skill",
+          "skill_id": "policy_kb",
+          "control_loop": "retrieve",
+          "label": "Policy / channel RAG"
+        },
+        {
+          "node_id": "n_board",
+          "kind": "placeholder",
+          "skill_id": null,
+          "control_loop": "plan",
+          "label": "Dashboard / briefing merge",
+          "note": "Placeholder (no skill_id yet); not an Agent pipeline step"
+        }
+      ],
+      "parallel_groups": [
+        {
+          "group_id": "pg_channel_prep",
+          "node_ids": [
+            "n_ops",
+            "n_rag"
+          ],
+          "label": "Lookup ∥ knowledge Q&A"
+        }
+      ]
+    },
+    {
+      "flow_id": "order_policy_review",
+      "department_id": "order_policy",
+      "name": "Order review and policy tier",
+      "demo_ready": false,
+      "feature_ids": [],
+      "edges": [
+        {
+          "from": "n_ext",
+          "to": "n_rule",
+          "mode": "sequence",
+          "via": "payload_schema:order_draft_v1"
+        },
+        {
+          "from": "n_rule",
+          "to": "n_react",
+          "mode": "sequence",
+          "via": "AIOutput"
+        }
+      ],
+      "notes": "Illustrative: extract fields → rule gate → order review assist",
+      "nodes": [
+        {
+          "node_id": "n_ext",
+          "kind": "placeholder",
+          "skill_id": null,
+          "control_loop": "extract",
+          "label": "Order field extraction",
+          "note": "Placeholder (no skill_id yet); not an Agent pipeline step"
+        },
+        {
+          "node_id": "n_rule",
+          "kind": "placeholder",
+          "skill_id": null,
+          "control_loop": "plan",
+          "label": "Policy tier gate",
+          "note": "Placeholder (no skill_id); not Agent pipeline step; extension rule_llm → plan",
+          "extension_type": "rule_llm"
+        },
+        {
+          "node_id": "n_react",
+          "kind": "placeholder",
+          "skill_id": null,
+          "control_loop": "act",
+          "label": "Order review lookup assist",
+          "note": "Placeholder (no skill_id yet); not an Agent pipeline step"
+        }
+      ],
+      "parallel_groups": []
+    },
+    {
+      "flow_id": "voc_entities_to_shared",
+      "department_id": "voc",
+      "name": "VoC tagging assetize",
+      "demo_ready": true,
+      "feature_ids": [
+        "F-VOC-002"
+      ],
+      "edges": [
+        {
+          "from": "n_voc",
+          "to": "n_tag",
+          "mode": "parallel",
+          "via": "payload_schema:voc_entities_v1"
+        },
+        {
+          "from": "n_voc",
+          "to": "n_shared",
+          "mode": "sequence",
+          "via": "AIOutput"
+        },
+        {
+          "from": "n_tag",
+          "to": "n_shared",
+          "mode": "sequence",
+          "via": "AIOutput"
+        }
+      ],
+      "notes": "Extraction voc_entities and voc_tagging share the same schema alias; ops may run in parallel; assetized output consumed serially by renewal gate.",
+      "nodes": [
+        {
+          "node_id": "n_voc",
+          "kind": "skill",
+          "skill_id": "voc_entities",
+          "control_loop": "extract",
+          "label": "VoC entity extraction"
+        },
+        {
+          "node_id": "n_tag",
+          "kind": "skill",
+          "skill_id": "voc_tagging",
+          "control_loop": "extract",
+          "label": "VoC tagging alias"
+        },
+        {
+          "node_id": "n_shared",
+          "kind": "store_write",
+          "skill_id": null,
+          "control_loop": null,
+          "label": "write_ai_output shared layer",
+          "note": "Shared layer read/write point (not a Skill runtime node)"
+        }
+      ],
+      "parallel_groups": [
+        {
+          "group_id": "pg_voc",
+          "node_ids": [
+            "n_voc",
+            "n_tag"
+          ],
+          "label": "Same schema parallel alias"
+        }
+      ]
+    },
+    {
+      "flow_id": "story2_outreach_gate",
+      "department_id": "shared",
+      "name": "Story2 cross-department serial: complaint tag → renewal block",
+      "demo_ready": true,
+      "feature_ids": [
+        "F-SVC-001",
+        "F-SVC-001-EXT",
+        "F-VOC-002",
+        "F-UO-017"
+      ],
+      "edges": [
+        {
+          "from": "n_up_ext",
+          "to": "n_up_react",
+          "mode": "parallel",
+          "via": null
+        },
+        {
+          "from": "n_up_ext",
+          "to": "n_up_voc",
+          "mode": "parallel",
+          "via": null
+        },
+        {
+          "from": "n_up_ext",
+          "to": "n_store",
+          "mode": "sequence",
+          "via": "write_ai_output"
+        },
+        {
+          "from": "n_up_react",
+          "to": "n_store",
+          "mode": "sequence",
+          "via": "write_ai_output"
+        },
+        {
+          "from": "n_up_voc",
+          "to": "n_store",
+          "mode": "sequence",
+          "via": "write_ai_output"
+        },
+        {
+          "from": "n_store",
+          "to": "n_down",
+          "mode": "sequence",
+          "via": "tag_id blocking class"
+        }
+      ],
+      "notes": "Linear flow: upstream fill/VoC writes block tag → shared layer → separate Plan renewal_plan. Web shows steps; no auto chain.",
+      "nodes": [
+        {
+          "node_id": "n_up_ext",
+          "kind": "skill",
+          "skill_id": "ticket_fields",
+          "control_loop": "extract",
+          "label": "Upstream Extraction fill ticket"
+        },
+        {
+          "node_id": "n_up_react",
+          "kind": "skill",
+          "skill_id": "fill_ticket",
+          "control_loop": "act",
+          "label": "Upstream ReAct fill ticket"
+        },
+        {
+          "node_id": "n_up_voc",
+          "kind": "skill",
+          "skill_id": "voc_entities",
+          "control_loop": "extract",
+          "label": "Upstream VoC tagging"
+        },
+        {
+          "node_id": "n_store",
+          "kind": "store_read",
+          "skill_id": null,
+          "control_loop": null,
+          "label": "Shared tags / AIOutput",
+          "note": "Shared layer read/write point (not a Skill runtime node)"
+        },
+        {
+          "node_id": "n_down",
+          "kind": "skill",
+          "skill_id": "renewal_plan",
+          "control_loop": "plan",
+          "label": "Downstream renewal gate · renewal_plan"
+        }
+      ],
+      "parallel_groups": [
+        {
+          "group_id": "pg_upstream",
+          "node_ids": [
+            "n_up_ext",
+            "n_up_react",
+            "n_up_voc"
+          ],
+          "label": "Upstream may produce in parallel"
+        }
+      ]
+    },
+    {
+      "flow_id": "iot_quality_inspect",
+      "department_id": "iot",
+      "name": "QC image/text merge alert",
+      "demo_ready": false,
+      "feature_ids": [],
+      "edges": [
+        {
+          "from": "n_vision",
+          "to": "n_ext",
+          "mode": "parallel",
+          "via": null
+        },
+        {
+          "from": "n_vision",
+          "to": "n_merge",
+          "mode": "sequence",
+          "via": "AIOutput"
+        },
+        {
+          "from": "n_ext",
+          "to": "n_merge",
+          "mode": "sequence",
+          "via": "AIOutput"
+        }
+      ],
+      "notes": "Illustrative mfg QC: Vision ∥ Extraction → merge write alert/shared tags",
+      "nodes": [
+        {
+          "node_id": "n_vision",
+          "kind": "placeholder",
+          "skill_id": null,
+          "control_loop": "extract",
+          "label": "Inspection / QC Vision",
+          "note": "Placeholder (no skill_id); not Agent pipeline step; extension vision → extract",
+          "extension_type": "vision"
+        },
+        {
+          "node_id": "n_ext",
+          "kind": "placeholder",
+          "skill_id": null,
+          "control_loop": "extract",
+          "label": "OBD / QC fields",
+          "note": "Placeholder (no skill_id yet); not an Agent pipeline step"
+        },
+        {
+          "node_id": "n_merge",
+          "kind": "placeholder",
+          "skill_id": null,
+          "control_loop": "plan",
+          "label": "Merge alert",
+          "note": "Placeholder (no skill_id); not Agent pipeline step; extension rule_llm → plan",
+          "extension_type": "rule_llm"
+        }
+      ],
+      "parallel_groups": [
+        {
+          "group_id": "pg_inspect",
+          "node_ids": [
+            "n_vision",
+            "n_ext"
+          ]
+        }
+      ]
+    }
+  ]
+}

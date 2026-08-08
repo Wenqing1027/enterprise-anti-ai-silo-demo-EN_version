@@ -1,0 +1,20 @@
+[
+  {
+    "campaign_id": "CAMP-summer-trade-in",
+    "campaign_name": "Summer trade-in",
+    "campaign_goal": "Boost retail redemption and smart-vehicle renewal exposure",
+    "campaign_budget": 50000.0,
+    "participants": 3200,
+    "campaign_roi": 2.4,
+    "campaign_complaint_rate": 0.3
+  },
+  {
+    "campaign_id": "CAMP-back-to-school",
+    "campaign_name": "Back-to-school commute bundle",
+    "campaign_goal": "Push young users to pair and activate",
+    "campaign_budget": 30000.0,
+    "participants": 1800,
+    "campaign_roi": 1.9,
+    "campaign_complaint_rate": 0.2
+  }
+]

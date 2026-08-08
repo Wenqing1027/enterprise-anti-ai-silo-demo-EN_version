@@ -1,0 +1,22 @@
+# flow: voc_entities_to_shared
+# produces_for: renewal_plan, voc_tagging (see department_flows.json)
+skill_id: voc_entities
+control_loop: extract
+department: User Research / Operations
+goal: From voice-of-customer text extract voc_entities_v1 (tags, sentiment, theme, risk) and assetize.
+success_hint: Passes voc_entities_v1; tag_id in dictionary; accurate sentiment; zero missed block tags.
+payload_schema: voc_entities_v1
+write_ai_output: true
+consumer_allow:
+  - renewal_plan
+  - voc_tagging
+  - voc_weekly
+tone:
+  label: Neutral labeling voice
+  style: Structured labeling only; no soothing; no ops talk track
+  forbid: Customer-service soothing; tags outside dictionary
+max_schema_retries: 1
+max_input_chars: 4000
+security:
+  redact_pii: true
+  prompt_forbid_extra: Tags outside dictionary forbidden for shared block logic; PII must be redacted

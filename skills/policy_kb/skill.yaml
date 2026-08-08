@@ -1,0 +1,41 @@
+# flow: order_policy_qa (showcase); channel parallel segment may reuse this domain
+# agent: RAG — policy guidance Q&A; does not replace Rule+LLM tier gate
+# feature: F-OPS-004 bypass / channel knowledge segment / F-WZ-001 policy guidance
+skill_id: policy_kb
+control_loop: retrieve
+agent_type: rag
+department: Operations · Order/Policy
+goal: Answer warranty/battery, pickup rebate, renewal outreach red lines, store VI, etc. from the policy KB with cited clause snippets.
+success_hint: Final answer distinguishes "citable policy guidance" vs "needs order review/rule engine decision"; includes kb_chunk_id citations.
+success_when: cited_answer
+kb_domains_allow:
+  - policy
+top_k: 5
+max_context_chars: 2400
+cite_required: true
+allow_no_hit_answer: true
+tone:
+  label: Strict policy tone
+  style: Conclusion first then cite clauses; numbers/tiers must come from retrieved snippets; if unsure, mark for human review
+  forbid: Verbal promise that rebate will arrive; bypassing compliance inspection; inventing tiers not in KB
+allowed_tools:
+  - search_kb
+  - get_kb_document
+  - list_kb_domains
+  - log_step
+system_extra: |
+  [Separation note] Tier settlement/order-review gate axis is Rule+LLM and ReAct order review, not changing data inside this RAG loop.
+  This Skill only does "policy text Q&A + citations".
+  Synthetic policies are for Demo only; answers may note "Qingshu Mobility synthetic guidance".
+  get_policy / simulate_rebate_tier are structured tools; not invoked in this control loop in phase 1 (avoid confusion with pure RAG demo).
+output_format: |
+  1. Question restatement
+  2. Policy guidance highlights (tier/red line/scope)
+  3. Citations: kb_chunk_id + document title
+  4. Boundaries: cases needing order review/human or rule engine
+security:
+  kb_domains_allow:
+    - policy
+  redact_pii: true
+  prompt_forbid_extra: Do not invent rebate points; do not promise bypassing compliance; do not output plaintext phone numbers
+write_ai_output: false

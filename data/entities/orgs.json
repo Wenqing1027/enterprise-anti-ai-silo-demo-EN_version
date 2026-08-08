@@ -1,0 +1,58 @@
+[
+  {
+    "org_id": "NATION-CN",
+    "org_name": "Qingshu Mobility - National",
+    "org_level": "nation",
+    "parent_org_id": null,
+    "org_path": "National"
+  },
+  {
+    "org_id": "WZ-EAST",
+    "org_name": "East War Zone",
+    "org_level": "warzone",
+    "parent_org_id": "NATION-CN",
+    "org_path": "National/East"
+  },
+  {
+    "org_id": "WZ-SOUTH",
+    "org_name": "South War Zone",
+    "org_level": "warzone",
+    "parent_org_id": "NATION-CN",
+    "org_path": "National/South"
+  },
+  {
+    "org_id": "WZ-WEST",
+    "org_name": "West War Zone",
+    "org_level": "warzone",
+    "parent_org_id": "NATION-CN",
+    "org_path": "National/West"
+  },
+  {
+    "org_id": "WZ-NORTH",
+    "org_name": "North War Zone",
+    "org_level": "warzone",
+    "parent_org_id": "NATION-CN",
+    "org_path": "National/North"
+  },
+  {
+    "org_id": "SZ-EAST-SN",
+    "org_name": "East - Southern Jiangsu Sub-zone",
+    "org_level": "subzone",
+    "parent_org_id": "WZ-EAST",
+    "org_path": "National/East/Southern Jiangsu"
+  },
+  {
+    "org_id": "SZ-EAST-ZJ",
+    "org_name": "East - Northern Zhejiang Sub-zone",
+    "org_level": "subzone",
+    "parent_org_id": "WZ-EAST",
+    "org_path": "National/East/Northern Zhejiang"
+  },
+  {
+    "org_id": "SZ-SOUTH-GD",
+    "org_name": "South - Central Guangdong Sub-zone",
+    "org_level": "subzone",
+    "parent_org_id": "WZ-SOUTH",
+    "org_path": "National/South/Central Guangdong"
+  }
+]

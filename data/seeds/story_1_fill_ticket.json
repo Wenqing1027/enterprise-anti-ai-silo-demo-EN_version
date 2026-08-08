@@ -1,0 +1,26 @@
+{
+  "story": "Story1-output assetization",
+  "agent_type": "react",
+  "skill_id": "fill_ticket",
+  "input": {
+    "text": "Complaint: store did not handle battery replacement per warranty policy; ticket open over 7 days.",
+    "customer_id": "CUS-10057",
+    "vin": "QS0F65B984410D7B6",
+    "channel": "400"
+  },
+  "expect_write_ai_output": {
+    "producer_skill": "fill_ticket",
+    "consumer_allow": [
+      "renewal_plan",
+      "voc_tagging"
+    ],
+    "payload_keys": [
+      "ticket_id",
+      "tag_id",
+      "sentiment",
+      "customer_id",
+      "vin"
+    ]
+  },
+  "fixture_ticket_id": "TK-2026070001"
+}

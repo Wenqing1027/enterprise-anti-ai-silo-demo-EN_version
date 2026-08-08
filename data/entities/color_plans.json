@@ -1,0 +1,422 @@
+[
+  {
+    "color_plan_week": "2026-W30",
+    "vehicle_model": "E40",
+    "color": "Matte Black",
+    "color_plan_qty": 40,
+    "plant": "South China Plant 2"
+  },
+  {
+    "color_plan_week": "2026-W30",
+    "vehicle_model": "E40",
+    "color": "Star Gray",
+    "color_plan_qty": 138,
+    "plant": "East China Plant 1"
+  },
+  {
+    "color_plan_week": "2026-W30",
+    "vehicle_model": "E40",
+    "color": "Aurora White",
+    "color_plan_qty": 0,
+    "plant": "East China Plant 1"
+  },
+  {
+    "color_plan_week": "2026-W30",
+    "vehicle_model": "E40",
+    "color": "Flame Red",
+    "color_plan_qty": 18,
+    "plant": "South China Plant 2"
+  },
+  {
+    "color_plan_week": "2026-W30",
+    "vehicle_model": "E60",
+    "color": "Matte Black",
+    "color_plan_qty": 112,
+    "plant": "East China Plant 1"
+  },
+  {
+    "color_plan_week": "2026-W30",
+    "vehicle_model": "E60",
+    "color": "Star Gray",
+    "color_plan_qty": 94,
+    "plant": "East China Plant 1"
+  },
+  {
+    "color_plan_week": "2026-W30",
+    "vehicle_model": "E60",
+    "color": "Aurora White",
+    "color_plan_qty": 47,
+    "plant": "South China Plant 2"
+  },
+  {
+    "color_plan_week": "2026-W30",
+    "vehicle_model": "E60",
+    "color": "Flame Red",
+    "color_plan_qty": 32,
+    "plant": "East China Plant 1"
+  },
+  {
+    "color_plan_week": "2026-W30",
+    "vehicle_model": "E80",
+    "color": "Matte Black",
+    "color_plan_qty": 108,
+    "plant": "South China Plant 2"
+  },
+  {
+    "color_plan_week": "2026-W30",
+    "vehicle_model": "E80",
+    "color": "Star Gray",
+    "color_plan_qty": 142,
+    "plant": "East China Plant 1"
+  },
+  {
+    "color_plan_week": "2026-W30",
+    "vehicle_model": "E80",
+    "color": "Aurora White",
+    "color_plan_qty": 67,
+    "plant": "South China Plant 2"
+  },
+  {
+    "color_plan_week": "2026-W30",
+    "vehicle_model": "E80",
+    "color": "Flame Red",
+    "color_plan_qty": 19,
+    "plant": "South China Plant 2"
+  },
+  {
+    "color_plan_week": "2026-W30",
+    "vehicle_model": "S7",
+    "color": "Matte Black",
+    "color_plan_qty": 85,
+    "plant": "South China Plant 2"
+  },
+  {
+    "color_plan_week": "2026-W30",
+    "vehicle_model": "S7",
+    "color": "Star Gray",
+    "color_plan_qty": 42,
+    "plant": "East China Plant 1"
+  },
+  {
+    "color_plan_week": "2026-W30",
+    "vehicle_model": "S7",
+    "color": "Aurora White",
+    "color_plan_qty": 69,
+    "plant": "East China Plant 1"
+  },
+  {
+    "color_plan_week": "2026-W30",
+    "vehicle_model": "S7",
+    "color": "Flame Red",
+    "color_plan_qty": 150,
+    "plant": "East China Plant 1"
+  },
+  {
+    "color_plan_week": "2026-W30",
+    "vehicle_model": "S9",
+    "color": "Matte Black",
+    "color_plan_qty": 6,
+    "plant": "East China Plant 1"
+  },
+  {
+    "color_plan_week": "2026-W30",
+    "vehicle_model": "S9",
+    "color": "Star Gray",
+    "color_plan_qty": 66,
+    "plant": "East China Plant 1"
+  },
+  {
+    "color_plan_week": "2026-W30",
+    "vehicle_model": "S9",
+    "color": "Aurora White",
+    "color_plan_qty": 135,
+    "plant": "East China Plant 1"
+  },
+  {
+    "color_plan_week": "2026-W30",
+    "vehicle_model": "S9",
+    "color": "Flame Red",
+    "color_plan_qty": 61,
+    "plant": "East China Plant 1"
+  },
+  {
+    "color_plan_week": "2026-W31",
+    "vehicle_model": "E40",
+    "color": "Matte Black",
+    "color_plan_qty": 77,
+    "plant": "South China Plant 2"
+  },
+  {
+    "color_plan_week": "2026-W31",
+    "vehicle_model": "E40",
+    "color": "Star Gray",
+    "color_plan_qty": 28,
+    "plant": "East China Plant 1"
+  },
+  {
+    "color_plan_week": "2026-W31",
+    "vehicle_model": "E40",
+    "color": "Aurora White",
+    "color_plan_qty": 94,
+    "plant": "South China Plant 2"
+  },
+  {
+    "color_plan_week": "2026-W31",
+    "vehicle_model": "E40",
+    "color": "Flame Red",
+    "color_plan_qty": 46,
+    "plant": "South China Plant 2"
+  },
+  {
+    "color_plan_week": "2026-W31",
+    "vehicle_model": "E60",
+    "color": "Matte Black",
+    "color_plan_qty": 29,
+    "plant": "East China Plant 1"
+  },
+  {
+    "color_plan_week": "2026-W31",
+    "vehicle_model": "E60",
+    "color": "Star Gray",
+    "color_plan_qty": 27,
+    "plant": "South China Plant 2"
+  },
+  {
+    "color_plan_week": "2026-W31",
+    "vehicle_model": "E60",
+    "color": "Aurora White",
+    "color_plan_qty": 53,
+    "plant": "East China Plant 1"
+  },
+  {
+    "color_plan_week": "2026-W31",
+    "vehicle_model": "E60",
+    "color": "Flame Red",
+    "color_plan_qty": 70,
+    "plant": "East China Plant 1"
+  },
+  {
+    "color_plan_week": "2026-W31",
+    "vehicle_model": "E80",
+    "color": "Matte Black",
+    "color_plan_qty": 133,
+    "plant": "South China Plant 2"
+  },
+  {
+    "color_plan_week": "2026-W31",
+    "vehicle_model": "E80",
+    "color": "Star Gray",
+    "color_plan_qty": 117,
+    "plant": "South China Plant 2"
+  },
+  {
+    "color_plan_week": "2026-W31",
+    "vehicle_model": "E80",
+    "color": "Aurora White",
+    "color_plan_qty": 47,
+    "plant": "South China Plant 2"
+  },
+  {
+    "color_plan_week": "2026-W31",
+    "vehicle_model": "E80",
+    "color": "Flame Red",
+    "color_plan_qty": 88,
+    "plant": "South China Plant 2"
+  },
+  {
+    "color_plan_week": "2026-W31",
+    "vehicle_model": "S7",
+    "color": "Matte Black",
+    "color_plan_qty": 111,
+    "plant": "South China Plant 2"
+  },
+  {
+    "color_plan_week": "2026-W31",
+    "vehicle_model": "S7",
+    "color": "Star Gray",
+    "color_plan_qty": 27,
+    "plant": "South China Plant 2"
+  },
+  {
+    "color_plan_week": "2026-W31",
+    "vehicle_model": "S7",
+    "color": "Aurora White",
+    "color_plan_qty": 51,
+    "plant": "East China Plant 1"
+  },
+  {
+    "color_plan_week": "2026-W31",
+    "vehicle_model": "S7",
+    "color": "Flame Red",
+    "color_plan_qty": 99,
+    "plant": "East China Plant 1"
+  },
+  {
+    "color_plan_week": "2026-W31",
+    "vehicle_model": "S9",
+    "color": "Matte Black",
+    "color_plan_qty": 68,
+    "plant": "South China Plant 2"
+  },
+  {
+    "color_plan_week": "2026-W31",
+    "vehicle_model": "S9",
+    "color": "Star Gray",
+    "color_plan_qty": 41,
+    "plant": "South China Plant 2"
+  },
+  {
+    "color_plan_week": "2026-W31",
+    "vehicle_model": "S9",
+    "color": "Aurora White",
+    "color_plan_qty": 67,
+    "plant": "East China Plant 1"
+  },
+  {
+    "color_plan_week": "2026-W31",
+    "vehicle_model": "S9",
+    "color": "Flame Red",
+    "color_plan_qty": 54,
+    "plant": "East China Plant 1"
+  },
+  {
+    "color_plan_week": "2026-W32",
+    "vehicle_model": "E40",
+    "color": "Matte Black",
+    "color_plan_qty": 110,
+    "plant": "East China Plant 1"
+  },
+  {
+    "color_plan_week": "2026-W32",
+    "vehicle_model": "E40",
+    "color": "Star Gray",
+    "color_plan_qty": 38,
+    "plant": "East China Plant 1"
+  },
+  {
+    "color_plan_week": "2026-W32",
+    "vehicle_model": "E40",
+    "color": "Aurora White",
+    "color_plan_qty": 13,
+    "plant": "East China Plant 1"
+  },
+  {
+    "color_plan_week": "2026-W32",
+    "vehicle_model": "E40",
+    "color": "Flame Red",
+    "color_plan_qty": 103,
+    "plant": "East China Plant 1"
+  },
+  {
+    "color_plan_week": "2026-W32",
+    "vehicle_model": "E60",
+    "color": "Matte Black",
+    "color_plan_qty": 9,
+    "plant": "East China Plant 1"
+  },
+  {
+    "color_plan_week": "2026-W32",
+    "vehicle_model": "E60",
+    "color": "Star Gray",
+    "color_plan_qty": 26,
+    "plant": "East China Plant 1"
+  },
+  {
+    "color_plan_week": "2026-W32",
+    "vehicle_model": "E60",
+    "color": "Aurora White",
+    "color_plan_qty": 90,
+    "plant": "South China Plant 2"
+  },
+  {
+    "color_plan_week": "2026-W32",
+    "vehicle_model": "E60",
+    "color": "Flame Red",
+    "color_plan_qty": 27,
+    "plant": "East China Plant 1"
+  },
+  {
+    "color_plan_week": "2026-W32",
+    "vehicle_model": "E80",
+    "color": "Matte Black",
+    "color_plan_qty": 47,
+    "plant": "East China Plant 1"
+  },
+  {
+    "color_plan_week": "2026-W32",
+    "vehicle_model": "E80",
+    "color": "Star Gray",
+    "color_plan_qty": 9,
+    "plant": "South China Plant 2"
+  },
+  {
+    "color_plan_week": "2026-W32",
+    "vehicle_model": "E80",
+    "color": "Aurora White",
+    "color_plan_qty": 31,
+    "plant": "South China Plant 2"
+  },
+  {
+    "color_plan_week": "2026-W32",
+    "vehicle_model": "E80",
+    "color": "Flame Red",
+    "color_plan_qty": 67,
+    "plant": "East China Plant 1"
+  },
+  {
+    "color_plan_week": "2026-W32",
+    "vehicle_model": "S7",
+    "color": "Matte Black",
+    "color_plan_qty": 73,
+    "plant": "East China Plant 1"
+  },
+  {
+    "color_plan_week": "2026-W32",
+    "vehicle_model": "S7",
+    "color": "Star Gray",
+    "color_plan_qty": 28,
+    "plant": "South China Plant 2"
+  },
+  {
+    "color_plan_week": "2026-W32",
+    "vehicle_model": "S7",
+    "color": "Aurora White",
+    "color_plan_qty": 128,
+    "plant": "South China Plant 2"
+  },
+  {
+    "color_plan_week": "2026-W32",
+    "vehicle_model": "S7",
+    "color": "Flame Red",
+    "color_plan_qty": 33,
+    "plant": "South China Plant 2"
+  },
+  {
+    "color_plan_week": "2026-W32",
+    "vehicle_model": "S9",
+    "color": "Matte Black",
+    "color_plan_qty": 86,
+    "plant": "South China Plant 2"
+  },
+  {
+    "color_plan_week": "2026-W32",
+    "vehicle_model": "S9",
+    "color": "Star Gray",
+    "color_plan_qty": 4,
+    "plant": "East China Plant 1"
+  },
+  {
+    "color_plan_week": "2026-W32",
+    "vehicle_model": "S9",
+    "color": "Aurora White",
+    "color_plan_qty": 109,
+    "plant": "South China Plant 2"
+  },
+  {
+    "color_plan_week": "2026-W32",
+    "vehicle_model": "S9",
+    "color": "Flame Red",
+    "color_plan_qty": 57,
+    "plant": "South China Plant 2"
+  }
+]

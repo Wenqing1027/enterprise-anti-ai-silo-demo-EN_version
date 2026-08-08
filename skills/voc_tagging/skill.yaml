@@ -1,0 +1,21 @@
+# flow: voc_entities_to_shared
+# produces_for: renewal_plan; cross-dept with fill_ticket only via AIOutput (see department_flows.json)
+skill_id: voc_tagging
+control_loop: extract
+department: Service / User Research
+goal: VoC tagging and sentiment analysis with assetization (same Schema as voc_entities, Story1 alias name).
+success_hint: Passes voc_entities_v1; writes AIOutput for renewal and other Skills.
+payload_schema: voc_entities_v1
+write_ai_output: true
+consumer_allow:
+  - renewal_plan
+  - voc_weekly
+tone:
+  label: Neutral labeling voice
+  style: Structured tagging; zero missed block tags
+  forbid: Invent TAG; non-JSON output
+max_schema_retries: 1
+max_input_chars: 4000
+security:
+  redact_pii: true
+  prompt_forbid_extra: Same constraints as voc_entities

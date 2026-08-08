@@ -1,0 +1,45 @@
+# flow: user_ops_renewal_gate
+# also_in: story2_outreach_gate (cross-dept relationship note; steps not chained)
+# feature: F-UO-017
+# consumes_from: fill_ticket, ticket_fields, voc_entities (separate runs writing to shared layer)
+# parallel_after_allow: crm_lookup (F-UO-019, separate run; not in this Skill pipeline)
+# note: One Plan run covers "gate + (if allowed) short outreach plan"; does not chain upstream Agent
+skill_id: renewal_plan
+control_loop: plan
+agent_type: planning
+department: User Ops / App
+goal: After reading shared complaint/risk tags, decide whether renewal outreach is allowed; if blocked give reason and next steps, if allowed give renewal pool tiering and short outreach ladder plan.
+success_hint: gate.allow_outreach decided; if blocked, reason includes complaint tags; if allowed, plan.channels non-empty.
+success_when: gate_decided
+flow_ids:
+  - user_ops_renewal_gate
+  - story2_outreach_gate
+consumes_from:
+  - fill_ticket
+  - ticket_fields
+  - voc_entities
+tone:
+  label: Encourage without pressure
+  style: Gate conclusion first, then short plan; calm and actionable tone when blocked
+  forbid: Bypassing open-complaint to push renewal; promising must-compensate/must-fix; chaining upstream Agent
+allowed_tools:
+  - read_shared_tags
+  - read_ai_outputs
+  - check_outreach_block
+  - get_renewal
+  - get_user_behavior
+  - score_renewal
+  - route_renewal_pool
+  - get_customer
+  - get_vehicle
+  - log_step
+system_extra: |
+  [Story2 / user_ops_renewal_gate]
+  1) Read shared: read_shared_tags / read_ai_outputs (consume upstream fill_ticket|ticket_fields|voc_entities)
+  2) Gate: check_outreach_block; TAG-open-complaint → allow_outreach=false
+  3) After allow: get_renewal + score_renewal + route_renewal_pool → short outreach plan
+  crm_lookup is an optional parallel feature (F-UO-019), not called inside this Skill.
+output_format: |
+  1. Gate conclusion (block/allow) + reason + tag_ids
+  2. If allowed: renew_pool_layer / intent / channels / next_steps
+  3. State clearly "this run only reads shared layer"

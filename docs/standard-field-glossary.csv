@@ -1,0 +1,401 @@
+field_id,domain,entity,field_name,display_name,data_type,unit,example,description,related_reports
+SF-0001,Metadata,ReportMeta,report_id,Report ID,string,-,CH-RPT-2026-07-EAST,Unique identifier for a single report instance,All reports
+SF-0002,Metadata,ReportMeta,report_type,Report Type,enum,-,channel_analysis,Report type code,All reports
+SF-0003,Metadata,ReportMeta,period,Reporting Period,string,-,2026-07,Month/week/day/custom interval,All reports
+SF-0004,Metadata,ReportMeta,period_type,Period Type,enum,-,month,Period granularity,All reports
+SF-0005,Metadata,ReportMeta,period_start,Period Start,date,-,2026-07-01,Statistics start date,All reports
+SF-0006,Metadata,ReportMeta,period_end,Period End,date,-,2026-07-31,Statistics end date,All reports
+SF-0007,Metadata,ReportMeta,generated_at,Generated At,datetime,-,2026-08-01T10:00:00+08:00,Report generation timestamp,All reports
+SF-0008,Metadata,ReportMeta,data_as_of,Data As Of,datetime,-,2026-07-31T23:59:59+08:00,Data cutoff timestamp,All reports
+SF-0009,Metadata,ReportMeta,run_id,Run ID,string,-,run_abc123,Agent/pipeline run identifier,All reports
+SF-0010,Metadata,ReportMeta,producer_skill,Producer Skill,string,-,channel_analysis,Producer skill that writes to the shared layer,AI outputs
+SF-0011,Metadata,ReportMeta,traffic_light,Traffic Light,enum,-,yellow,Red/yellow/green status indicator,Channel / alert reports
+SF-0012,Metadata,ReportMeta,narrative_summary,NLG Summary,text,-,East region pickup achievement 83%; color stockout is the top anomaly driver,Natural-language summary,Weekly-monthly reports / dashboard
+SF-0013,Metadata,ReportMeta,action_suggestions,Action Suggestions,json,-,"[""Replenish color production"",""Push for gold tier""]",Structured list of recommended actions,Channel / VoC / operations
+SF-0014,Organization,Org,org_id,Organization ID,string,-,WZ-EAST,Unique organization node identifier,Channel / warzone reports
+SF-0015,Organization,Org,org_name,Organization Name,string,-,East Warzone,Organization display name,Channel / warzone reports
+SF-0016,Organization,Org,org_level,Organization Level,enum,-,warzone,Hierarchy level in the org tree,All business reports
+SF-0017,Organization,Org,parent_org_id,Parent Organization ID,string,-,NATION-CN,Parent node in the organization tree,All business reports
+SF-0018,Organization,Org,org_path,Organization Path,string,-,National/East/Jiangsu South/Tier1-A,Full hierarchical path,All business reports
+SF-0019,Organization,Region,province,Province,string,-,Jiangsu,Administrative region — province,Renewal / VoC / channel
+SF-0020,Organization,Region,city,City,string,-,Nanjing,Administrative region — city,Renewal / VoC / channel
+SF-0021,Organization,Region,county_code,County Code,string,-,320115,National standard county/district code,Battle map / store opening
+SF-0022,Organization,Region,county_name,County Name,string,-,Jiangning District,County/district name,Battle map / store opening
+SF-0023,Channel Master Data,Dealer,dealer_id,Tier-1 / Dealer ID,string,-,DLR-3201,Unique dealer identifier,Pack A / C / E
+SF-0024,Channel Master Data,Dealer,dealer_name,Dealer Name,string,-,Qingshu Nanjing Jiangning Tier-1 Network,Dealer name,Pack A / C / E
+SF-0025,Channel Master Data,Dealer,legal_person,Legal Representative,string,-,Wang XX,Registered legal person,Risk control / franchise
+SF-0026,Channel Master Data,Dealer,open_account_date,Account Opening Date,date,-,2024-03-12,Dealer account opening date,Pack E
+SF-0027,Channel Master Data,Dealer,developer_name,Developer Name,string,-,Li Kaifa,Channel development owner,Pack E
+SF-0028,Channel Master Data,Store,store_id,Store ID,string,-,ST-8891,Unique store identifier,Retail / inspection / Pack D
+SF-0029,Channel Master Data,Store,store_name,Store Name,string,-,Qingshu Nanjing Jiangning Flagship Store,Store name,Retail / inspection
+SF-0030,Channel Master Data,Store,store_address,Store Address,string,-,"No. 88 XX Road, Dongshan Subdistrict, Jiangning District",Full street address,Store opening / inspection
+SF-0031,Channel Master Data,Store,store_type,Store Type,enum,-,exclusive,Store format type,Compliance / retail
+SF-0032,Channel Master Data,Store,store_grade,Store Grade,enum,-,A,Store grade rating,Fit-out grading / Pack E
+SF-0033,Channel Master Data,Store,store_area_sqm,Store Area,number,sqm,120,Floor area of the store,Fit-out grading
+SF-0034,Channel Master Data,Store,biz_district,Business District,string,-,Dongshan Trade Area,Trade area for store-opening Gantt,Pack E
+SF-0035,Channel Master Data,Guide,guide_id,Sales Guide ID,string,-,GD-1022,Sales guide staff identifier,Staff productivity diagnostics
+SF-0036,Channel Master Data,Guide,channel_account_id,Social Account ID,string,-,DY-991,Douyin/Channels etc. account ID,Social matrix / productivity
+SF-0037,Customer & User,Customer,customer_id,Customer ID,string,-,CUS-10086,Unified customer master data ID,Renewal / service / operations
+SF-0038,Customer & User,Customer,phone_masked,Phone (Masked),string,-,138****5678,Masked mobile phone number,OneID / outreach
+SF-0039,Customer & User,Customer,openid,OpenID,string,-,oxxx,WeChat OpenID,OneID
+SF-0040,Customer & User,Customer,unionid,UnionID,string,-,uxxx,WeChat UnionID,OneID
+SF-0041,Customer & User,Customer,identity_type,Identity Type,enum,-,end_user,User identity category,Ticket analysis
+SF-0042,Customer & User,Customer,oneid,OneID,string,-,OID-9f3a,Cross-system unified identity,OneID report
+SF-0043,Customer & User,Customer,oneid_match_method,OneID Match Method,enum,-,phone,Identity resolution method,OneID report
+SF-0044,Customer & User,UserBehavior,app_register_flag,App Registered Flag,boolean,-,true,Whether the user registered in the app,Activation rate
+SF-0045,Customer & User,UserBehavior,bind_vehicle_flag,Vehicle Bound Flag,boolean,-,true,Whether vehicle binding is complete,Activation rate / funnel
+SF-0046,Customer & User,UserBehavior,last_active_at,Last Active At,datetime,-,2026-07-20T21:00:00+08:00,Last app/connected-vehicle activity time,Renewal / segmentation
+SF-0047,Customer & User,UserBehavior,active_days_30d,Active Days (30d),int,days,12,Active days in the last 30 days,Renewal / segmentation
+SF-0048,Customer & User,UserBehavior,mau_flag,MAU Flag,boolean,-,true,Whether counted as MAU in the calendar month,Activation rate / monthly report
+SF-0049,Customer & User,UserBehavior,dau_flag,DAU Flag,boolean,-,false,Whether counted as DAU for the day,Activation rate
+SF-0050,Customer & User,UserBehavior,rfm_segment,RFM Segment,enum,-,high_value,RFM customer segment,Segmentation report
+SF-0051,Customer & User,UserBehavior,r_days,R Value (Days Since Last Activity),int,days,18,Recency — days since last activity,Segmentation report
+SF-0052,Customer & User,UserBehavior,f_month,F Value (Monthly Interactions),int,times,7,Frequency — monthly interaction count,Segmentation report
+SF-0053,Customer & User,UserBehavior,m_value,M Value (Value Contribution),number,CNY,860,Monetary value — parts/service spend etc.,Segmentation report
+SF-0054,Customer & User,UserBehavior,first_touch_channel,First Touch Channel,string,-,400,First contact channel,Touchpoint heatmap
+SF-0055,Customer & User,UserBehavior,last_touch_channel,Last Touch Channel,string,-,App,Most recent contact channel,Touchpoint heatmap
+SF-0056,Customer & User,Renewal,service_expire_date,Service Expiry Date,date,-,2026-08-15,Connected-vehicle service expiry date,Renewal funnel
+SF-0057,Customer & User,Renewal,due_renew_flag,Due Renew Flag,boolean,-,true,Whether due for renewal pool entry,Renewal funnel
+SF-0058,Customer & User,Renewal,paid_flag,Paid Flag,boolean,-,false,Whether payment occurred (distinguish new vs renewal),Renewal funnel
+SF-0059,Customer & User,Renewal,paid_type,Paid Type,enum,-,renew,Payment type,Renewal funnel
+SF-0060,Customer & User,Renewal,active_t30_flag,Active T-30 Flag,boolean,-,true,Active within 30 days before expiry,Renewal funnel
+SF-0061,Customer & User,Renewal,active_t7_flag,Active T-7 Flag,boolean,-,false,Active within 7 days before expiry,Renewal funnel
+SF-0062,Customer & User,Renewal,sleep_90d_app_flag,App Sleep 90d Flag,boolean,-,true,No app usage in the last 90 days,Renewal funnel
+SF-0063,Customer & User,Renewal,active_90d_4g_flag,4G Active 90d Flag,boolean,-,true,4G vehicle with connectivity in last 90 days,Renewal funnel
+SF-0064,Customer & User,Renewal,renew_intent_score,Renew Intent Score,number,0-1,0.78,Model/rule-based renewal intent score,Renewal scorecard
+SF-0065,Customer & User,Renewal,renew_pool_layer,Renew Pool Layer,enum,-,T-30,Renewal pool tier,Renewal pool scrubbing
+SF-0066,Customer & User,Renewal,outreach_channel,Outreach Channel,enum,-,ai_call,Outreach channel used,Outreach matrix
+SF-0067,Customer & User,Renewal,intent_level,Call Intent Level,enum,-,high,Outbound call intent level,Renewal scorecard
+SF-0068,Vehicle,Vehicle,vin,VIN,string,-,LQXXXX2026A0001,Vehicle identification number,Quality / VoC / IoT
+SF-0069,Vehicle,Vehicle,frame_no,Frame Part No.,string,-,FR-778812,Frame component number for PDA binding,OBD / traceability
+SF-0070,Vehicle,Vehicle,sn,Serial Number,string,-,SN-202607-8891,Production line serial number,Quality inspection
+SF-0071,Vehicle,Vehicle,vehicle_model,Vehicle Model,string,-,E60,Model code/name,Nearly all reports
+SF-0072,Vehicle,Vehicle,vehicle_config,Configuration Type,string,-,Lithium flagship trim,Trim/configuration tier,Fault analysis
+SF-0073,Vehicle,Vehicle,color,Color,string,-,Matte black,Body color,Production planning / stockout / retail
+SF-0074,Vehicle,Vehicle,battery_type,Battery Type,enum,-,lithium,Battery chemistry/type,Competitive / product
+SF-0075,Vehicle,Vehicle,battery_spec,Battery Spec,string,-,48V24Ah,Voltage and amp-hour specification,Competitive / service
+SF-0076,Vehicle,Vehicle,claimed_range_km,Claimed Range,number,km,80,Official rated range,Competitive / product
+SF-0077,Vehicle,Vehicle,purchase_date,Purchase Date,date,-,2025-08-01,Customer purchase date,Activation rate breakdown
+SF-0078,Vehicle,Vehicle,purchase_year,Purchase Year,int,year,2025,Year of purchase,Activation rate
+SF-0079,Vehicle,Vehicle,is_smart_vehicle,Smart Vehicle Flag,boolean,-,true,Whether vehicle has 4G/connectivity,Renewal pool
+SF-0080,Vehicle,Vehicle,plant,Manufacturing Plant,string,-,East China Plant 1,Production plant/site,Fault / quality
+SF-0081,Vehicle,Vehicle,line_id,Production Line ID,string,-,LINE-03,Production line identifier,OBD
+SF-0082,Vehicle,Vehicle,batch_no,Production Batch No.,string,-,BATCH-2026W28-E60,Vehicle production batch,Traceability / VoC
+SF-0083,Vehicle,Vehicle,ota_version,OTA Version,string,-,v2.3.1,On-vehicle software version,IoT / VoC
+SF-0084,Product SKU,SKU,sku_id,SKU ID,string,-,SKU-E60-BK,Unique SKU identifier,Order / retail / inventory
+SF-0085,Product SKU,SKU,sku_name,SKU Name,string,-,E60 Matte Black,SKU display name,Order / retail
+SF-0086,Product SKU,SKU,asp_cny,Average Selling Price (ASP),number,CNY,3299,Average unit selling price,Stockout loss / retail
+SF-0087,Product SKU,SKU,hot_slow_flag,Hot/Slow Flag,enum,-,hot,Hot/normal/slow mover tag,Sell-through weekly report
+SF-0088,Product SKU,SKU,substitute_sku_id,Substitute SKU,string,-,SKU-E60-GY,Substitute SKU mapping for stockouts,Order audit / Pack C
+SF-0089,Product SKU,Competitor,competitor_brand,Competitor Brand,string,-,Yadea,Competitor brand name,Competitive intelligence report
+SF-0090,Product SKU,Competitor,competitor_model,Competitor Model,string,-,Guan Neng XX,Competitor model name,Competitive intelligence report
+SF-0091,Product SKU,Competitor,competitor_price_cny,Competitor Price,number,CNY,3699,Competitor list/promo price,Competitive intelligence report
+SF-0092,Product SKU,Competitor,competitor_share,Competitor Regional Share,number,%,28.0,Competitor regional market share,Battle map
+SF-0093,Product SKU,Competitor,competitor_share_pp_change,Share Change (pp),number,pp,-1.2,Period-over-period share change in percentage points,Competitive / battle map
+SF-0094,Product SKU,Competitor,promo_type,Promotion Type,string,-,Trade-in promotion,Promotion activity type,Competitive intelligence report
+SF-0095,Product SKU,Competitor,promo_region,Promotion Region,string,-,Jiangsu-Anhui,Promotion activity region,Competitive intelligence report
+SF-0096,Product SKU,Competitor,promo_window,Promotion Window,string,-,2026-07-01~07-31,Promotion time window,Competitive intelligence report
+SF-0097,Product SKU,Competitor,price_cut_amt,Price Cut Amount,number,CNY,300,Price reduction amount,Competitive alert
+SF-0098,Product SKU,Competitor,sentiment_score,Sentiment Score,number,0-1,0.62,Competitor reputation score,Competitive intelligence report
+SF-0099,Product SKU,Competitor,launch_date,Launch Date,date,-,2026-06-18,Competitor launch date,Competitive intelligence report
+SF-0100,Sales Targets,SalesMetric,sales_qty,Pickup / Sales Quantity,int,units,12480,Pickup-based sales volume in units,Channel analysis
+SF-0101,Sales Targets,SalesMetric,sales_target_qty,Sales Target Quantity,int,units,15000,Sales target in units,Channel analysis
+SF-0102,Sales Targets,SalesMetric,sales_achieve_rate,Sales Achievement Rate,number,%,83.2,Sales vs target,Channel analysis
+SF-0103,Sales Targets,SalesMetric,contract_qty,Contract Quantity,int,units,11200,Signed contract volume in units,Channel analysis
+SF-0104,Sales Targets,SalesMetric,contract_target_qty,Contract Target Quantity,int,units,13000,Contract target in units,Channel analysis
+SF-0105,Sales Targets,SalesMetric,contract_achieve_rate,Contract Achievement Rate,number,%,86.2,Contract vs target,Channel analysis
+SF-0106,Sales Targets,SalesMetric,yoy_sales_qty,YoY Sales Quantity,int,units,10900,Same period last year sales volume,Channel analysis
+SF-0107,Sales Targets,SalesMetric,yoy_rate,YoY Growth Rate,number,%,14.5,Year-over-year growth,Channel analysis
+SF-0108,Sales Targets,SalesMetric,mom_sales_qty,MoM Sales Quantity,int,units,13100,Prior month sales volume,Channel / alerts
+SF-0109,Sales Targets,SalesMetric,mom_rate,MoM Growth Rate,number,%,-4.7,Month-over-month growth,Channel / alerts
+SF-0110,Sales Targets,SalesMetric,rank_warzone,Warzone Rank,int,-,2,Rank within major warzone,Channel analysis
+SF-0111,Sales Targets,SalesMetric,rank_subzone,Subzone Rank,int,-,5,Rank within sub-warzone,Channel analysis
+SF-0112,Sales Targets,SalesMetric,rank_dealer,Tier-1 Dealer Rank,int,-,18,Tier-1 dealer rank,Pack A
+SF-0113,Sales Targets,SalesMetric,full_achieve_outlet_cnt,100% Achievement Outlet Count,int,count,86,Outlets at 100% target,Outlet health
+SF-0114,Sales Targets,SalesMetric,full_achieve_outlet_ratio,100% Achievement Outlet Ratio,number,%,41.3,Share of outlets at 100% target,Outlet health
+SF-0115,Sales Targets,SalesMetric,abnormal_outlet_cnt,Abnormal Outlet Count,int,count,23,Count of abnormal outlets,Pack B
+SF-0116,Sales Targets,SalesMetric,abnormal_outlet_ratio,Abnormal Outlet Ratio,number,%,11.1,Share of abnormal outlets,Pack B
+SF-0117,Sales Targets,SalesMetric,abnormal_reason,Abnormal Reason,string,-,Color stockout,Root cause of abnormality,Pack B
+SF-0118,Sales Targets,SalesMetric,abnormal_reason_cnt,Abnormal Reason Count,int,times,9,Occurrence count for this reason,Pack B
+SF-0119,Sales Targets,SalesMetric,core_market_gap_to_top3,Core Market Gap to Top 3,int,units,1260,Gap vs regional #1 in core markets,Channel analysis
+SF-0120,Sales Targets,SalesMetric,online_sales_qty,Online Sales Quantity,int,units,860,E-commerce/live-stream sales volume,New retail / Pack A
+SF-0121,Sales Targets,Health,health_index,Business Health Index,number,0-100,72,Composite tier-1 dealer health score,Health index
+SF-0122,Sales Targets,Health,sales_score,Sales Score,number,0-100,75,Health index sub-score — sales,Health index
+SF-0123,Sales Targets,Health,retail_score,Retail Score,number,0-100,68,Health index sub-score — retail,Health index
+SF-0124,Sales Targets,Health,compliance_score,Compliance Score,number,0-100,80,Health index sub-score — compliance,Health index
+SF-0125,Sales Targets,Health,complaint_score,Complaint Score,number,0-100,70,Health index sub-score — complaints,Health index
+SF-0126,Sales Targets,Health,inventory_turn_score,Inventory Turn Score,number,0-100,65,Health index sub-score — inventory turnover,Health index
+SF-0127,Channel Development,StoreDev,blank_l1_plan_cnt,Blank Tier-1 Plan Count,int,count,18,Planned blank tier-1 network openings,Pack E
+SF-0128,Channel Development,StoreDev,blank_l1_opened_cnt,Blank Tier-1 Opened Count,int,count,11,Opened blank tier-1 networks,Pack E
+SF-0129,Channel Development,StoreDev,blank_l1_achieve_rate,Blank Tier-1 Achievement Rate,number,%,61.1,Opened vs planned blank tier-1,Pack E
+SF-0130,Channel Development,StoreDev,store_dev_plan_cnt,Store Development Plan Count,int,count,120,Annual store development plan count,Pack E
+SF-0131,Channel Development,StoreDev,store_dev_done_cnt,Store Development Done Count,int,count,74,Cumulative completed store openings,Pack E
+SF-0132,Channel Development,StoreDev,store_dev_rate,Store Development Rate,number,%,61.7,Completion vs plan,Pack E
+SF-0133,Channel Development,StoreDev,market_capacity_annual,Annual County Market Capacity,int,units,42000,Annual two-wheel EV market capacity in county,Battle map
+SF-0134,Channel Development,StoreDev,self_coverage_flag,Own Brand Coverage Flag,enum,-,blank,Own-brand coverage marker,Battle map
+SF-0135,Channel Development,StoreDev,open_roi_months,Store Opening ROI (Months),number,months,14,Predicted payback period in months,Battle map / Pack E
+SF-0136,Channel Development,StoreDev,support_quota_total_wan,Support Quota Total,number,10k CNY,15,Total store-opening support quota,Pack E
+SF-0137,Channel Development,StoreDev,support_quota_applied_wan,Support Quota Applied,number,10k CNY,8,Applied support quota,Pack E
+SF-0138,Channel Development,StoreDev,support_quota_remain_wan,Support Quota Remaining,number,10k CNY,7,Remaining support quota,Pack E
+SF-0139,Channel Development,StoreDev,first_order_qty,First Order Quantity,int,units,80,New dealer first batch pickup volume,Pack E
+SF-0140,Channel Development,StoreDev,m1_m3_order_qty,M1-M3 Order Quantity,int,units,210,New dealer pickup in months 1–3,Pack E
+SF-0141,Channel Development,StoreDev,gantt_owner,Store Opening Owner,string,-,Zhang San,Store-opening Gantt owner,Pack E
+SF-0142,Channel Development,StoreDev,gantt_start,Store Opening Start Date,date,-,2026-07-01,Gantt start date,Pack E
+SF-0143,Channel Development,StoreDev,gantt_end,Store Opening End Date,date,-,2026-09-15,Gantt end date,Pack E
+SF-0144,Channel Development,StoreDev,fitout_suggest_grade,Fit-out Suggested Grade,enum,-,B,Recommended fit-out grade,Pack E
+SF-0145,Channel Development,Risk,credit_code,Unified Social Credit Code,string,-,9132XXXXXXXX,Business registration code,Franchise / partner risk control
+SF-0146,Channel Development,Risk,reg_capital_wan,Registered Capital,number,10k CNY,500,Registered capital,Risk control
+SF-0147,Channel Development,Risk,lawsuit_cnt_3y,Lawsuit Count (3y),int,cases,2,Litigation count in last 3 years,Risk control
+SF-0148,Channel Development,Risk,dishonest_flag,Dishonest Flag,boolean,-,false,Whether on dishonesty enforcement list,Risk control
+SF-0149,Channel Development,Risk,negative_news_cnt_90d,Negative News Count (90d),int,items,1,Negative news items in last 90 days,Risk control
+SF-0150,Channel Development,Risk,risk_level,Risk Level,enum,-,medium,Risk level classification,Risk control report
+SF-0151,Channel Development,Risk,risk_score,Risk Score,number,0-100,62,Composite risk score,Risk control report
+SF-0152,Channel Development,Risk,admission_suggest,Admission Recommendation,enum,-,supplement,Franchise admission recommendation,Franchise risk control
+SF-0153,"Order, Inventory & Policy",Order,order_id,Order ID,string,-,SO-77821,Unique order number,Pack C / order audit
+SF-0154,"Order, Inventory & Policy",Order,order_qty,Order Quantity,int,units,30,Units ordered,Pack C
+SF-0155,"Order, Inventory & Policy",Order,order_status,Order Status,enum,-,pending_audit,Draft/pending audit/approved/rejected/shipped/completed,Pack C
+SF-0156,"Order, Inventory & Policy",Order,audit_result,Audit Result,enum,-,suggest_substitute,Approved/rejected for stockout/suggest substitute,Smart order audit
+SF-0157,"Order, Inventory & Policy",Inventory,wms_stock_qty,WMS Stock Quantity,int,units,120,Warehouse on-hand inventory,Pack C / B
+SF-0158,"Order, Inventory & Policy",Inventory,wms_in_transit_qty,WMS In-Transit Quantity,int,units,45,In-transit warehouse quantity,Pack C
+SF-0159,"Order, Inventory & Policy",Inventory,store_stock_qty,Store Stock Quantity,int,units,8,Store on-hand inventory,Pack C / D
+SF-0160,"Order, Inventory & Policy",Inventory,stock_days_cover,Stock Days Cover,number,days,1.2,Days of inventory coverage,Stockout alert
+SF-0161,"Order, Inventory & Policy",Inventory,stock_age_days,Stock Age (Days),int,days,51,Slow-moving inventory age,Sell-through weekly report
+SF-0162,"Order, Inventory & Policy",Inventory,inventory_turn_days,Inventory Turn Days,number,days,28,Inventory turnover days,Health index / benchmarks
+SF-0163,"Order, Inventory & Policy",Inventory,shortage_days,Stockout Days,int,days,11,Consecutive stockout days,Stockout loss
+SF-0164,"Order, Inventory & Policy",Inventory,demand_daily_est,Estimated Daily Demand,number,units/day,18,Estimated daily demand,Stockout loss
+SF-0165,"Order, Inventory & Policy",Inventory,lost_units_est,Estimated Lost Units,int,units,198,Estimated units lost to stockout,Stockout loss
+SF-0166,"Order, Inventory & Policy",Inventory,lost_gmv_est,Estimated Lost GMV,number,CNY,653202,Estimated GMV lost to stockout,Stockout loss
+SF-0167,"Order, Inventory & Policy",Inventory,lost_margin_est,Estimated Lost Margin,number,CNY,117576,Estimated gross margin lost to stockout,Stockout loss
+SF-0168,"Order, Inventory & Policy",Inventory,shortage_root_cause,Stockout Root Cause,enum,-,color_plan,Production/logistics/color plan/supply,Stockout loss
+SF-0169,"Order, Inventory & Policy",Inventory,replenish_qty_suggest,Suggested Replenish Quantity,int,units,200,Recommended replenishment quantity,Stockout loss
+SF-0170,"Order, Inventory & Policy",Inventory,eta_date,ETA Date,date,-,2026-08-05,Expected arrival date for replenishment,Stockout / Pack C
+SF-0171,"Order, Inventory & Policy",Policy,policy_version,Policy Version,string,-,2026Q3-Pickup-Rebate-V3,Sales policy version,Pack C / settlement
+SF-0172,"Order, Inventory & Policy",Policy,current_rebate_tier,Current Rebate Tier,string,-,Silver tier,Current rebate tier name,Policy alerts
+SF-0173,"Order, Inventory & Policy",Policy,current_pickup_qty_mtd,Current Pickup Qty MTD,int,units,612,Month-to-date cumulative pickup,Policy simulation
+SF-0174,"Order, Inventory & Policy",Policy,qty_to_next_tier,Qty to Next Tier,int,units,188,Units needed to reach next tier,Policy simulation
+SF-0175,"Order, Inventory & Policy",Policy,next_tier_name,Next Tier Name,string,-,Gold tier,Target tier name,Policy simulation
+SF-0176,"Order, Inventory & Policy",Policy,next_tier_rebate_amt,Next Tier Rebate Amount,number,CNY,28000,Projected incremental rebate at next tier,Policy simulation
+SF-0177,"Order, Inventory & Policy",Policy,rebate_rate,Rebate Rate,number,%,3.5,Rebate percentage,Settlement statement
+SF-0178,"Order, Inventory & Policy",Policy,color_bonus_amt,Color Completeness Bonus,number,CNY,2000,Color completeness bonus amount,Settlement statement
+SF-0179,"Order, Inventory & Policy",Policy,clawback_amt,Clawback Amount,number,CNY,500,Clawback for violations/non-achievement,Settlement statement
+SF-0180,"Order, Inventory & Policy",Policy,payable_amt,Payable Amount,number,CNY,29500,Payable rebate amount,Settlement statement
+SF-0181,"Order, Inventory & Policy",Policy,settlement_id,Settlement ID,string,-,STL-2026Q3-3201,Settlement statement identifier,Rebate settlement
+SF-0182,"Order, Inventory & Policy",Policy,pay_status,Payment Status,enum,-,unpaid,Payment status,Settlement statement
+SF-0183,"Order, Inventory & Policy",ColorPlan,color_plan_week,Color Plan Week,string,-,2026-W31,Color production planning week,PMC / Pack C
+SF-0184,"Order, Inventory & Policy",ColorPlan,color_plan_qty,Color Plan Quantity,int,units,120,Planned production quantity for color,PMC
+SF-0185,Retail & Marketing,Retail,retail_qty,Retail Quantity,int,units,46,Card-scan/retail volume in units,Pack D / daily report
+SF-0186,Retail & Marketing,Retail,retail_qty_day,Daily Retail Quantity,int,units,6,Daily retail volume,Retail daily report
+SF-0187,Retail & Marketing,Retail,retail_qty_mtd,MTD Retail Quantity,int,units,142,Month-to-date retail volume,Retail daily report
+SF-0188,Retail & Marketing,Retail,retail_yoy,Retail YoY,number,%,8.2,Retail year-over-year growth,Pack D
+SF-0189,Retail & Marketing,Retail,writeoff_qty,Write-off Quantity,int,units,28,Campaign write-off units,Pack D
+SF-0190,Retail & Marketing,Retail,redeem_rate,Redemption Rate,number,%,62.0,Redeemed vs expected redemption,Pack D / campaigns
+SF-0191,Retail & Marketing,Retail,gross_margin_amt,Gross Margin Amount,number,CNY,9860,Gross margin amount,Retail report
+SF-0192,Retail & Marketing,Retail,gross_margin_rate,Gross Margin Rate,number,%,17.9,Gross margin percentage,Retail report
+SF-0193,Retail & Marketing,Retail,non_exclusive_rate,Non-Exclusive Rate,number,%,0,Mixed/non-exclusive store share,Compliance / retail
+SF-0194,Retail & Marketing,Retail,non_exclusive_flag,Non-Exclusive Flag,boolean,-,false,Whether store is non-exclusive,Inspection
+SF-0195,Retail & Marketing,Campaign,campaign_id,Campaign ID,string,-,CAMP-Summer-TradeIn,Marketing campaign identifier,Pack D / campaign performance
+SF-0196,Retail & Marketing,Campaign,campaign_name,Campaign Name,string,-,Summer trade-in promotion,Campaign name,Pack D
+SF-0197,Retail & Marketing,Campaign,campaign_goal,Campaign Goal,string,-,Improve renewal conversion,Campaign objective,Campaign planning
+SF-0198,Retail & Marketing,Campaign,campaign_budget,Campaign Budget,number,CNY,50000,Campaign budget,Campaign performance
+SF-0199,Retail & Marketing,Campaign,participants,Participants,int,people,3200,Participant count,Campaign performance
+SF-0200,Retail & Marketing,Campaign,campaign_roi,Campaign ROI,number,-,2.4,Return on investment,Campaign performance
+SF-0201,Retail & Marketing,Campaign,campaign_complaint_rate,Campaign Complaint Rate,number,%,0.3,Campaign-related complaint rate,Campaign performance
+SF-0202,Retail & Marketing,Content,short_video_cnt,Short Video Count,int,items,2140,Short video output count,New retail / Pack A
+SF-0203,Retail & Marketing,Content,short_video_valid_participate_rate,Short Video Valid Participation Rate,number,%,38.5,Valid participation share,Pack A
+SF-0204,Retail & Marketing,Content,followers,Followers,int,people,12400,Account follower count,Social matrix monitoring
+SF-0205,Retail & Marketing,Content,play_cnt,Play Count,int,times,86000,Video play count,Social matrix / productivity
+SF-0206,Retail & Marketing,Content,gmv_convert_rate,GMV Conversion Rate,number,%,1.8,Play-to-purchase conversion,Social matrix / productivity
+SF-0207,Retail & Marketing,Content,deals_cnt,Deal Count,int,orders,36,Guide deal count,Staff productivity diagnostics
+SF-0208,Retail & Marketing,Content,gmv,GMV,number,CNY,118764,Gross merchandise value,Productivity / live stream
+SF-0209,Retail & Marketing,Content,aov,Average Order Value,number,CNY,3299,Average transaction value,Staff productivity diagnostics
+SF-0210,Retail & Marketing,Content,valid_seller_flag,Valid Seller Flag,boolean,-,true,Whether account qualifies as active seller,Staff productivity diagnostics
+SF-0211,Retail & Marketing,Content,live_sessions,Live Sessions,int,sessions,12,Live stream session count,New retail report
+SF-0212,Retail & Marketing,Content,live_watch_uv,Live Watch UV,int,people,5600,Live stream unique viewers,New retail report
+SF-0213,Retail & Marketing,Content,influencer_cvr,Influencer CVR,number,%,2.1,Influencer conversion rate,New retail report
+SF-0214,Retail & Marketing,Content,refund_rate,Refund Rate,number,%,1.2,Refund share,New retail report
+SF-0215,Retail & Marketing,Content,content_script_id,Content Script ID,string,-,SCRIPT-Range-Compare-01,Script/asset identifier,Pack D
+SF-0216,Retail & Marketing,Content,benchmark_case_id,Benchmark Case ID,string,-,CASE-Suzhou-Wuzhong-Store,Benchmark case identifier,Benchmark report
+SF-0217,Retail & Marketing,Outreach,channel_quota_daily,Channel Daily Quota,int,times,5000,Daily outreach quota per channel,Outreach matrix
+SF-0218,Retail & Marketing,Outreach,delivery_rate,Delivery Rate,number,%,96.2,Message delivery rate,Outreach matrix
+SF-0219,Retail & Marketing,Outreach,open_rate,Open Rate,number,%,28.4,Open/click rate,Outreach matrix
+SF-0220,Retail & Marketing,Outreach,connect_rate,Connect Rate,number,%,41.0,Outbound call connect rate,Renewal scorecard
+SF-0221,Retail & Marketing,Outreach,transfer_human_cnt,Transfer to Human Count,int,people,86,High-intent transfers to human agents,Renewal scorecard
+SF-0222,Retail & Marketing,Outreach,template_approve_days,Template Approval Days,number,days,2,Template approval cycle in days,Outreach matrix
+SF-0223,Service Tickets,Ticket,ticket_id,Ticket ID,string,-,TK-20260728-8891,Unique service ticket identifier,Service / VoC
+SF-0224,Service Tickets,Ticket,ticket_type,Ticket Type,enum,-,fault,Fault/consult/complaint/other,Ticket analysis
+SF-0225,Service Tickets,Ticket,fault_category,Fault Category,enum,-,battery,Battery/motor/brake/controller/charging/display/frame/lights/tires/other,Fault analysis
+SF-0226,Service Tickets,Ticket,consult_category,Consult Category,string,-,Vehicle information,Consultation category,Inbound call analysis
+SF-0227,Service Tickets,Ticket,ticket_channel,Ticket Channel,string,-,400,400/App/e-commerce/store etc.,VoC aggregation
+SF-0228,Service Tickets,Ticket,ticket_status,Ticket Status,enum,-,open,Open/processing/closed,Customer service
+SF-0229,Service Tickets,Ticket,ticket_created_at,Ticket Created At,datetime,-,2026-07-28T09:12:00+08:00,Ticket creation time,Customer service
+SF-0230,Service Tickets,Ticket,handle_duration_min,Handle Duration (Min),number,minutes,18,Handling duration in minutes,QA / BIS
+SF-0231,Service Tickets,Ticket,is_complaint,Is Complaint,boolean,-,true,Complaint flag,Complaint report
+SF-0232,Service Tickets,Ticket,three_guarantees_reject_flag,Three-Guarantee Reject Flag,boolean,-,false,Three-guarantee warranty rejection flag,Regional complaint report
+SF-0233,Service Tickets,Ticket,desc_text,Description Text,text,-,Riding range noticeably below rated spec,Original issue description,Form fill / VoC
+SF-0234,Service Tickets,Ticket,desc_chars,Description Length,int,chars,86,Description character count,Fault analysis
+SF-0235,Service Tickets,Ticket,transcript_text,Transcript Text,text,-,(Full call transcript),Call transcription text,VoC
+SF-0236,Service Tickets,Ticket,agent_id,Agent ID,string,-,AG-2201,Agent/outbound caller identifier,QA / renewal
+SF-0237,Service Tickets,Ticket,sop_item,SOP Check Item,string,-,Confirm VIN and vehicle model,SOP quality check item,Smart QA
+SF-0238,Service Tickets,Ticket,sop_pass_fail,SOP Pass/Fail,enum,-,pass,SOP pass or fail,Smart QA
+SF-0239,Service Tickets,Ticket,risk_words,Risk Words,json,-,"[""Absolutely no problem""]",Risk phrase keywords,Smart QA
+SF-0240,Service Tickets,VoC,feedback_id,Feedback ID,string,-,FB-99102,Unique VoC feedback identifier,VoC suite
+SF-0241,Service Tickets,VoC,nps,NPS,number,-,32,Net Promoter Score,Dashboard / weekly-monthly reports
+SF-0242,Service Tickets,VoC,csat,CSAT,number,-,4.1,Customer satisfaction (1–5),Dashboard
+SF-0243,Service Tickets,VoC,nps_delta,NPS Delta,number,-,-3,Period NPS change,Weekly-monthly reports
+SF-0244,Service Tickets,VoC,feedback_cnt,Feedback Count,int,items,1280,Feedback count in period,Dashboard
+SF-0245,Service Tickets,VoC,tag_id,Tag ID,string,-,TAG-short-range,Standard tag identifier,Tagging / shared semantics
+SF-0246,Service Tickets,VoC,tag_name,Tag Name,string,-,Short range,Tag name,Tagging
+SF-0247,Service Tickets,VoC,tag_domain,Tag Domain,enum,-,product,Tag domain category,Tag vocabulary
+SF-0248,Service Tickets,VoC,sentiment,Sentiment,enum,-,neg,Sentiment polarity,Tagging hard requirement
+SF-0249,Service Tickets,VoC,sentiment_score,Sentiment Score,number,-1~1,-0.72,Sentiment intensity score,Sentiment map
+SF-0250,Service Tickets,VoC,problem_theme,Problem Theme,string,-,Short range,Theme cluster name,Rankings / thematic reports
+SF-0251,Service Tickets,VoC,theme_cnt,Theme Count,int,items,246,Feedback count for theme,Rankings
+SF-0252,Service Tickets,VoC,neg_ratio,Negative Ratio,number,%,68.0,Negative share for theme,Rankings
+SF-0253,Service Tickets,VoC,wow_change,WoW Change,number,%,22.0,Week-over-week change,Trend monitoring
+SF-0254,Service Tickets,VoC,closed_loop_rate,Closed-Loop Rate,number,%,54.0,Closed vs should-close ratio,Resolutions / Top N
+SF-0255,Service Tickets,VoC,recurrence_rate,Recurrence Rate,number,%,12.0,Recurrence share,Closed-loop verification
+SF-0256,Service Tickets,VoC,cover_dim,Report Cover Dimension,enum,-,vehicle,Vehicle/non-vehicle/all coverage,Thematic reports
+SF-0257,Service Tickets,VoC,module_name,Non-Vehicle Module,enum,-,app,App/mini-app/website/hotline/aftersales,Non-vehicle thematic
+SF-0258,Service Tickets,VoC,sample_voice,Sample Voice,text,-,Full charge only gets half the manual range,Representative anonymized voice of customer,Special reports / themes
+SF-0259,Service Tickets,VoC,clue_confidence,Clue Confidence,enum,-,medium,Investigation clue confidence,Investigation clue pack
+SF-0260,Service Tickets,VoC,severity_risk_level,PR Crisis Risk Level,enum,-,P1,Public relations crisis risk level,Crisis / special reports
+SF-0261,Service Tickets,VoC,consumer_sat_score,Consumer Satisfaction Score,number,%,82.9,Survey consumer satisfaction,Satisfaction report
+SF-0262,Service Tickets,VoC,channel_sat_score,Channel Satisfaction Score,number,%,77.1,Survey channel satisfaction,Satisfaction report
+SF-0263,Service Tickets,VoC,survey_recover_rate,Survey Recovery Rate,number,%,6.1,Survey response vs push rate,Satisfaction report
+SF-0264,Service Tickets,VoC,dissatisfaction_reason,Dissatisfaction Reason,string,-,Short range,Open-ended/option dissatisfaction reason,Satisfaction report
+SF-0265,Connected Vehicle IoT,Telemetry,fault_code,Fault / Alert Code,string,-,BMS_OT_01,On-vehicle alert code,IoT / troubleshooting
+SF-0266,Connected Vehicle IoT,Telemetry,iot_alert_cnt,IoT Alert Count,int,times,3,Alert count in period,Dashboard / IoT
+SF-0267,Connected Vehicle IoT,Telemetry,mileage_km,Mileage (km),number,km,3260,Cumulative/period mileage,IoT availability
+SF-0268,Connected Vehicle IoT,Telemetry,soc_pct,State of Charge (SOC),number,%,64,Remaining battery charge,Proactive service
+SF-0269,Connected Vehicle IoT,Telemetry,telemetry_coverage_rate,Telemetry Coverage Rate,number,%,81.0,Share of vehicles with telemetry,IoT availability
+SF-0270,Connected Vehicle IoT,Telemetry,battery_health_pct,Battery Health (%),number,%,92,Approximate state of health,Proactive service
+SF-0271,Manufacturing Quality,Quality,test_station,Test Station,string,-,OBD-Dyno-02,Quality inspection station,OBD report
+SF-0272,Manufacturing Quality,Quality,test_ts,Test Timestamp,datetime,-,2026-07-28T14:22:00+08:00,Inspection timestamp,OBD report
+SF-0273,Manufacturing Quality,Quality,obd_protocol,OBD Protocol,string,-,ISO15765,Communication protocol,OBD report
+SF-0274,Manufacturing Quality,Quality,voltage_v,Voltage (V),number,V,54.6,Measured voltage,OBD report
+SF-0275,Manufacturing Quality,Quality,current_a,Current (A),number,A,12.3,Measured current,OBD report
+SF-0276,Manufacturing Quality,Quality,speed_rpm,Speed (rpm),number,rpm,480,Motor speed,OBD report
+SF-0277,Manufacturing Quality,Quality,controller_temp_c,Controller Temperature (°C),number,°C,46,Controller temperature rise,OBD report
+SF-0278,Manufacturing Quality,Quality,qc_result,QC Result,enum,-,pass,Pass/fail quality result,Quality / traceability
+SF-0279,Manufacturing Quality,Quality,operator_id,Operator ID,string,-,OP-331,Inspector employee ID,OBD
+SF-0280,Manufacturing Quality,Quality,part_name,Part Name,string,-,Controller,Component name,Traceability
+SF-0281,Manufacturing Quality,Quality,part_batch_no,Part Batch No.,string,-,PB-CTRL-2026W27,Component batch number,Batch traceability
+SF-0282,Manufacturing Quality,Quality,supplier_id,Supplier ID,string,-,SUP-8821,Supplier identifier,Traceability / risk control
+SF-0283,Manufacturing Quality,Quality,delta_e,Color Delta E,number,-,0.8,Optical color difference,Optical QC
+SF-0284,Manufacturing Quality,Quality,gloss,Gloss,number,-,85,Paint gloss measurement,Optical QC
+SF-0285,Manufacturing Quality,Quality,defect_type,Defect Type,string,-,Color variance,Orange peel/color variance/grain etc.,Optical QC
+SF-0286,Manufacturing Quality,Quality,anomaly_score,Anomaly Score,number,0-1,0.86,Acoustic/sensor anomaly score,Equipment alert
+SF-0287,Manufacturing Quality,Quality,predict_fail_days,Predicted Fail Days,int,days,14,Predicted days to failure,Predictive maintenance window
+SF-0288,Manufacturing Quality,Quality,release_ts,Release Timestamp,datetime,-,2026-07-28T16:00:00+08:00,Qualified release time,Traceability package
+SF-0289,Manufacturing Quality,Quality,trace_package_url,Trace Package URL,string,-,s3://trace/VINxxx.zip,Traceability data package URL,Traceability package
+SF-0290,Manufacturing Quality,Quality,recall_level,Recall Assessment Level,enum,-,watch,Watch/targeted/recall evaluation,Batch traceability
+SF-0291,Inspection & Compliance,Inspection,inspect_id,Inspection ID,string,-,INS-20260728-014,Inspection task identifier,Inspection report
+SF-0292,Inspection & Compliance,Inspection,inspect_time,Inspection Time,datetime,-,2026-07-28T08:30:00+08:00,Inspection timestamp,Inspection report
+SF-0293,Inspection & Compliance,Inspection,check_item,Check Item,string,-,Storefront VI completeness,Inspection checklist item name,Inspection report
+SF-0294,Inspection & Compliance,Inspection,ai_confidence,AI Confidence,number,0-1,0.91,Visual recognition confidence,Inspection / image diff
+SF-0295,Inspection & Compliance,Inspection,pass_fail,Pass/Fail,enum,-,fail,Pass or fail result,Inspection report
+SF-0296,Inspection & Compliance,Inspection,photo_url,Photo URL,string,-,https://.../store.jpg,Evidence photo URL,Inspection / image diff
+SF-0297,Inspection & Compliance,Inspection,morning_photo_url,Morning Photo URL,string,-,https://.../am.jpg,Morning panoramic photo for AM/PM diff,Image differential
+SF-0298,Inspection & Compliance,Inspection,evening_photo_url,Evening Photo URL,string,-,https://.../pm.jpg,Evening panoramic photo for AM/PM diff,Image differential
+SF-0299,Inspection & Compliance,Inspection,competitor_logo_detected,Competitor Logo Detected,json,-,"[""Competitor A""]",Detected competitor logos,Image differential
+SF-0300,Inspection & Compliance,Inspection,suspect_type,Suspect Type,string,-,Non-exclusive stock display,Violation suspect type,Image differential
+SF-0301,Inspection & Compliance,Inspection,vi_score,VI Consistency Score,number,0-100,78,Visual identity consistency score,VI diagnostics / inspection
+SF-0302,Inspection & Compliance,Inspection,rectify_ticket_id,Rectification Ticket ID,string,-,RC-8891,Rectification work order ID,Inspection
+SF-0303,Inspection & Compliance,Inspection,due_date,Due Date,date,-,2026-08-05,Rectification deadline,Alerts / inspection
+SF-0304,Inspection & Compliance,Brand,mention_cnt_24h,Brand Mentions (24h),int,times,1260,Brand mention count in 24 hours,Brand sentiment dashboard
+SF-0305,Inspection & Compliance,Brand,reputation_score,Reputation Score,number,0-100,71,Brand reputation score,Brand sentiment dashboard
+SF-0306,Inspection & Compliance,Brand,hotspot_term,Hotspot Term,string,-,Inflated range claims,Sentiment hotspot term,Crisis alert
+SF-0307,Inspection & Compliance,Brand,growth_velocity,Volume Growth Velocity,number,-,3.2,Sudden volume growth rate,Crisis alert
+SF-0308,Inspection & Compliance,Brand,mi_consistency_score,MI Consistency Score,number,0-100,66,Mission-identity word-deed consistency,MI diagnostics
+SF-0309,Inspection & Compliance,Brand,bvp_memorability,BVP Memorability,number,0-1,0.42,Brand value proposition memorability,BVP report
+SF-0310,Inspection & Compliance,Brand,bvp_understanding,BVP Understanding,number,0-1,0.55,Brand value proposition understanding,BVP report
+SF-0311,Inspection & Compliance,Brand,purchase_intent,Purchase Intent,number,0-1,0.48,Purchase intent score,BVP / survey
+SF-0312,Inspection & Compliance,Brand,energy_kwh_per_vehicle,Energy per Vehicle,number,kWh/unit,128,Manufacturing energy per vehicle,ESG
+SF-0313,Inspection & Compliance,Brand,co2e_t,CO2e Equivalent,number,tCO2e, sequester,Carbon emission equivalent,ESG
+SF-0314,Inspection & Compliance,Brand,scrap_battery_recycle_rate,Scrap Battery Recycle Rate,number,%,91.0,End-of-life battery recycling rate,ESG
+SF-0315,Finance,Finance,expense_id,Expense ID,string,-,EXP-202607-118,Expense reimbursement ID,Three-way match
+SF-0316,Finance,Finance,invoice_no,Invoice No.,string,-,INV-8891200,Invoice number,Three-way match
+SF-0317,Finance,Finance,po_no,PO No.,string,-,PO-55201,Purchase order number,Three-way match / PO tracking
+SF-0318,Finance,Finance,receipt_amt,Receipt Amount,number,CNY,1280.00,Bank receipt amount,Three-way match
+SF-0319,Finance,Finance,invoice_amt,Invoice Amount,number,CNY,1280.00,Invoice amount,Three-way match
+SF-0320,Finance,Finance,po_amt,PO Amount,number,CNY,1300.00,Purchase order amount,Three-way match
+SF-0321,Finance,Finance,match_status,Three-Way Match Status,enum,-,mismatch,Match or mismatch status,Three-way match
+SF-0322,Finance,Finance,diff_amt,Difference Amount,number,CNY,20.00,Variance amount,Three-way match
+SF-0323,Finance,Finance,diff_reason,Difference Reason,string,-,Tax amount mismatch,Variance root cause,Three-way match
+SF-0324,Finance,Finance,revenue_forecast,Revenue Forecast,number,CNY,1.2e8,Monthly revenue forecast,Cash flow forecast
+SF-0325,Finance,Finance,pickup_forecast_units,Pickup Forecast Units,int,units,52000,Pickup volume forecast,Cash flow forecast
+SF-0326,Finance,Finance,rebate_cashout_forecast,Rebate Cash-out Forecast,number,CNY,8.5e6,Rebate cash outflow forecast,Cash flow forecast
+SF-0327,Finance,Finance,opex_forecast,OPEX Forecast,number,CNY,2.1e7,Operating expense forecast,Cash flow forecast
+SF-0328,Finance,Finance,net_cash_forecast,Net Cash Forecast,number,CNY,1.5e7,Net cash flow forecast,Cash flow forecast
+SF-0329,Finance,Finance,forecast_confidence_low,Forecast Confidence Low,number,CNY,1.1e7,Confidence interval lower bound,Cash flow forecast
+SF-0330,Finance,Finance,forecast_confidence_high,Forecast Confidence High,number,CNY,1.9e7,Confidence interval upper bound,Cash flow forecast
+SF-0331,App Activation,Activation,cum_sales_units,Cumulative Sales Units,int,units,2500000,Cumulative vehicle sales,Activation rate baseline
+SF-0332,App Activation,Activation,active_owners_est,Active Owners (Est.),int,people,1800000,Estimated active vehicle owners,Activation rate baseline
+SF-0333,App Activation,Activation,app_register_cnt,App Register Count,int,people,920000,Registered app users,Activation rate baseline
+SF-0334,App Activation,Activation,bind_vehicle_cnt,Bind Vehicle Count,int,vehicles,610000,Completed vehicle bindings,Activation rate baseline
+SF-0335,App Activation,Activation,mau,MAU,int,people,210000,Monthly active users,Activation rate / monthly report
+SF-0336,App Activation,Activation,dau,DAU,int,people,42000,Daily active users,Activation rate
+SF-0337,App Activation,Activation,activation_rate,Activation Rate,number,%,33.9,Binding/active-owner based activation rate,Activation rate baseline
+SF-0338,App Activation,Activation,funnel_step,Funnel Step,string,-,Bind vehicle,Open→login→bind→vehicle control→retention,Activation funnel
+SF-0339,App Activation,Activation,funnel_uv,Funnel UV,int,people,88000,Unique users at funnel step,Activation funnel
+SF-0340,App Activation,Activation,funnel_cvr,Funnel CVR,number,%,62.0,Conversion to next step,Activation funnel
+SF-0341,App Activation,Activation,tab_name,App Tab Name,string,-,My vehicle,App feature tab name,Activation funnel
+SF-0342,App Activation,Activation,pv,Page Views,int,times,560000,Page view count,Activation funnel
+SF-0343,App Activation,Activation,uv,Unique Visitors,int,people,120000,Unique visitor count,Activation funnel
+SF-0344,App Activation,Activation,stay_seconds,Stay Seconds,number,seconds,46,Session dwell time in seconds,Activation funnel
+SF-0345,App Activation,Activation,push_click_rate,Push Click Rate,number,%,8.6,Push notification click-through rate,Outreach / activation
+SF-0346,App Activation,Activation,faq_cnt,FAQ Entry Count,int,items,320,Knowledge base FAQ entries,Q&A coverage
+SF-0347,App Activation,Activation,top20_ticket_coverage_rate,Top 20 Ticket Coverage Rate,number,%,71.0,FAQ coverage of top 20 ticket types,Q&A coverage
+SF-0348,App Activation,Activation,oneid_coverage_rate,OneID Coverage Rate,number,%,64.0,Identifiable user share,OneID report
+SF-0349,App Activation,Activation,orphan_user_cnt,Orphan User Count,int,people,120000,Users that cannot be stitched,OneID report
+SF-0350,App Activation,Activation,koc_score,KOC Score,number,0-100,81,Community KOC score,KOC pool
+SF-0351,App Activation,Activation,post_cnt,Post Count,int,items,24,Community post count,KOC pool
+SF-0352,App Activation,Activation,interact_rate,Interaction Rate,number,%,6.8,Interactions over impressions,KOC pool
+SF-0353,App Activation,O2O,platform_order_cnt,Platform Order Count,int,orders,1500,E-commerce platform orders,O2O funnel
+SF-0354,App Activation,O2O,lead_phone_cnt,Lead Phone Count,int,count,980,Lead capture phone count,O2O funnel
+SF-0355,App Activation,O2O,store_redeem_cnt,Store Redemption Count,int,orders,420,In-store redemption count,O2O funnel
+SF-0356,Alerts & Collaboration,Alert,alert_id,Alert ID,string,-,ALERT-20260728-014,Unique alert identifier,Pack B
+SF-0357,Alerts & Collaboration,Alert,alert_type,Alert Type,enum,-,shortage,Sales decline/compliance/stockout/complaint/competitor,Pack B
+SF-0358,Alerts & Collaboration,Alert,metric_name,Trigger Metric Name,string,-,mom_rate,Metric that triggered the alert,Pack B
+SF-0359,Alerts & Collaboration,Alert,metric_value,Trigger Metric Value,number,-,-12.4,Actual metric value,Pack B
+SF-0360,Alerts & Collaboration,Alert,threshold_value,Threshold Value,number,-,-10.0,Rule threshold,Pack B / rules engine
+SF-0361,Alerts & Collaboration,Alert,severity,Severity,enum,-,P0,P0/P1/P2 severity level,Alerts / crisis
+SF-0362,Alerts & Collaboration,Alert,required_action,Required Action,string,-,Replenish color within 3 days,Required remediation action,Pack B
+SF-0363,Alerts & Collaboration,Alert,verify_method,Verify Method,string,-,Second inspection,Verification/acceptance method,Pack B
+SF-0364,Alerts & Collaboration,Collab,cross_issue_cnt,Cross-Department Issue Count,int,count,17,Cross-functional issue count,Integrated marketing report
+SF-0365,Alerts & Collaboration,Collab,closed_cnt,Closed Count,int,count,9,Closed issue count,Integrated marketing / resolutions
+SF-0366,Alerts & Collaboration,Collab,overdue_cnt,Overdue Count,int,count,3,Overdue unresolved count,Integrated marketing / resolutions
+SF-0367,Alerts & Collaboration,Collab,response_hours,Response Hours,number,hours,26,Average response time in hours,Integrated marketing
+SF-0368,Alerts & Collaboration,Collab,pilot_vs_control_delta,Pilot vs Control Delta,number,-,8.5,Pilot vs control group metric delta,Integrated marketing
+SF-0369,Alerts & Collaboration,Collab,resolution_id,Resolution ID,string,-,RES-2026W30-01,Meeting resolution identifier,Resolution tracker
+SF-0370,Alerts & Collaboration,Collab,owner_dept,Owner Department,string,-,Product Innovation Institute,Responsible department,Resolutions / special reports
+SF-0371,Alerts & Collaboration,Collab,verify_metric,Verification Metric,string,-,Negative share for range theme,Post-resolution verification KPI,Resolution tracker
+SF-0372,Shared AI Assets,AIOutput,ai_output_id,AI Output ID,string,-,AIO-10001,Unique shared output identifier,Anti-silo story
+SF-0373,Shared AI Assets,AIOutput,producer_skill,Producer Skill,string,-,fill_ticket,Producer skill identifier,Anti-silo
+SF-0374,Shared AI Assets,AIOutput,consumer_allow,Allowed Consumers,json,-,"[""renewal_plan"",""voc_weekly""]",Subscribable consumer skill list,Anti-silo
+SF-0375,Shared AI Assets,AIOutput,payload,Payload,json,-,"{""tags"":[""Open complaint""],""vin"":""...""}",Structured output content,Anti-silo
+SF-0376,Shared AI Assets,AIOutput,payload_schema,Payload Schema,string,-,ticket_draft_v1,Payload structure version,Anti-silo
+SF-0377,Shared AI Assets,TagVocabulary,tag_vocab_version,Tag Vocabulary Version,string,-,voc-tags-2026.07,Shared semantic version,Tag governance
+SF-0378,Shared AI Assets,TagVocabulary,tag_parent_id,Parent Tag ID,string,-,TAG-ROOT-PRODUCT,Parent tag in tag tree,Tag governance
+SF-0379,Shared AI Assets,CapabilityCatalog,skill_id,Skill ID,string,-,repair_kb,Capability catalog primary key,Capability catalog
+SF-0380,Shared AI Assets,CapabilityCatalog,skill_desc,Skill Description,text,-,Repair knowledge base Q&A,Capability description,Capability catalog
+SF-0381,Shared AI Assets,CapabilityCatalog,input_schema,Input Schema,json,-,"{""query"":""string""}",Input contract schema,Capability catalog
+SF-0382,Shared AI Assets,CapabilityCatalog,output_schema,Output Schema,json,-,"{""answer"":""string""}",Output contract schema,Capability catalog
+SF-0383,Shared AI Assets,CapabilityCatalog,allowed_tools,Allowed Tools,json,-,"[""search_kb"",""get_vehicle""]",Callable tool list,Capability catalog
+SF-0384,Shared AI Assets,RunLog,step_name,Step Name,string,-,retrieve,Control loop step name,Collaboration layer
+SF-0385,Shared AI Assets,RunLog,step_status,Step Status,enum,-,ok,ok/error/skipped,Collaboration layer
+SF-0386,Shared AI Assets,RunLog,step_ts,Step Timestamp,datetime,-,2026-08-01T12:00:00+08:00,Step timestamp,Collaboration layer
+SF-0387,"Process, HR & Legal",Process,process_id,Process ID,string,-,PROC-Store-Opening-Approval,Process definition identifier,Process report
+SF-0388,"Process, HR & Legal",Process,redundant_step,Redundant Step,string,-,Duplicate stamp node,Redundant process step detected,Redundancy detection report
+SF-0389,"Process, HR & Legal",Process,bottleneck_step,Bottleneck Step,string,-,Quota approval,Bottleneck step in process,Process root-cause analysis
+SF-0390,"Process, HR & Legal",Process,cycle_time_hours,Cycle Time (Hours),number,hours,72,Process cycle time,Process simulation
+SF-0391,"Process, HR & Legal",Process,proposal_level,Proposal Level,enum,-,L2,L1/L2/L3 recommendation level,AI recommendation inbox
+SF-0392,"Process, HR & Legal",HR,job_id,Job ID,string,-,JOB-After-Sales-Specialist,Recruiting position identifier,Job matching
+SF-0393,"Process, HR & Legal",HR,match_score,Match Score,number,0-100,84,Person-job match score,Job matching
+SF-0394,"Process, HR & Legal",Legal,contract_id,Contract ID,string,-,CT-2026-889,Contract number,Contract review
+SF-0395,"Process, HR & Legal",Legal,clause_risk_level,Clause Risk Level,enum,-,high,Contract clause risk level,Contract review
+SF-0396,"Process, HR & Legal",Legal,clause_comment,Clause Comment,text,-,Missing liquidated damages cap,Contract review comment,Contract review
+SF-0397,"Process, HR & Legal",Knowledge,kb_domain,Knowledge Base Domain,enum,-,repair,repair/policy/hr/product,RAG
+SF-0398,"Process, HR & Legal",Knowledge,kb_doc_id,Knowledge Document ID,string,-,KB-REP-0012,Document identifier,RAG
+SF-0399,"Process, HR & Legal",Knowledge,kb_chunk_id,Knowledge Chunk ID,string,-,CHK-88,Vector chunk identifier,RAG
+SF-0400,"Process, HR & Legal",Knowledge,kb_score,Retrieval Relevance Score,number,0-1,0.83,Retrieval relevance score,RAG

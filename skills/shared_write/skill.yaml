@@ -1,0 +1,27 @@
+skill_id: shared_write
+control_loop: act
+department: System / Shared layer
+goal: Write given payload to shared AI output and return id.
+success_hint: write_ai_output returns ai_output.id successfully.
+success_when: wrote_ai_output
+max_steps: 4
+tone:
+  label: Neutral system voice
+  style: Describe asset and status only; do not role-play business persona
+  forbid: Customer-service soothing tone, telemarketing promo tone
+allowed_tools:
+  - write_ai_output
+  - read_ai_outputs
+  - get_ai_output
+  - log_step
+system_extra: |
+  producer_skill must be shared_write. May write then get_ai_output to verify.
+output_format: |
+  - ai_output_id
+  - consumer_allow
+  - Brief status note
+security:
+  max_tool_calls_per_step: 3
+  redact_pii_in_observation: true
+  block_on_outreach: false
+  prompt_forbid_extra: Do not write plaintext phone, secrets; describe asset status only

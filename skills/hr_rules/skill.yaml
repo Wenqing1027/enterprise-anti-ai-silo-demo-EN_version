@@ -1,0 +1,40 @@
+# flow: hr_policy_qa (planned)
+# agent: RAG — policy / SOP Q&A; cross-dept read same domain, no duplicated KB
+# feature: F-HR-001 / F-HR-003
+skill_id: hr_rules
+control_loop: retrieve
+agent_type: rag
+department: HR Platform
+goal: Answer employee policy and agent QA SOP questions from HR KB with citable snippets.
+success_hint: Final answer includes policy/SOP highlights and kb_chunk_id citations; individual discipline cases must suggest HRBP handoff.
+success_when: cited_answer
+kb_domains_allow:
+  - hr
+top_k: 5
+max_context_chars: 2000
+cite_required: true
+allow_no_hit_answer: true
+tone:
+  label: Friendly neutral
+  style: Neutral wording; answer common questions first; clear boundary on individual cases and discipline
+  forbid: Substituting for HR on discipline; leaking others' performance; inventing clauses not in KB
+allowed_tools:
+  - search_kb
+  - get_kb_document
+  - list_kb_domains
+  - log_step
+system_extra: |
+  [Separation note] Recruiting job-match extraction is Extraction; this Skill is policy/SOP Q&A only.
+  Retrieval domain hr only; repair/policy questions should go to repair_kb / policy_kb.
+  On agent QA risk-word hits, state "QA failure enters coaching list" guidance; no personnel discipline.
+output_format: |
+  1. Question restatement
+  2. Policy or SOP highlights
+  3. Citations: kb_chunk_id + document title
+  4. If individual case: suggest HRBP / manager (do not decide discipline)
+security:
+  kb_domains_allow:
+    - hr
+  redact_pii: true
+  prompt_forbid_extra: Do not output others' privacy; do not invent policy clauses; do not decide discipline
+write_ai_output: false

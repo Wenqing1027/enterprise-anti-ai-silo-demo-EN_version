@@ -1,0 +1,101 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Qingshu Mobility · Part 3 · Risk controls</title>
+    <link rel="stylesheet" href="/static/styles.css?v=20260808-logic4" />
+    <link rel="stylesheet" href="/static/logic.css?v=20260808-logic4" />
+  </head>
+  <body class="page-logic">
+    <nav class="mode-switch" aria-label="View switcher">
+      <a href="/business">Business Lead</a>
+      <a href="/ops">IT Ops</a>
+      <a class="active" href="/logic" aria-current="page">Logic Walkthrough</a>
+    </nav>
+    <div class="shell shell-wide shell-logic">
+      <header class="topbar">
+        <div class="topbar-brand">
+          <div class="eyebrow">Qingshu Mobility</div>
+          <h1>Part 3 · Risk controls</h1>
+        </div>
+        <div class="topbar-right">
+          <div class="topbar-meta">Governance and compliance · boundaries<br />Rules first, then scale features</div>
+        </div>
+      </header>
+      <nav class="logic-subnav" aria-label="Logic subpages">
+        <a href="/logic">Overview</a>
+        <a href="/logic/architecture">Part 1 · Company architecture</a>
+        <a href="/logic/solution">Part 2 · AI solution design</a>
+        <a class="active" href="/logic/risk">Part 3 · Risk controls</a>
+      </nav>
+      <div class="logic-hero">
+        <p class="logic-lead">
+          Risk controls are a prerequisite for a viable solution: who may read business data, write shared info, and initiate outreach
+          must be approvable, verifiable, and traceable. Boundaries also clarify what this phase delivers so it is not read as
+          “every planned feature is already live.”
+        </p>
+      </div>
+      <section class="logic-section">
+        <h2>Governance and compliance</h2>
+        <div class="risk-grid">
+          <article class="risk-card"><h3>Data and tool permissions</h3><ul>
+            <li>Tools grouped as: read business data / search knowledge base / write shared and gate</li>
+            <li>Each feature may only use approved-scope capabilities; no private dept data bypass</li>
+            <li>Master data and metric definitions use a single entry point</li>
+          </ul></article>
+          <article class="risk-card"><h3>Shared write and outreach red lines</h3><ul>
+            <li>Shared writes must declare producer and allowed consumer scope</li>
+            <li>Renewal outreach must check shared complaint info first</li>
+            <li>When outreach is deferred, keep the reason for audit</li>
+          </ul></article>
+          <article class="risk-card"><h3>Run traceability</h3><ul>
+            <li>Each run keeps id, loop type, feature name, and step log</li>
+            <li>Ops console can view metrics, related changes, and handling chain</li>
+            <li>Cross-dept collaboration relies on shared info, not verbal handoffs</li>
+          </ul></article>
+          <article class="risk-card"><h3>Human–AI responsibility</h3><ul>
+            <li>Collaborative: AI assists; business owns external outcomes</li>
+            <li>Approval: high-risk writes and outreach cannot auto-pass silently</li>
+            <li>Reporting: risk signals enter shared layer; rules or humans decide consequences</li>
+          </ul></article>
+        </div>
+      </section>
+      <section class="logic-section">
+        <h2>Boundaries</h2>
+        <div class="risk-grid">
+          <article class="risk-card boundary"><h3>Architectural non-goals</h3><ul>
+            <li>One universal chat entry for everything</li>
+            <li>Each dept building isolated AI with private data access</li>
+            <li>Treating “one shared persona” as cross-dept collaboration solved</li>
+            <li>Multi-role auto handoff as the default collaboration pattern</li>
+          </ul></article>
+          <article class="risk-card boundary"><h3>This phase scope</h3><ul>
+            <li>Qingshu Mobility is a portfolio reference implementation, not a production customer delivery</li>
+            <li>Outbound lines, agent QA engines, line vision, etc.: planned features, phased delivery</li>
+            <li>Phase 1 proves: multiple loop types run, shared info is consumable, outreach is gated, runs are observable</li>
+            <li>Demo data is synthetic; no real customer contracts or raw ticket text</li>
+          </ul></article>
+        </div>
+      </section>
+      <section class="logic-section">
+        <h2>Try the runnable UI</h2>
+        <div class="route-board">
+          <a class="route-card" href="/business?department=service" style="text-decoration:none;color:inherit">
+            <h4>Business Lead UI</h4>
+            <p class="card-note" style="margin:0">Try features by department; service writes complaint info, then user ops runs the outreach gate.</p>
+          </a>
+          <a class="route-card" href="/ops" style="text-decoration:none;color:inherit">
+            <h4>IT Ops UI</h4>
+            <p class="card-note" style="margin:0">Health, key metrics, related events and handling chain for governance and troubleshooting.</p>
+          </a>
+        </div>
+      </section>
+      <div class="logic-footer-nav">
+        <a href="/logic/solution">← Part 2</a>
+        <a href="/business">Open business UI →</a>
+      </div>
+
+    </div>
+  </body>
+</html>

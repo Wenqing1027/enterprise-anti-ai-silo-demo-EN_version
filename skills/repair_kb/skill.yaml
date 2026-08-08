@@ -1,0 +1,41 @@
+# flow: service_repair_qa (planned; exists in parallel with Story1, see docs/rag/02)
+# agent: RAG (retrieve → stuff → generate) — do not confuse with ReAct + search_kb tool steps
+# feature: F-SVC-002 / F-SVC-004 / F-UO-009 / F-DAT-011
+skill_id: repair_kb
+control_loop: retrieve
+agent_type: rag
+department: Service Division
+goal: Answer after-sales questions on range/noise/binding/charging from the repair knowledge base, with citable snippets.
+success_hint: Final answer includes steps or guidance plus kb_chunk_id / document title citations; if no hit, clearly state KB does not cover it.
+success_when: cited_answer
+kb_domains_allow:
+  - repair
+top_k: 5
+max_context_chars: 2400
+cite_required: true
+allow_no_hit_answer: true
+tone:
+  label: Cautious confirmation
+  style: Restate the question first; explain step-by-step from retrieval; if unsure, suggest human handoff or ticket creation
+  forbid: Over-promising "will definitely fix/must compensate"; inventing part numbers or policy clauses not retrieved
+allowed_tools:
+  - search_kb
+  - get_kb_document
+  - list_kb_domains
+  - log_step
+system_extra: |
+  [Separation note] This Skill uses the RAG control loop, not multi-step ReAct reasoning.
+  Retrieval domain is repair only; do not answer HR policy, sales rebate, etc. (guide user to another Skill).
+  If user also provides VIN, you may remind frontline to verify OTA/SOH, but this Skill does not require master-data lookup in phase 1.
+  App smart Q&A (F-UO-009) reuses this Skill's domain config in phase 1.
+output_format: |
+  1. Question restatement (one sentence)
+  2. KB-based troubleshooting/handling advice (step-by-step)
+  3. Citations: kb_chunk_id and document/section title (at least 1; if no hit write "no retrieval hit")
+  4. Suggested next step (open ticket / transfer to specialist / user self-service action)
+security:
+  kb_domains_allow:
+    - repair
+  redact_pii: true
+  prompt_forbid_extra: Do not promise must-compensate/must-fix; do not invent clauses not in retrieved snippets; do not output plaintext phone numbers
+write_ai_output: false

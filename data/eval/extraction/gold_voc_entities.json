@@ -1,0 +1,705 @@
+{
+  "version": "2026-08-05-v2",
+  "skill_id": "voc_entities",
+  "payload_schema": "voc_entities_v1",
+  "thresholds": {
+    "schema_ok_rate": 1.0,
+    "tag_id_acc": 0.8,
+    "blocking_miss": 0,
+    "sentiment_acc": 0.85,
+    "tag_domain_acc": 0.9,
+    "oov_tag_rate_max": 0.05
+  },
+  "cases": [
+    {
+      "id": "V01",
+      "input": {
+        "text": "Full charge less than half manual; media exposure planned; complaint open 7+ days unresolved.",
+        "customer_id": "CUS-10057"
+      },
+      "gold": {
+        "tag_id": "TAG-short-range",
+        "tag_id_accept": [
+          "TAG-short-range",
+          "TAG-open-complaint",
+          "TAG-reputation-risk"
+        ],
+        "tag_domain": "product",
+        "sentiment": "neg",
+        "blocking_required": true,
+        "blocking_any_of": [
+          "TAG-open-complaint",
+          "TAG-reputation-risk"
+        ]
+      }
+    },
+    {
+      "id": "V02",
+      "input": {
+        "text": "Range drops fast; worse in winter."
+      },
+      "gold": {
+        "tag_id": "TAG-short-range",
+        "tag_domain": "product",
+        "sentiment": "neg",
+        "blocking_required": false
+      }
+    },
+    {
+      "id": "V03",
+      "input": {
+        "text": "Weak hill climb; absurdly weak power."
+      },
+      "gold": {
+        "tag_id": "TAG-weak-power",
+        "tag_domain": "product",
+        "sentiment": "neg",
+        "blocking_required": false
+      }
+    },
+    {
+      "id": "V04",
+      "input": {
+        "text": "Front fork squeak; loud suspension noise."
+      },
+      "gold": {
+        "tag_id": "TAG-noise",
+        "tag_domain": "product",
+        "sentiment": "neg",
+        "blocking_required": false
+      }
+    },
+    {
+      "id": "V05",
+      "input": {
+        "text": "Soft brakes, cannot stop—dangerous."
+      },
+      "gold": {
+        "tag_id": "TAG-brake",
+        "tag_domain": "product",
+        "sentiment": "neg",
+        "blocking_required": false
+      }
+    },
+    {
+      "id": "V06",
+      "input": {
+        "text": "Charging painfully slow; all night not full."
+      },
+      "gold": {
+        "tag_id": "TAG-slow-charging",
+        "tag_domain": "product",
+        "sentiment": "neg",
+        "blocking_required": false
+      }
+    },
+    {
+      "id": "V07",
+      "input": {
+        "text": "Controller fault light flashing; sudden power loss."
+      },
+      "gold": {
+        "tag_id": "TAG-controller-fault",
+        "tag_domain": "product",
+        "sentiment": "neg",
+        "blocking_required": false
+      }
+    },
+    {
+      "id": "V08",
+      "input": {
+        "text": "Battery swelling and hot; fear self-ignition."
+      },
+      "gold": {
+        "tag_id": "TAG-safety-hazard",
+        "tag_id_accept": [
+          "TAG-safety-hazard",
+          "TAG-battery-swelling"
+        ],
+        "tag_domain": "risk",
+        "tag_domain_accept": [
+          "risk",
+          "product"
+        ],
+        "sentiment": "neg",
+        "blocking_required": true,
+        "blocking_any_of": [
+          "TAG-safety-hazard"
+        ]
+      }
+    },
+    {
+      "id": "V09",
+      "input": {
+        "text": "Dashboard blackout; restart useless."
+      },
+      "gold": {
+        "tag_id": "TAG-dashboard-blackout",
+        "tag_domain": "product",
+        "sentiment": "neg",
+        "blocking_required": false
+      }
+    },
+    {
+      "id": "V10",
+      "input": {
+        "text": "Warranty denied, no battery swap—ridiculous."
+      },
+      "gold": {
+        "tag_id": "TAG-warranty-dispute",
+        "tag_domain": "service",
+        "sentiment": "neg",
+        "blocking_required": false
+      }
+    },
+    {
+      "id": "V11",
+      "input": {
+        "text": "Scheduled onsite never came—absurdly slow."
+      },
+      "gold": {
+        "tag_id": "TAG-slow-onsite-service",
+        "tag_domain": "service",
+        "sentiment": "neg",
+        "blocking_required": false
+      }
+    },
+    {
+      "id": "V12",
+      "input": {
+        "text": "Poor support attitude and swearing."
+      },
+      "gold": {
+        "tag_id": "TAG-poor-attitude",
+        "tag_domain": "service",
+        "sentiment": "neg",
+        "blocking_required": false
+      }
+    },
+    {
+      "id": "V13",
+      "input": {
+        "text": "Parts out of stock; long wait."
+      },
+      "gold": {
+        "tag_id": "TAG-parts-stockout",
+        "tag_domain": "service",
+        "sentiment": "neg",
+        "blocking_required": false
+      }
+    },
+    {
+      "id": "V14",
+      "input": {
+        "text": "App pairing failed; device offline."
+      },
+      "gold": {
+        "tag_id": "TAG-pairing-failure",
+        "tag_domain": "app",
+        "sentiment": "neg",
+        "blocking_required": false
+      }
+    },
+    {
+      "id": "V15",
+      "input": {
+        "text": "Location drift hundreds of meters; nav inaccurate."
+      },
+      "gold": {
+        "tag_id": "TAG-gps-drift",
+        "tag_domain": "app",
+        "sentiment": "neg",
+        "blocking_required": false
+      }
+    },
+    {
+      "id": "V16",
+      "input": {
+        "text": "Where is the renewal entry?"
+      },
+      "gold": {
+        "tag_id": "TAG-renewal-entry-hard-to-find",
+        "tag_domain": "app",
+        "sentiment": "neu",
+        "blocking_required": false
+      }
+    },
+    {
+      "id": "V17",
+      "input": {
+        "text": "Push spam too frequent—turn it off."
+      },
+      "gold": {
+        "tag_id": "TAG-push-spam",
+        "tag_domain": "app",
+        "sentiment": "neg",
+        "blocking_required": false
+      }
+    },
+    {
+      "id": "V18",
+      "input": {
+        "text": "Non-exclusive store still selling other brands."
+      },
+      "gold": {
+        "tag_id": "TAG-non-exclusive-display",
+        "tag_domain": "channel",
+        "sentiment": "neg",
+        "blocking_required": false
+      }
+    },
+    {
+      "id": "V19",
+      "input": {
+        "text": "VI violation posters messy; bad brand image."
+      },
+      "gold": {
+        "tag_id": "TAG-vi-violation",
+        "tag_domain": "channel",
+        "sentiment": "neg",
+        "blocking_required": false
+      }
+    },
+    {
+      "id": "V20",
+      "input": {
+        "text": "Tier-1 overstock; inventory colors wrong."
+      },
+      "gold": {
+        "tag_id": "TAG-overstock-no-sales",
+        "tag_domain": "channel",
+        "sentiment": "neg",
+        "blocking_required": false
+      }
+    },
+    {
+      "id": "V21",
+      "input": {
+        "text": "Open complaint 7+ days; ignored repeatedly."
+      },
+      "gold": {
+        "tag_id": "TAG-open-complaint",
+        "tag_domain": "risk",
+        "sentiment": "neg",
+        "blocking_required": true,
+        "blocking_any_of": [
+          "TAG-open-complaint"
+        ]
+      }
+    },
+    {
+      "id": "V22",
+      "input": {
+        "text": "Media exposure and police report; also called 12315."
+      },
+      "gold": {
+        "tag_id": "TAG-reputation-risk",
+        "tag_domain": "risk",
+        "sentiment": "neg",
+        "blocking_required": true,
+        "blocking_any_of": [
+          "TAG-reputation-risk"
+        ]
+      }
+    },
+    {
+      "id": "V23",
+      "input": {
+        "text": "Winter range halved; drains too fast."
+      },
+      "gold": {
+        "tag_id": "TAG-short-range",
+        "tag_domain": "product",
+        "sentiment": "neg",
+        "blocking_required": false
+      }
+    },
+    {
+      "id": "V24",
+      "input": {
+        "text": "No power uphill with passenger."
+      },
+      "gold": {
+        "tag_id": "TAG-weak-power",
+        "tag_domain": "product",
+        "sentiment": "neg",
+        "blocking_required": false
+      }
+    },
+    {
+      "id": "V25",
+      "input": {
+        "text": "Obvious squeak over speed bumps."
+      },
+      "gold": {
+        "tag_id": "TAG-noise",
+        "tag_domain": "product",
+        "sentiment": "neg",
+        "blocking_required": false
+      }
+    },
+    {
+      "id": "V26",
+      "input": {
+        "text": "Longer braking distance in rain; cannot stop."
+      },
+      "gold": {
+        "tag_id": "TAG-brake",
+        "tag_domain": "product",
+        "sentiment": "neg",
+        "blocking_required": false
+      }
+    },
+    {
+      "id": "V27",
+      "input": {
+        "text": "Even OEM charger charges slow."
+      },
+      "gold": {
+        "tag_id": "TAG-slow-charging",
+        "tag_domain": "product",
+        "sentiment": "neg",
+        "blocking_required": false
+      }
+    },
+    {
+      "id": "V28",
+      "input": {
+        "text": "Controller indicator flashing then stall."
+      },
+      "gold": {
+        "tag_id": "TAG-controller-fault",
+        "tag_domain": "product",
+        "sentiment": "neg",
+        "blocking_required": false
+      }
+    },
+    {
+      "id": "V29",
+      "input": {
+        "text": "Battery bulging; temperature rising fast."
+      },
+      "gold": {
+        "tag_id": "TAG-battery-swelling",
+        "tag_domain": "product",
+        "sentiment": "neg",
+        "blocking_required": false
+      }
+    },
+    {
+      "id": "V30",
+      "input": {
+        "text": "Dashboard blackout; key turned, no display."
+      },
+      "gold": {
+        "tag_id": "TAG-dashboard-blackout",
+        "tag_domain": "product",
+        "sentiment": "neg",
+        "blocking_required": false
+      }
+    },
+    {
+      "id": "V31",
+      "input": {
+        "text": "Store says warranty expired, denied—I disagree."
+      },
+      "gold": {
+        "tag_id": "TAG-warranty-dispute",
+        "tag_domain": "service",
+        "sentiment": "neg",
+        "blocking_required": false
+      }
+    },
+    {
+      "id": "V32",
+      "input": {
+        "text": "Tech said onsite today; no-show."
+      },
+      "gold": {
+        "tag_id": "TAG-slow-onsite-service",
+        "tag_domain": "service",
+        "sentiment": "neg",
+        "blocking_required": false
+      }
+    },
+    {
+      "id": "V33",
+      "input": {
+        "text": "Hotline agent impatient and blaming user."
+      },
+      "gold": {
+        "tag_id": "TAG-poor-attitude",
+        "tag_domain": "service",
+        "sentiment": "neg",
+        "blocking_required": false
+      }
+    },
+    {
+      "id": "V34",
+      "input": {
+        "text": "Brake pads out of stock; store says wait."
+      },
+      "gold": {
+        "tag_id": "TAG-parts-stockout",
+        "tag_domain": "service",
+        "sentiment": "neu",
+        "blocking_required": false
+      }
+    },
+    {
+      "id": "V35",
+      "input": {
+        "text": "New vehicle App pairing failed three times."
+      },
+      "gold": {
+        "tag_id": "TAG-pairing-failure",
+        "tag_domain": "app",
+        "sentiment": "neg",
+        "blocking_required": false
+      }
+    },
+    {
+      "id": "V36",
+      "input": {
+        "text": "Ride track location drifted across the river."
+      },
+      "gold": {
+        "tag_id": "TAG-gps-drift",
+        "tag_domain": "app",
+        "sentiment": "neg",
+        "blocking_required": false
+      }
+    },
+    {
+      "id": "V37",
+      "input": {
+        "text": "Connectivity expired; cannot find renewal entry."
+      },
+      "gold": {
+        "tag_id": "TAG-renewal-entry-hard-to-find",
+        "tag_domain": "app",
+        "sentiment": "neu",
+        "blocking_required": false
+      }
+    },
+    {
+      "id": "V38",
+      "input": {
+        "text": "Campaign push spam—push harassment."
+      },
+      "gold": {
+        "tag_id": "TAG-push-spam",
+        "tag_domain": "app",
+        "sentiment": "neg",
+        "blocking_required": false
+      }
+    },
+    {
+      "id": "V39",
+      "input": {
+        "text": "Competitor bikes in exclusive store—non-exclusive."
+      },
+      "gold": {
+        "tag_id": "TAG-non-exclusive-display",
+        "tag_domain": "channel",
+        "sentiment": "neg",
+        "blocking_required": false
+      }
+    },
+    {
+      "id": "V40",
+      "input": {
+        "text": "Lightbox ad colors wrong; VI violation."
+      },
+      "gold": {
+        "tag_id": "TAG-vi-violation",
+        "tag_domain": "channel",
+        "sentiment": "neg",
+        "blocking_required": false
+      }
+    },
+    {
+      "id": "V41",
+      "input": {
+        "text": "Tier-1 overstocked; inventory not moving."
+      },
+      "gold": {
+        "tag_id": "TAG-overstock-no-sales",
+        "tag_domain": "channel",
+        "sentiment": "neg",
+        "blocking_required": false
+      }
+    },
+    {
+      "id": "V42",
+      "input": {
+        "text": "Charging port smoking; nearly self-ignited."
+      },
+      "gold": {
+        "tag_id": "TAG-safety-hazard",
+        "tag_id_accept": [
+          "TAG-safety-hazard",
+          "TAG-slow-charging"
+        ],
+        "tag_domain": "risk",
+        "tag_domain_accept": [
+          "risk",
+          "product"
+        ],
+        "sentiment": "neg",
+        "blocking_required": true,
+        "blocking_any_of": [
+          "TAG-safety-hazard"
+        ]
+      }
+    },
+    {
+      "id": "V43",
+      "input": {
+        "text": "Planning police report and media exposure."
+      },
+      "gold": {
+        "tag_id": "TAG-reputation-risk",
+        "tag_domain": "risk",
+        "sentiment": "neg",
+        "blocking_required": true,
+        "blocking_any_of": [
+          "TAG-reputation-risk"
+        ]
+      }
+    },
+    {
+      "id": "V44",
+      "input": {
+        "text": "Complaint open 7+ days; still unhandled."
+      },
+      "gold": {
+        "tag_id": "TAG-open-complaint",
+        "tag_domain": "risk",
+        "sentiment": "neg",
+        "blocking_required": true,
+        "blocking_any_of": [
+          "TAG-open-complaint"
+        ]
+      }
+    },
+    {
+      "id": "V45",
+      "input": {
+        "text": "Short range plus warranty dispute; calling 12315 again.",
+        "customer_id": "CUS-10666"
+      },
+      "gold": {
+        "tag_id": "TAG-reputation-risk",
+        "tag_id_accept": [
+          "TAG-reputation-risk",
+          "TAG-warranty-dispute",
+          "TAG-short-range"
+        ],
+        "tag_domain": "risk",
+        "tag_domain_accept": [
+          "risk",
+          "service",
+          "product"
+        ],
+        "sentiment": "neg",
+        "blocking_required": true,
+        "blocking_any_of": [
+          "TAG-reputation-risk",
+          "TAG-open-complaint"
+        ]
+      }
+    },
+    {
+      "id": "V46",
+      "input": {
+        "text": "Overall satisfied; how often for parts maintenance?"
+      },
+      "gold": {
+        "tag_id": "TAG-parts-stockout",
+        "tag_id_accept": [
+          "TAG-parts-stockout",
+          "TAG-warranty-dispute",
+          "TAG-slow-onsite-service"
+        ],
+        "tag_domain": "service",
+        "tag_domain_accept": [
+          "service",
+          "product"
+        ],
+        "sentiment": "pos",
+        "blocking_required": false
+      }
+    },
+    {
+      "id": "V47",
+      "input": {
+        "text": "Motor noise with speed limit; weak power."
+      },
+      "gold": {
+        "tag_id": "TAG-noise",
+        "tag_id_accept": [
+          "TAG-noise",
+          "TAG-weak-power"
+        ],
+        "tag_domain": "product",
+        "sentiment": "neg",
+        "blocking_required": false
+      }
+    },
+    {
+      "id": "V48",
+      "input": {
+        "text": "Electric leak shock; safety hazard."
+      },
+      "gold": {
+        "tag_id": "TAG-safety-hazard",
+        "tag_domain": "risk",
+        "sentiment": "neg",
+        "blocking_required": true,
+        "blocking_any_of": [
+          "TAG-safety-hazard"
+        ]
+      }
+    },
+    {
+      "id": "V49",
+      "input": {
+        "text": "Multiple open complaints; store attitude poor."
+      },
+      "gold": {
+        "tag_id": "TAG-open-complaint",
+        "tag_id_accept": [
+          "TAG-open-complaint",
+          "TAG-poor-attitude"
+        ],
+        "tag_domain": "risk",
+        "tag_domain_accept": [
+          "risk",
+          "service"
+        ],
+        "sentiment": "neg",
+        "blocking_required": true,
+        "blocking_any_of": [
+          "TAG-open-complaint"
+        ]
+      }
+    },
+    {
+      "id": "V50",
+      "input": {
+        "text": "App works well; renewal entry clear."
+      },
+      "gold": {
+        "tag_id": "TAG-renewal-entry-hard-to-find",
+        "tag_domain": "app",
+        "sentiment": "pos",
+        "blocking_required": false
+      }
+    }
+  ],
+  "meta": {
+    "expanded_to": 50,
+    "note": "Expanded: full tag coverage + blocking + positive samples"
+  }
+}

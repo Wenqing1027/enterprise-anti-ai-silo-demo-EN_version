@@ -1,0 +1,112 @@
+{
+  "brand": "Qingshu Mobility",
+  "documents": [
+    {
+      "kb_domain": "repair",
+      "kb_doc_id": "repair__range-anomaly-troubleshooting",
+      "path": "knowledge/repair/range-anomaly-troubleshooting.md",
+      "title": "Range Anomaly Troubleshooting",
+      "chars": 872
+    },
+    {
+      "kb_domain": "repair",
+      "kb_doc_id": "repair__motor-noise-and-speed-limit",
+      "path": "knowledge/repair/motor-noise-and-speed-limit.md",
+      "title": "Motor Noise and Speed Limit",
+      "chars": 375
+    },
+    {
+      "kb_domain": "repair",
+      "kb_doc_id": "repair__app-pairing-failure",
+      "path": "knowledge/repair/app-pairing-failure.md",
+      "title": "App Pairing Failure",
+      "chars": 315
+    },
+    {
+      "kb_domain": "repair",
+      "kb_doc_id": "repair__brake-noise-and-pads",
+      "path": "knowledge/repair/brake-noise-and-pads.md",
+      "title": "Brake Noise and Pads",
+      "chars": 222
+    },
+    {
+      "kb_domain": "repair",
+      "kb_doc_id": "repair__charging-port-and-charger-compatibility",
+      "path": "knowledge/repair/charging-port-and-charger-compatibility.md",
+      "title": "Charging Port and Charger Compatibility",
+      "chars": 214
+    },
+    {
+      "kb_domain": "policy",
+      "kb_doc_id": "policy__warranty-and-battery-policy",
+      "path": "knowledge/policy/warranty-and-battery-policy.md",
+      "title": "Warranty and Battery Policy",
+      "chars": 343
+    },
+    {
+      "kb_domain": "policy",
+      "kb_doc_id": "policy__2026Q3-pickup-rebate",
+      "path": "knowledge/policy/2026Q3-pickup-rebate.md",
+      "title": "2026Q3 Pickup Rebate",
+      "chars": 444
+    },
+    {
+      "kb_domain": "policy",
+      "kb_doc_id": "policy__renewal-outreach-red-lines",
+      "path": "knowledge/policy/renewal-outreach-red-lines.md",
+      "title": "Renewal Outreach Red Lines",
+      "chars": 325
+    },
+    {
+      "kb_domain": "policy",
+      "kb_doc_id": "policy__store-vi-and-non-exclusive-red-lines",
+      "path": "knowledge/policy/store-vi-and-non-exclusive-red-lines.md",
+      "title": "Store VI and Non-Exclusive Red Lines",
+      "chars": 203
+    },
+    {
+      "kb_domain": "hr",
+      "kb_doc_id": "hr__employee-policy-qa-summary",
+      "path": "knowledge/hr/employee-policy-qa-summary.md",
+      "title": "Employee Policy Q&A Summary",
+      "chars": 205
+    },
+    {
+      "kb_domain": "hr",
+      "kb_doc_id": "hr__agent-qa-sop-highlights",
+      "path": "knowledge/hr/agent-qa-sop-highlights.md",
+      "title": "Agent QA SOP Highlights",
+      "chars": 164
+    },
+    {
+      "kb_domain": "product",
+      "kb_doc_id": "product__model-selling-points-and-competitor-talking-points",
+      "path": "knowledge/product/model-selling-points-and-competitor-talking-points.md",
+      "title": "Model Selling Points and Competitor Talking Points",
+      "chars": 258
+    },
+    {
+      "kb_domain": "product",
+      "kb_doc_id": "product__ota-release-notes-v2",
+      "path": "knowledge/product/ota-release-notes-v2.md",
+      "title": "OTA Release Notes v2",
+      "chars": 240
+    },
+    {
+      "kb_domain": "channel",
+      "kb_doc_id": "channel__tier1-pickup-and-color-stockout-scripts",
+      "path": "knowledge/channel/tier1-pickup-and-color-stockout-scripts.md",
+      "title": "Tier-1 Pickup and Color Stockout Scripts",
+      "chars": 178
+    },
+    {
+      "kb_domain": "channel",
+      "kb_doc_id": "channel__store-opening-checklist",
+      "path": "knowledge/channel/store-opening-checklist.md",
+      "title": "Store Opening Checklist",
+      "chars": 128
+    }
+  ],
+  "total_docs": 15,
+  "total_chars": 4486
+}

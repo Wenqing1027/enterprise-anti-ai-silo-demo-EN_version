@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Qingshu Mobility · IT Ops Dashboard</title>
+    <link rel="stylesheet" href="/static/styles.css?v=20260808-ops-layout11" />
+  </head>
+  <body class="page-ops">
+    <nav class="mode-switch mode-switch-vertical" aria-label="View switcher">
+      <a href="/business">Business Lead</a>
+      <a class="active" href="/ops" aria-current="page">IT Ops</a>
+      <a href="/logic">Logic Walkthrough</a>
+    </nav>
+    <div class="shell shell-wide">
+      <header class="topbar ops-topbar">
+        <div class="topbar-brand">
+          <div class="eyebrow">Qingshu Mobility · Ops Dashboard</div>
+          <h1>IT Ops Dashboard</h1>
+        </div>
+        <div class="topbar-right">
+          <div class="topbar-meta ops-meta">
+            Health score · golden signals · event correlation · call chain<br />
+            <a href="/docs" target="_blank" rel="noreferrer">OpenAPI</a>
+          </div>
+        </div>
+      </header>
+
+      <div id="ops-banner" class="ops-banner">
+        Platform highlight: observe runtime split by <strong>4 control loops</strong> (not business Skill trial runs).
+        Suggested integration order: Act → Extract → Retrieve → Plan; after Plan passes, run
+        <a href="/business">Story2 two-step demo</a> on the business wall.
+        Global dashboard + per-loop subpages; highlight adjacent <strong>events/changes</strong> when metrics look off.
+      </div>
+
+      <div class="ops-layout">
+        <aside class="biz-side">
+          <div class="side-block">
+            <div class="side-label">Scope</div>
+            <div id="ops-nav" class="side-list"></div>
+          </div>
+          <div class="side-block">
+            <div class="side-label">Shortcuts</div>
+            <button type="button" class="side-item" id="btn-refresh">Refresh</button>
+            <a class="side-item" href="/business">Business workbench →</a>
+          </div>
+        </aside>
+        <section class="biz-main">
+          <div id="ops-panel" class="ops-dash">
+            <p class="blurb">Loading…</p>
+          </div>
+        </section>
+      </div>
+    </div>
+    <script src="/static/ops.js?v=20260808-ops-layout11"></script>
+  </body>
+</html>

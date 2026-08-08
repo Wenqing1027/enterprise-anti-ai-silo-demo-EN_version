@@ -1,0 +1,554 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Qingshu Mobility · Part 1 · Company architecture</title>
+    <link rel="stylesheet" href="/static/styles.css?v=20260808-logic4" />
+    <link rel="stylesheet" href="/static/logic.css?v=20260808-logic4" />
+  </head>
+  <body class="page-logic">
+    <nav class="mode-switch" aria-label="View switcher">
+      <a href="/business">Business Lead</a>
+      <a href="/ops">IT Ops</a>
+      <a class="active" href="/logic" aria-current="page">Logic Walkthrough</a>
+    </nav>
+    <div class="shell shell-wide shell-logic">
+
+      <header class="topbar">
+        <div class="topbar-brand">
+          <div class="eyebrow">Qingshu Mobility</div>
+          <h1>Part 1 · Company architecture</h1>
+        </div>
+        <div class="topbar-right">
+          <div class="topbar-meta">Dept lines · business lines · planned features vs KPI<br />Strategy: efficiency and business growth</div>
+        </div>
+      </header>
+      <nav class="logic-subnav" aria-label="Logic subpages">
+        <a href="/logic">Overview</a>
+        <a class="active" href="/logic/architecture">Part 1 · Company architecture</a>
+        <a href="/logic/solution">Part 2 · AI solution design</a>
+        <a href="/logic/risk">Part 3 · Risk controls</a>
+      </nav>
+      <div class="logic-hero">
+        <p class="logic-lead">
+          Under the five-year strategy to introduce AI and transform architecture and product lines: first use<strong>dept nodes + colored business lines</strong>to see collaboration, 
+          then expand outputs and AI features along four lines, align dept KPIs to the feature catalog.
+        </p>
+      </div>
+
+      <section class="logic-section">
+        <h2>Dept flow (nodes = departments · edges = business lines)</h2>
+        <p class="sec-note">Planned total <strong>38</strong> features. Default shows line A; click dots to switch.</p>
+        
+        <div class="dept-flow-wrap" id="dept-flow">
+          <div class="line-dot-bar" role="tablist" aria-label="Switch business line edges">
+            <button type="button" class="line-dot active" data-line="a" aria-pressed="true">
+              <i class="dot a"></i><span>Line A · Mall / channel sales</span>
+            </button>
+            <button type="button" class="line-dot" data-line="b" aria-pressed="false">
+              <i class="dot b"></i><span>Line B · App renewal</span>
+            </button>
+            <button type="button" class="line-dot" data-line="c" aria-pressed="false">
+              <i class="dot c"></i><span>Line C · After-sales service</span>
+            </button>
+            <button type="button" class="line-dot" data-line="d" aria-pressed="false">
+              <i class="dot d"></i><span>Line D · Manufacturing</span>
+            </button>
+            <button type="button" class="line-dot line-dot-all" data-line="all" aria-pressed="false">
+              <i class="dot all"></i><span>All (dimmed)</span>
+            </button>
+          </div>
+          <svg class="dept-flow-svg" viewBox="0 0 1100 460" role="img" aria-label="Department business line flow chart">
+            <path class="flow-edge line-a" data-line="a" d="M90,50 Q191.6,22.0 310,50" fill="none"/><path class="flow-edge line-a" data-line="a" d="M310,50 Q411.6,22.0 530,50" fill="none"/><path class="flow-edge line-a" data-line="a" d="M530,50 Q631.6,22.0 750,50" fill="none"/><path class="flow-edge line-a" data-line="a" d="M750,50 Q851.6,22.0 970,50" fill="none"/><path class="flow-edge line-a" data-line="a" d="M310,50 Q526.6,187.0 760,380" fill="none"/><path class="flow-edge line-a" data-line="a" d="M530,50 Q636.6,187.0 760,380" fill="none"/><path class="flow-edge line-b" data-line="b" d="M200,210 Q477.6,287.0 760,380" fill="none"/><path class="flow-edge line-b" data-line="b" d="M420,210 Q587.6,287.0 760,380" fill="none"/><path class="flow-edge line-b" data-line="b" d="M760,380 Q697.6,287.0 640,210" fill="none"/><path class="flow-edge line-b" data-line="b" d="M640,210 Q417.6,202.0 200,210" fill="none"/><path class="flow-edge line-c" data-line="c" d="M200,210 Q313.6,222.0 420,210" fill="none"/><path class="flow-edge line-c" data-line="c" d="M200,210 Q533.6,222.0 860,210" fill="none"/><path class="flow-edge line-c" data-line="c" d="M860,210 Q813.6,307.0 760,380" fill="none"/><path class="flow-edge line-d" data-line="d" d="M200,380 Q333.4,408.0 450,380" fill="none"/><path class="flow-edge line-d" data-line="d" d="M450,380 Q718.4,243.0 970,50" fill="none"/><path class="flow-edge line-d" data-line="d" d="M450,380 Q613.4,408.0 760,380" fill="none"/><path class="flow-edge line-d" data-line="d" d="M200,380 Q488.4,408.0 760,380" fill="none"/>
+            <g class="flow-node" data-lines="a" transform="translate(90,50)">
+  <rect x="-74" y="-30" width="148" height="60" rx="10"/>
+  <text class="flow-node-title" y="-2" text-anchor="middle">Four Regional Zones</text>
+  <text class="flow-node-meta" y="18" text-anchor="middle">2 features</text>
+</g><g class="flow-node" data-lines="a" transform="translate(310,50)">
+  <rect x="-74" y="-30" width="148" height="60" rx="10"/>
+  <text class="flow-node-title" y="-2" text-anchor="middle">Channel Office</text>
+  <text class="flow-node-meta" y="18" text-anchor="middle">2 features</text>
+</g><g class="flow-node" data-lines="a" transform="translate(530,50)">
+  <rect x="-74" y="-30" width="148" height="60" rx="10"/>
+  <text class="flow-node-title" y="-2" text-anchor="middle">Ops Management · Orders/Policy</text>
+  <text class="flow-node-meta" y="18" text-anchor="middle">5 features</text>
+</g><g class="flow-node" data-lines="a" transform="translate(750,50)">
+  <rect x="-74" y="-30" width="148" height="60" rx="10"/>
+  <text class="flow-node-title" y="-2" text-anchor="middle">New Retail</text>
+  <text class="flow-node-meta" y="18" text-anchor="middle">2 features</text>
+</g><g class="flow-node" data-lines="ad" transform="translate(970,50)">
+  <rect x="-74" y="-30" width="148" height="60" rx="10"/>
+  <text class="flow-node-title" y="-2" text-anchor="middle">Data Research Institute</text>
+  <text class="flow-node-meta" y="18" text-anchor="middle">2 features</text>
+</g><g class="flow-node" data-lines="bc" transform="translate(200,210)">
+  <rect x="-74" y="-30" width="148" height="60" rx="10"/>
+  <text class="flow-node-title" y="-2" text-anchor="middle">Service Division</text>
+  <text class="flow-node-meta" y="18" text-anchor="middle">7 features</text>
+</g><g class="flow-node" data-lines="bc" transform="translate(420,210)">
+  <rect x="-74" y="-30" width="148" height="60" rx="10"/>
+  <text class="flow-node-title" y="-2" text-anchor="middle">User Research/VoC</text>
+  <text class="flow-node-meta" y="18" text-anchor="middle">1 features</text>
+</g><g class="flow-node" data-lines="b" transform="translate(640,210)">
+  <rect x="-74" y="-30" width="148" height="60" rx="10"/>
+  <text class="flow-node-title" y="-2" text-anchor="middle">User Ops/App</text>
+  <text class="flow-node-meta" y="18" text-anchor="middle">5 features</text>
+</g><g class="flow-node" data-lines="c" transform="translate(860,210)">
+  <rect x="-74" y="-30" width="148" height="60" rx="10"/>
+  <text class="flow-node-title" y="-2" text-anchor="middle">HR Management Platform</text>
+  <text class="flow-node-meta" y="18" text-anchor="middle">1 features</text>
+</g><g class="flow-node" data-lines="d" transform="translate(200,380)">
+  <rect x="-74" y="-30" width="148" height="60" rx="10"/>
+  <text class="flow-node-title" y="-2" text-anchor="middle">Procurement Platform</text>
+  <text class="flow-node-meta" y="18" text-anchor="middle">3 features</text>
+</g><g class="flow-node" data-lines="d" transform="translate(450,380)">
+  <rect x="-74" y="-30" width="148" height="60" rx="10"/>
+  <text class="flow-node-title" y="-2" text-anchor="middle">IoT/Vehicle Head Unit</text>
+  <text class="flow-node-meta" y="18" text-anchor="middle">2 features</text>
+</g><g class="flow-node" data-lines="abcd" transform="translate(760,380)">
+  <rect x="-74" y="-30" width="148" height="60" rx="10"/>
+  <text class="flow-node-title" y="-2" text-anchor="middle">Cross-department Shared Layer</text>
+  <text class="flow-node-meta" y="18" text-anchor="middle">6 features</text>
+</g>
+          </svg>
+          <p class="card-note" style="margin:8px 0 0">
+            Click a dot to show one business line; nodes are departments; shared layer handles tag/output read-write.
+          </p>
+        </div>
+      </section>
+
+      <section class="logic-section">
+        <h2>Four business lines · flow and dept AI features</h2>
+        <p class="sec-note">Green text = AI features for each dept (business language).</p>
+        <div class="logic-legend">
+          <span>Step = business stage</span>
+          <span class="lg-io">Brown = input / output</span>
+          <span class="lg-ai">Green = AI feature</span>
+        </div>
+        <div class="flow-grid">
+          <article class="flow-card">
+            <h3>Line A · Mall / channel sales</h3>
+            <p class="flow-meta">War zone → channel → order policy → new retail / data lab (cyan edges in diagram)</p>
+            <ol class="flow-steps">
+              <li class="flow-step"><div class="n">1</div><div class="body"><strong>Store opening and pickup push</strong><div class="io">Input: war-zone targets, store records · Output: opening progress, pickup plan</div></div></li>
+              <li class="flow-step ai-hot"><div class="n">2</div><div class="body"><strong>Channel ops and anomaly detection</strong><div class="io">Input: sales, inventory, inspections · Output: health view, anomaly list</div><div class="ai-need">AI: dealer health lookup, anomaly alerts, channel analytics Q&A</div></div></li>
+              <li class="flow-step ai-hot"><div class="n">3</div><div class="body"><strong>Policy Q&A and order review assist</strong><div class="io">Input: policy docs, orders · Output: guidance, review suggestions</div><div class="ai-need">AI: policy Q&A, sales policy structuring, ticket review assist, tier gate</div></div></li>
+              <li class="flow-step"><div class="n">4</div><div class="body"><strong>Ops results feedback</strong><div class="io">Input: war-zone rollup · Output: review inputs</div></div></li>
+            </ol>
+          </article>
+          <article class="flow-card">
+            <h3>Line B · App renewal</h3>
+            <p class="flow-meta">Service / VoC → shared layer → user ops (amber edges in diagram)</p>
+            <ol class="flow-steps">
+              <li class="flow-step"><div class="n">1</div><div class="body"><strong>Renewal customer segmentation</strong><div class="io">Input: expiry, activity · Output: segmented lists</div></div></li>
+              <li class="flow-step ai-hot"><div class="n">2</div><div class="body"><strong>Pre-outreach compliance gate</strong><div class="io">Input: customer, vehicle, shared complaint info · Output: allow or defer outreach</div><div class="ai-need">AI: proactive outreach complaint gate; renewal/complaint score gate</div></div></li>
+              <li class="flow-step ai-hot"><div class="n">3</div><div class="body"><strong>Organize outreach tasks</strong><div class="io">Input: allowed list · Output: dial or push tasks</div><div class="ai-need">AI: renewal outbound task org (phase 2); unified smart service lookup</div></div></li>
+              <li class="flow-step"><div class="n">4</div><div class="body"><strong>Renewal results feedback</strong><div class="io">Input: win/decline · Output: funnel review</div></div></li>
+            </ol>
+          </article>
+          <article class="flow-card">
+            <h3>Line C · After-sales service</h3>
+            <p class="flow-meta">Service ↔ VoC / HR ↔ shared layer (green edges in diagram)</p>
+            <ol class="flow-steps">
+              <li class="flow-step ai-hot"><div class="n">1</div><div class="body"><strong>Intake and knowledge answers</strong><div class="io">Input: user question · Output: citable answer</div><div class="ai-need">AI: repair KB Q&A, smart assist answer, App-side Q&A</div></div></li>
+              <li class="flow-step ai-hot"><div class="n">2</div><div class="body"><strong>Ticket structuring and fill</strong><div class="io">Input: conversation text · Output: ticket draft, sentiment and theme</div><div class="ai-need">AI: smart fill, ticket structuring, repair multi-step lookup</div></div></li>
+              <li class="flow-step ai-hot"><div class="n">3</div><div class="body"><strong>Complaint and theme persistence</strong><div class="io">Input: ticket draft, VoC · Output: shared info for other depts</div><div class="ai-need">AI: VoC structuring, fault theme clustering, shared write</div></div></li>
+              <li class="flow-step ai-hot"><div class="n">4</div><div class="body"><strong>Closure and QA review</strong><div class="io">Input: service materials · Output: QA conclusion</div><div class="ai-need">AI: smart QA (phase 3); HR policy Q&A for coaching</div></div></li>
+            </ol>
+          </article>
+          <article class="flow-card">
+            <h3>Line D · Manufacturing</h3>
+            <p class="flow-meta">Procurement → IoT → data lab / shared layer (purple edges in diagram)</p>
+            <ol class="flow-steps">
+              <li class="flow-step ai-hot"><div class="n">1</div><div class="body"><strong>Production plan and PO follow-up</strong><div class="io">Input: orders and due dates · Output: follow-up status, chase reminders</div><div class="ai-need">AI: procurement follow-up, smart chase, overdue reminders</div></div></li>
+              <li class="flow-step ai-hot"><div class="n">2</div><div class="body"><strong>Line QC and traceability</strong><div class="io">Input: bench/image data · Output: pass/fail, issue log</div><div class="ai-need">AI: line/QC vision inspection (phase 2)</div></div></li>
+              <li class="flow-step ai-hot"><div class="n">3</div><div class="body"><strong>Vehicle condition proactive service</strong><div class="io">Input: telemetry · Output: service reminders</div><div class="ai-need">AI: vehicle condition proactive service (phase 3)</div></div></li>
+              <li class="flow-step ai-hot"><div class="n">4</div><div class="body"><strong>Ops and quality analytics Q&A</strong><div class="io">Input: metric semantics · Output: analytics answers</div><div class="ai-need">AI: smart analytics Q&A, semantic layer Q&A (phase 2)</div></div></li>
+            </ol>
+          </article>
+        </div>
+      </section>
+
+      <section class="logic-section">
+        <h2>Five-year strategy foundation</h2>
+        <div class="strategy-strip">
+          <div class="strategy-cell"><h4>Strategy direction</h4><p>Introduce AI to transform internal architecture and product lines; build reusable, governable enterprise capabilities.</p></div>
+          <div class="strategy-cell"><h4>Adoption mode</h4><p><strong>efficiency optimization and business growth</strong>：Shorter handling time, better conversion and experience; not framed as headcount reduction.</p></div>
+          <div class="strategy-cell"><h4>Alignment approach</h4><p>Digital foundation + dept planned features + dept KPIs serve company strategy.</p></div>
+        </div>
+      </section>
+
+      <section class="logic-section">
+        <h2>Dept feature needs (aligned to catalog · 38 features)</h2>
+        <p class="sec-note">Merged dept cells; one row per planned feature.</p>
+        <div class="kpi-table-wrap">
+          <table class="kpi-table">
+            <thead>
+              <tr>
+                <th>Department</th>
+                <th>Planned feature</th>
+                <th>Current pain</th>
+                <th>Future capability</th>
+                <th>Phase</th>
+                <th>Dept KPI focus</th>
+                <th>Value measurement</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td class="dept-merge" rowspan="7">Service Division</td>
+                <td><code>F-SVC-001</code> Smart Ticket Fill</td>
+                <td>Slow fill, scattered knowledge, complaints hard to reuse downstream</td>
+                <td>Smart Ticket Fill: Generate ticket draft from conversation and write to Shared output</td>
+                <td>Phase 1 · trial ready</td>
+                <td>First-contact resolution · fill time · complaint closure SLA</td>
+                <td>Lower handle time; complaint info reused by renewal etc.</td>
+              </tr>
+              <tr>
+                
+                <td><code>F-SVC-001-EXT</code> Smart Ticket Fill · Extraction</td>
+                <td>Slow fill, scattered knowledge, complaints hard to reuse downstream</td>
+                <td>Smart Ticket Fill · Extraction: Pure structured extraction of ticket draft and write to Shared output</td>
+                <td>Phase 1 · trial ready</td>
+                <td>First-contact resolution · fill time · complaint closure SLA</td>
+                <td>Lower handle time; complaint info reused by renewal etc.</td>
+              </tr>
+              <tr>
+                
+                <td><code>F-SVC-002</code> Smart Assist Reply · RAG</td>
+                <td>Slow fill, scattered knowledge, complaints hard to reuse downstream</td>
+                <td>Smart Assist Reply · RAG: Agent-side repair knowledge Q&amp;A with reference citations</td>
+                <td>Phase 1 · trial ready</td>
+                <td>First-contact resolution · fill time · complaint closure SLA</td>
+                <td>Lower handle time; complaint info reused by renewal etc.</td>
+              </tr>
+              <tr>
+                
+                <td><code>F-SVC-004</code> Repair KB Q&amp;A</td>
+                <td>Slow fill, scattered knowledge, complaints hard to reuse downstream</td>
+                <td>Repair KB Q&amp;A: Self-service / assisted repair Q&amp;A</td>
+                <td>Phase 1 · trial ready</td>
+                <td>First-contact resolution · fill time · complaint closure SLA</td>
+                <td>Lower handle time; complaint info reused by renewal etc.</td>
+              </tr>
+              <tr>
+                
+                <td><code>F-SVC-005</code> VoC Fault Clustering</td>
+                <td>Slow fill, scattered knowledge, complaints hard to reuse downstream</td>
+                <td>VoC Fault Clustering: Cluster tickets for product / quality insights</td>
+                <td>Phase 2</td>
+                <td>First-contact resolution · fill time · complaint closure SLA</td>
+                <td>Lower handle time; complaint info reused by renewal etc.</td>
+              </tr>
+              <tr>
+                
+                <td><code>F-SVC-008</code> Smart QA (SOP)</td>
+                <td>Slow fill, scattered knowledge, complaints hard to reuse downstream</td>
+                <td>Smart QA (SOP): Call transcript → SOP compliance extraction</td>
+                <td>Phase 3</td>
+                <td>First-contact resolution · fill time · complaint closure SLA</td>
+                <td>Lower handle time; complaint info reused by renewal etc.</td>
+              </tr>
+              <tr>
+                
+                <td><code>F-SVC-003</code> Multi-step Repair Assist</td>
+                <td>Slow fill, scattered knowledge, complaints hard to reuse downstream</td>
+                <td>Multi-step Repair Assist: Look up vehicle / ticket / knowledge then give actionable reply</td>
+                <td>Phase 1 · trial ready</td>
+                <td>First-contact resolution · fill time · complaint closure SLA</td>
+                <td>Lower handle time; complaint info reused by renewal etc.</td>
+              </tr>
+              <tr>
+                <td class="dept-merge" rowspan="5">User Ops / App</td>
+                <td><code>F-UO-009</code> App Smart Q&amp;A MVP</td>
+                <td>Renewal outreach not linked to complaint risk</td>
+                <td>App Smart Q&amp;A MVP: In-app repair / usage Q&amp;A (reuses repair domain)</td>
+                <td>Phase 1 · trial ready</td>
+                <td>Renewal rate · inappropriate outreach count · gate accuracy</td>
+                <td>Inappropriate outbound near zero; allowed-list conversion measurable</td>
+              </tr>
+              <tr>
+                
+                <td><code>F-UO-001</code> Renewal AI Outreach Tasks</td>
+                <td>Renewal outreach not linked to complaint risk</td>
+                <td>Renewal AI Outreach Tasks: Look up renewal pool and intent, then organize outreach script</td>
+                <td>Phase 2</td>
+                <td>Renewal rate · inappropriate outreach count · gate accuracy</td>
+                <td>Inappropriate outbound near zero; allowed-list conversion measurable</td>
+              </tr>
+              <tr>
+                
+                <td><code>F-UO-017</code> Agent Proactive Outreach (Complaint Gate)</td>
+                <td>Renewal outreach not linked to complaint risk</td>
+                <td>Agent Proactive Outreach (Complaint Gate): Read shared complaint tags to decide outreach; give reason when blocked</td>
+                <td>Phase 1 · trial ready</td>
+                <td>Renewal rate · inappropriate outreach count · gate accuracy</td>
+                <td>Inappropriate outbound near zero; allowed-list conversion measurable</td>
+              </tr>
+              <tr>
+                
+                <td><code>F-UO-019</code> Unified Smart CS</td>
+                <td>Renewal outreach not linked to complaint risk</td>
+                <td>Unified Smart CS: App-side multi-step master-data lookup then answer</td>
+                <td>Phase 1 · trial ready</td>
+                <td>Renewal rate · inappropriate outreach count · gate accuracy</td>
+                <td>Inappropriate outbound near zero; allowed-list conversion measurable</td>
+              </tr>
+              <tr>
+                
+                <td><code>F-UO-RULE</code> Renewal / Complaint Score Gate</td>
+                <td>Renewal outreach not linked to complaint risk</td>
+                <td>Renewal / Complaint Score Gate: Rule + LLM score whether proactive outreach is allowed</td>
+                <td>Phase 2</td>
+                <td>Renewal rate · inappropriate outreach count · gate accuracy</td>
+                <td>Inappropriate outbound near zero; allowed-list conversion measurable</td>
+              </tr>
+              <tr>
+                <td class="dept-merge" rowspan="1">User Research / VoC</td>
+                <td><code>F-VOC-002</code> Customer Voice Triage</td>
+                <td>Voice of customer hard to structure and share cross-dept</td>
+                <td>Customer Voice Triage: Organize customer voice into business tags, sentiment, and risk alerts</td>
+                <td>Phase 1 · trial ready</td>
+                <td>Tag coverage · voice-to-usable-info latency</td>
+                <td>More voice reuse; shorter theme discovery cycle</td>
+              </tr>
+              <tr>
+                <td class="dept-merge" rowspan="2">Channel Office</td>
+                <td><code>F-OPS-012</code> Business Health / Alert Query</td>
+                <td>Ops data scattered; anomalies found late</td>
+                <td>Business Health / Alert Query: Query health index, alerts, inspection slices</td>
+                <td>Phase 1 · trial ready</td>
+                <td>Anomaly store coverage · self-serve ops analytics share</td>
+                <td>Earlier anomaly detection; less report assembly time</td>
+              </tr>
+              <tr>
+                
+                <td><code>F-CH-PLAN</code> Channel Dashboard Merge (Planning)</td>
+                <td>Ops data scattered; anomalies found late</td>
+                <td>Channel Dashboard Merge (Planning): Merge business queries and policy wording into dashboard recommendations</td>
+                <td>Phase 2</td>
+                <td>Anomaly store coverage · self-serve ops analytics share</td>
+                <td>Earlier anomaly detection; less report assembly time</td>
+              </tr>
+              <tr>
+                <td class="dept-merge" rowspan="5">Ops Management · Orders / Policy</td>
+                <td><code>F-POL-RAG</code> Policy Q&amp;A</td>
+                <td>Inconsistent policy guidance; review relies on experience</td>
+                <td>Policy Q&amp;A: Q&amp;A on warranty / rebate / renewal red-line policy text</td>
+                <td>Phase 1 · trial ready</td>
+                <td>Policy Q&amp;A turnaround · review consistency</td>
+                <td>Higher self-serve policy share; less review rework</td>
+              </tr>
+              <tr>
+                
+                <td><code>F-OPS-004</code> Sales Policy Parsing</td>
+                <td>Inconsistent policy guidance; review relies on experience</td>
+                <td>Sales Policy Parsing: Policy source text → rebate tier structure</td>
+                <td>Phase 2</td>
+                <td>Policy Q&amp;A turnaround · review consistency</td>
+                <td>Higher self-serve policy share; less review rework</td>
+              </tr>
+              <tr>
+                
+                <td><code>F-OPS-003</code> Smart Order Creation &amp; Review</td>
+                <td>Inconsistent policy guidance; review relies on experience</td>
+                <td>Smart Order Creation &amp; Review: Check inventory → policy → alternatives → status recommendation</td>
+                <td>Phase 2</td>
+                <td>Policy Q&amp;A turnaround · review consistency</td>
+                <td>Higher self-serve policy share; less review rework</td>
+              </tr>
+              <tr>
+                
+                <td><code>F-X-004</code> Agent Order Review (Cross-department Line)</td>
+                <td>Inconsistent policy guidance; review relies on experience</td>
+                <td>Agent Order Review (Cross-department Line): Multi-step reasoning on order / production / rebate recommendations</td>
+                <td>Phase 2</td>
+                <td>Policy Q&amp;A turnaround · review consistency</td>
+                <td>Higher self-serve policy share; less review rework</td>
+              </tr>
+              <tr>
+                
+                <td><code>F-OPS-RULE</code> Order Review Tier Gate</td>
+                <td>Inconsistent policy guidance; review relies on experience</td>
+                <td>Order Review Tier Gate: Rule-based rebate / inventory tier decision + LLM explanation</td>
+                <td>Phase 2</td>
+                <td>Policy Q&amp;A turnaround · review consistency</td>
+                <td>Higher self-serve policy share; less review rework</td>
+              </tr>
+              <tr>
+                <td class="dept-merge" rowspan="2">Four Regional Zones</td>
+                <td><code>F-WZ-001</code> Pickup / Offline Q&amp;A Assist</td>
+                <td>Frontline Q&amp;A and ticketing lack unified assist</td>
+                <td>Pickup / Offline Q&amp;A Assist: Store-side inventory + policy lookup with action checklist</td>
+                <td>Phase 2</td>
+                <td>Frontline response time · first-pass ticket rate</td>
+                <td>Shorter frontline wait</td>
+              </tr>
+              <tr>
+                
+                <td><code>F-WZ-002</code> Regional Order / Policy Tier Assist</td>
+                <td>Frontline Q&amp;A and ticketing lack unified assist</td>
+                <td>Regional Order / Policy Tier Assist: Regional order and policy AI assist</td>
+                <td>Phase 2</td>
+                <td>Frontline response time · first-pass ticket rate</td>
+                <td>Shorter frontline wait</td>
+              </tr>
+              <tr>
+                <td class="dept-merge" rowspan="2">New Retail</td>
+                <td><code>F-RET-001</code> Multi-platform CS Auto-reply</td>
+                <td>Repeated scripts and lookups across platforms</td>
+                <td>Multi-platform CS Auto-reply: Look up order / inventory / promotion then reply</td>
+                <td>Phase 2</td>
+                <td>Auto-reply share · human transfer rate</td>
+                <td>Less manual repeat replies</td>
+              </tr>
+              <tr>
+                
+                <td><code>F-RET-002</code> Online Platform Sales CS</td>
+                <td>Repeated scripts and lookups across platforms</td>
+                <td>Online Platform Sales CS: E-commerce platform sales inquiry AI handling</td>
+                <td>Phase 2</td>
+                <td>Auto-reply share · human transfer rate</td>
+                <td>Less manual repeat replies</td>
+              </tr>
+              <tr>
+                <td class="dept-merge" rowspan="3">Procurement Platform</td>
+                <td><code>F-PUR-001</code> Procurement Follow-up Bot</td>
+                <td>PO follow-up relies on manual chasing</td>
+                <td>Procurement Follow-up Bot: Overdue PO chase + logistics confirmation</td>
+                <td>Phase 2</td>
+                <td>Overdue PO handling time</td>
+                <td>Better follow-up timeliness</td>
+              </tr>
+              <tr>
+                
+                <td><code>F-PUR-003</code> Smart Follow-up</td>
+                <td>PO follow-up relies on manual chasing</td>
+                <td>Smart Follow-up: Purchase order follow-up automation</td>
+                <td>Phase 2</td>
+                <td>Overdue PO handling time</td>
+                <td>Better follow-up timeliness</td>
+              </tr>
+              <tr>
+                
+                <td><code>F-PUR-004</code> Procurement Chase Reminder</td>
+                <td>PO follow-up relies on manual chasing</td>
+                <td>Procurement Chase Reminder: Multi-step reasoning triggers procurement follow-up reminder</td>
+                <td>Phase 2</td>
+                <td>Overdue PO handling time</td>
+                <td>Better follow-up timeliness</td>
+              </tr>
+              <tr>
+                <td class="dept-merge" rowspan="2">IoT / Vehicle Head Unit</td>
+                <td><code>F-IOT-VISION</code> Production Line / QA Visual Inspection</td>
+                <td>QC and vehicle alerts rely on specialist experience</td>
+                <td>Production Line / QA Visual Inspection: Image understanding → defect tags for rule-merge alerts</td>
+                <td>Phase 2</td>
+                <td>First-pass QC rate · alert response time</td>
+                <td>Lower miss and downtime cost (phased measurement)</td>
+              </tr>
+              <tr>
+                
+                <td><code>F-IOT-003</code> Telemetry Proactive Service</td>
+                <td>QC and vehicle alerts rely on specialist experience</td>
+                <td>Telemetry Proactive Service: Look up alerts / mileage → recommend actions → write output</td>
+                <td>Phase 3</td>
+                <td>First-pass QC rate · alert response time</td>
+                <td>Lower miss and downtime cost (phased measurement)</td>
+              </tr>
+              <tr>
+                <td class="dept-merge" rowspan="2">Data Research Institute</td>
+                <td><code>F-DAT-003</code> Smart Data Query</td>
+                <td>High bar for analytics self-serve; metric disputes</td>
+                <td>Smart Data Query: Clarify metrics → query semantic layer → return numbers</td>
+                <td>Phase 2</td>
+                <td>Self-serve analytics rate · metric dispute count</td>
+                <td>Shorter data wait; unified metrics</td>
+              </tr>
+              <tr>
+                
+                <td><code>F-X-002</code> BI Semantic Layer + Smart Data Query (Shared)</td>
+                <td>High bar for analytics self-serve; metric disputes</td>
+                <td>BI Semantic Layer + Smart Data Query (Shared): Unified data query and auto-report foundation</td>
+                <td>Phase 2</td>
+                <td>Self-serve analytics rate · metric dispute count</td>
+                <td>Shorter data wait; unified metrics</td>
+              </tr>
+              <tr>
+                <td class="dept-merge" rowspan="1">HR Management Platform</td>
+                <td><code>F-HR-001</code> Employee AI Assistant · Policy Q&amp;A</td>
+                <td>Policy Q&amp;A consumes HR repeat answers</td>
+                <td>Employee AI Assistant · Policy Q&amp;A: HR policy / agent SOP RAG Q&amp;A</td>
+                <td>Phase 1 · trial ready</td>
+                <td>Self-serve policy answer share</td>
+                <td>Lower repeat inquiries</td>
+              </tr>
+              <tr>
+                <td class="dept-merge" rowspan="6">Cross-department Shared Layer</td>
+                <td><code>F-FIN-001</code> Smart Expense · Three-way Match Extraction</td>
+                <td>Cross-dept lacks unified read/write conventions</td>
+                <td>Smart Expense · Three-way Match Extraction: Extract fields from invoice / contract / goods receipt</td>
+                <td>Phase 3</td>
+                <td>Shared info consumption count · duplicate build items</td>
+                <td>Lower cross-dept integration cost; traceable troubleshooting</td>
+              </tr>
+              <tr>
+                
+                <td><code>F-X-CRM</code> Master Data Lookup</td>
+                <td>Cross-dept lacks unified read/write conventions</td>
+                <td>Master Data Lookup: Unified customer · vehicle · order · ticket ID lookup</td>
+                <td>Phase 1 · trial ready</td>
+                <td>Shared info consumption count · duplicate build items</td>
+                <td>Lower cross-dept integration cost; traceable troubleshooting</td>
+              </tr>
+              <tr>
+                
+                <td><code>F-X-WRITE</code> Shared Store Write</td>
+                <td>Cross-dept lacks unified read/write conventions</td>
+                <td>Shared Store Write: Write results to shared store for other capabilities to read</td>
+                <td>Phase 1 · trial ready</td>
+                <td>Shared info consumption count · duplicate build items</td>
+                <td>Lower cross-dept integration cost; traceable troubleshooting</td>
+              </tr>
+              <tr>
+                
+                <td><code>F-X-READ</code> Shared Tags / Output Read</td>
+                <td>Cross-dept lacks unified read/write conventions</td>
+                <td>Shared Tags / Output Read: Cross-Skill consumption; block incorrect outreach</td>
+                <td>Phase 2</td>
+                <td>Shared info consumption count · duplicate build items</td>
+                <td>Lower cross-dept integration cost; traceable troubleshooting</td>
+              </tr>
+              <tr>
+                
+                <td><code>F-X-CAP</code> Capability Catalog Search</td>
+                <td>Cross-dept lacks unified read/write conventions</td>
+                <td>Capability Catalog Search: Discover existing Skills; avoid duplicate Agent builds</td>
+                <td>Phase 2</td>
+                <td>Shared info consumption count · duplicate build items</td>
+                <td>Lower cross-dept integration cost; traceable troubleshooting</td>
+              </tr>
+              <tr>
+                
+                <td><code>F-X-CH</code> Channel Business Query (Shared Data Source)</td>
+                <td>Cross-dept lacks unified read/write conventions</td>
+                <td>Channel Business Query (Shared Data Source): Business and compliance from same data source</td>
+                <td>Phase 1 · trial ready</td>
+                <td>Shared info consumption count · duplicate build items</td>
+                <td>Lower cross-dept integration cost; traceable troubleshooting</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <div class="logic-footer-nav">
+        <a href="/logic">← Overview</a>
+        <a href="/logic/solution">Go to Part 2 →</a>
+      </div>
+
+    </div>
+    <script src="/static/logic-flow.js?v=20260808-logic4"></script>
+
+  </body>
+</html>

@@ -1,0 +1,194 @@
+{
+  "version": "voc-tags-2026.08",
+  "tags": [
+    {
+      "tag_id": "TAG-ROOT-PRODUCT",
+      "tag_name": "Vehicle experience",
+      "tag_domain": "product",
+      "tag_parent_id": null,
+      "tag_vocab_version": "voc-tags-2026.08"
+    },
+    {
+      "tag_id": "TAG-short-range",
+      "tag_name": "Short range",
+      "tag_domain": "product",
+      "tag_parent_id": "TAG-ROOT-PRODUCT",
+      "tag_vocab_version": "voc-tags-2026.08"
+    },
+    {
+      "tag_id": "TAG-weak-power",
+      "tag_name": "Weak power",
+      "tag_domain": "product",
+      "tag_parent_id": "TAG-ROOT-PRODUCT",
+      "tag_vocab_version": "voc-tags-2026.08"
+    },
+    {
+      "tag_id": "TAG-noise",
+      "tag_name": "Noise / suspension",
+      "tag_domain": "product",
+      "tag_parent_id": "TAG-ROOT-PRODUCT",
+      "tag_vocab_version": "voc-tags-2026.08"
+    },
+    {
+      "tag_id": "TAG-brake",
+      "tag_name": "Brake issues",
+      "tag_domain": "product",
+      "tag_parent_id": "TAG-ROOT-PRODUCT",
+      "tag_vocab_version": "voc-tags-2026.08"
+    },
+    {
+      "tag_id": "TAG-slow-charging",
+      "tag_name": "Slow charging",
+      "tag_domain": "product",
+      "tag_parent_id": "TAG-ROOT-PRODUCT",
+      "tag_vocab_version": "voc-tags-2026.08"
+    },
+    {
+      "tag_id": "TAG-controller-fault",
+      "tag_name": "Controller fault",
+      "tag_domain": "product",
+      "tag_parent_id": "TAG-ROOT-PRODUCT",
+      "tag_vocab_version": "voc-tags-2026.08"
+    },
+    {
+      "tag_id": "TAG-battery-swelling",
+      "tag_name": "Battery swelling / heat rise",
+      "tag_domain": "product",
+      "tag_parent_id": "TAG-ROOT-PRODUCT",
+      "tag_vocab_version": "voc-tags-2026.08"
+    },
+    {
+      "tag_id": "TAG-dashboard-blackout",
+      "tag_name": "Dashboard blackout",
+      "tag_domain": "product",
+      "tag_parent_id": "TAG-ROOT-PRODUCT",
+      "tag_vocab_version": "voc-tags-2026.08"
+    },
+    {
+      "tag_id": "TAG-ROOT-SERVICE",
+      "tag_name": "Service experience",
+      "tag_domain": "service",
+      "tag_parent_id": null,
+      "tag_vocab_version": "voc-tags-2026.08"
+    },
+    {
+      "tag_id": "TAG-warranty-dispute",
+      "tag_name": "Warranty dispute",
+      "tag_domain": "service",
+      "tag_parent_id": "TAG-ROOT-SERVICE",
+      "tag_vocab_version": "voc-tags-2026.08"
+    },
+    {
+      "tag_id": "TAG-slow-onsite-service",
+      "tag_name": "Slow onsite repair",
+      "tag_domain": "service",
+      "tag_parent_id": "TAG-ROOT-SERVICE",
+      "tag_vocab_version": "voc-tags-2026.08"
+    },
+    {
+      "tag_id": "TAG-poor-attitude",
+      "tag_name": "Service attitude",
+      "tag_domain": "service",
+      "tag_parent_id": "TAG-ROOT-SERVICE",
+      "tag_vocab_version": "voc-tags-2026.08"
+    },
+    {
+      "tag_id": "TAG-parts-stockout",
+      "tag_name": "Parts stockout",
+      "tag_domain": "service",
+      "tag_parent_id": "TAG-ROOT-SERVICE",
+      "tag_vocab_version": "voc-tags-2026.08"
+    },
+    {
+      "tag_id": "TAG-ROOT-APP",
+      "tag_name": "App / connectivity",
+      "tag_domain": "app",
+      "tag_parent_id": null,
+      "tag_vocab_version": "voc-tags-2026.08"
+    },
+    {
+      "tag_id": "TAG-pairing-failure",
+      "tag_name": "Pairing failure",
+      "tag_domain": "app",
+      "tag_parent_id": "TAG-ROOT-APP",
+      "tag_vocab_version": "voc-tags-2026.08"
+    },
+    {
+      "tag_id": "TAG-gps-drift",
+      "tag_name": "Inaccurate location",
+      "tag_domain": "app",
+      "tag_parent_id": "TAG-ROOT-APP",
+      "tag_vocab_version": "voc-tags-2026.08"
+    },
+    {
+      "tag_id": "TAG-renewal-entry-hard-to-find",
+      "tag_name": "Renewal entry hard to find",
+      "tag_domain": "app",
+      "tag_parent_id": "TAG-ROOT-APP",
+      "tag_vocab_version": "voc-tags-2026.08"
+    },
+    {
+      "tag_id": "TAG-push-spam",
+      "tag_name": "Too many pushes",
+      "tag_domain": "app",
+      "tag_parent_id": "TAG-ROOT-APP",
+      "tag_vocab_version": "voc-tags-2026.08"
+    },
+    {
+      "tag_id": "TAG-ROOT-CHANNEL",
+      "tag_name": "Channel / retail",
+      "tag_domain": "channel",
+      "tag_parent_id": null,
+      "tag_vocab_version": "voc-tags-2026.08"
+    },
+    {
+      "tag_id": "TAG-non-exclusive-display",
+      "tag_name": "Non-exclusive display",
+      "tag_domain": "channel",
+      "tag_parent_id": "TAG-ROOT-CHANNEL",
+      "tag_vocab_version": "voc-tags-2026.08"
+    },
+    {
+      "tag_id": "TAG-vi-violation",
+      "tag_name": "VI violation",
+      "tag_domain": "channel",
+      "tag_parent_id": "TAG-ROOT-CHANNEL",
+      "tag_vocab_version": "voc-tags-2026.08"
+    },
+    {
+      "tag_id": "TAG-overstock-no-sales",
+      "tag_name": "Overstock / no sell-through",
+      "tag_domain": "channel",
+      "tag_parent_id": "TAG-ROOT-CHANNEL",
+      "tag_vocab_version": "voc-tags-2026.08"
+    },
+    {
+      "tag_id": "TAG-ROOT-RISK",
+      "tag_name": "Risk / sentiment",
+      "tag_domain": "risk",
+      "tag_parent_id": null,
+      "tag_vocab_version": "voc-tags-2026.08"
+    },
+    {
+      "tag_id": "TAG-open-complaint",
+      "tag_name": "Open complaint",
+      "tag_domain": "risk",
+      "tag_parent_id": "TAG-ROOT-RISK",
+      "tag_vocab_version": "voc-tags-2026.08"
+    },
+    {
+      "tag_id": "TAG-reputation-risk",
+      "tag_name": "Reputation risk",
+      "tag_domain": "risk",
+      "tag_parent_id": "TAG-ROOT-RISK",
+      "tag_vocab_version": "voc-tags-2026.08"
+    },
+    {
+      "tag_id": "TAG-safety-hazard",
+      "tag_name": "Safety hazard",
+      "tag_domain": "risk",
+      "tag_parent_id": "TAG-ROOT-RISK",
+      "tag_vocab_version": "voc-tags-2026.08"
+    }
+  ]
+}

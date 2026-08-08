@@ -1,0 +1,1158 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Qingshu Mobility · Part 2 · AI solution design</title>
+    <link rel="stylesheet" href="/static/styles.css?v=20260808-logic4" />
+    <link rel="stylesheet" href="/static/logic.css?v=20260808-logic4" />
+  </head>
+  <body class="page-logic">
+    <nav class="mode-switch" aria-label="View switcher">
+      <a href="/business">Business Lead</a>
+      <a href="/ops">IT Ops</a>
+      <a class="active" href="/logic" aria-current="page">Logic Walkthrough</a>
+    </nav>
+    <div class="shell shell-wide shell-logic">
+
+      <header class="topbar">
+        <div class="topbar-brand">
+          <div class="eyebrow">Qingshu Mobility · Solution Logic</div>
+          <h1>Part 2 · AI solution design</h1>
+        </div>
+        <div class="topbar-right">
+          <div class="topbar-meta">Control Loop retained · Skill build logic<br />Phased roadmap and current KPI</div>
+        </div>
+      </header>
+      <nav class="logic-subnav" aria-label="Logic subpages">
+        <a href="/logic">Overview</a>
+        <a href="/logic/architecture">Part 1 · Company architecture</a>
+        <a class="active" href="/logic/solution">Part 2 · AI solution design</a>
+        <a href="/logic/risk">Part 3 · Risk controls</a>
+      </nav>
+      <div class="logic-hero">
+        <p class="logic-lead">
+          With <strong>departments as large cards</strong>, each feature gets <b>Control Loop</b>、Tool boundary、Interaction mode， and 
+          <b>Skill build logic</b>: which data/knowledge → processing → model/loop → tools → output and downstream use.
+        </p>
+      </div>
+
+      <section class="logic-section dept-card">
+        <h2>Service Division <span class="dept-count-inline">7 features</span></h2>
+        <p class="sec-note">Per-feature Control Loop retained; Skill build logic uses data → processing → model → tools → output for business and engineering readers.</p>
+        <div class="feat-judge-list">
+            <article class="feat-judge">
+              <div class="feat-judge-title">
+                <strong>Smart Ticket Fill</strong>
+                <code>F-SVC-001</code>
+                <span class="pill pill-ghost">Phase 1 · trial ready</span>
+              </div>
+              <p class="feat-purpose">Generate ticket draft from conversation and write to Shared output</p>
+              <div class="feat-grid tech-grid">
+                <div><h5>Control Loop</h5><p><b>Act</b></p></div>
+                <div><h5>Tools (boundary)</h5><p>Tool class read + write_govern. This feature uses: Read business entities (Customer, Vehicle, Ticket, Ticket list); Structure / write shared / gate (Extract ticket fields, Suggest topic tags, Tag dictionary, Write shared output).</p></div>
+                <div><h5>Interaction mode</h5><p><b>Collaborative</b> — Business initiates multi-step lookup/fill; shared write requires allowlist</p></div>
+                <div class="feat-span"><h5>Skill build logic</h5><div class="skill-logic">
+              <p class="skill-logic-title">&quot;Smart Ticket Fill&quot; capability pack build logic (fill_ticket · Act)</p>
+              <ol>
+                <li><b>Which business data / knowledge:</b>Customer, vehicle, existing tickets (master data); tag dictionary when needed</li>
+                <li><b>What processing:</b>Verify identity and open tickets → extract ticket fields and suggest topic tags from conversation → assemble ticket draft</li>
+                <li><b>Which model / loop:</b>Act loop: decide what to look up and when to write; rule tools can assist field extraction</li>
+                <li><b>Which tools:</b>Read customer/vehicle/ticket; extract fields and tag; write shared output for renewal etc.</li>
+                <li><b>Output and downstream use:</b>Ticket draft + complaint tags to shared layer; one run fills ticket only, no auto outreach</li>
+              </ol>
+            </div></div>
+              </div>
+            </article>
+            <article class="feat-judge">
+              <div class="feat-judge-title">
+                <strong>Smart Ticket Fill · Extraction</strong>
+                <code>F-SVC-001-EXT</code>
+                <span class="pill pill-ghost">Phase 1 · trial ready</span>
+              </div>
+              <p class="feat-purpose">Pure structured extraction of ticket draft and write to Shared output</p>
+              <div class="feat-grid tech-grid">
+                <div><h5>Control Loop</h5><p><b>Extract</b></p></div>
+                <div><h5>Tools (boundary)</h5><p>Tool class write_govern (structured). Extract fields/tags from text; write shared output when needed.</p></div>
+                <div><h5>Interaction mode</h5><p><b>Collaborative</b> — Input raw text, output schema fields; shared write is approval boundary</p></div>
+                <div class="feat-span"><h5>Skill build logic</h5><div class="skill-logic">
+              <p class="skill-logic-title">&quot;Smart Ticket Fill · Extraction&quot; capability pack build logic (ticket_fields · Extract)</p>
+              <ol>
+                <li><b>Which business data / knowledge:</b>Agent/user raw text; customer and vehicle ids when provided</li>
+                <li><b>What processing:</b>Extract type, summary, tags, sentiment, complaint flag per ticket schema and validate completeness</li>
+                <li><b>Which model / loop:</b>Extract loop: structured extraction and validation, not multi-step lookup</li>
+                <li><b>Which tools:</b>Schema validation primary; write shared output when persisting</li>
+                <li><b>Output and downstream use:</b>Structured ticket draft; parallel to fill-ticket for agent confirm or downstream read</li>
+              </ol>
+            </div></div>
+              </div>
+            </article>
+            <article class="feat-judge">
+              <div class="feat-judge-title">
+                <strong>Smart Assist Reply · RAG</strong>
+                <code>F-SVC-002</code>
+                <span class="pill pill-ghost">Phase 1 · trial ready</span>
+              </div>
+              <p class="feat-purpose">Agent-side repair knowledge Q&amp;A with reference citations</p>
+              <div class="feat-grid tech-grid">
+                <div><h5>Control Loop</h5><p><b>Retrieve</b></p></div>
+                <div><h5>Tools (boundary)</h5><p>Tool class knowledge. This feature uses: Search knowledge base (Search KB chunks, Fetch full doc, KB domain list).</p></div>
+                <div><h5>Interaction mode</h5><p><b>Collaborative</b> — Agent/staff asks; system retrieves and answers; key commitments escalate to human</p></div>
+                <div class="feat-span"><h5>Skill build logic</h5><div class="skill-logic">
+              <p class="skill-logic-title">&quot;Smart Assist Reply · RAG&quot; capability pack build logic (repair_kb · Retrieve)</p>
+              <ol>
+                <li><b>Which business data / knowledge:</b>Repair KB chunks (range, noise, pairing, charging, etc.); vehicle master optional</li>
+                <li><b>What processing:</b>Retrieve relevant chunks → inject into prompt → stepwise advice with citations</li>
+                <li><b>Which model / loop:</b>Retrieve loop: search + generate with required citations; state when no hit</li>
+                <li><b>Which tools:</b>Search KB chunks, fetch document, list KB domains</li>
+                <li><b>Output and downstream use:</b>Cited troubleshooting advice; reusable for App Q&amp;A</li>
+              </ol>
+            </div></div>
+              </div>
+            </article>
+            <article class="feat-judge">
+              <div class="feat-judge-title">
+                <strong>Repair KB Q&amp;A</strong>
+                <code>F-SVC-004</code>
+                <span class="pill pill-ghost">Phase 1 · trial ready</span>
+              </div>
+              <p class="feat-purpose">Self-service / assisted repair Q&amp;A</p>
+              <div class="feat-grid tech-grid">
+                <div><h5>Control Loop</h5><p><b>Retrieve</b></p></div>
+                <div><h5>Tools (boundary)</h5><p>Tool class knowledge. This feature uses: Search knowledge base (Search KB chunks, Fetch full doc, KB domain list).</p></div>
+                <div><h5>Interaction mode</h5><p><b>Collaborative</b> — Agent/staff asks; system retrieves and answers; key commitments escalate to human</p></div>
+                <div class="feat-span"><h5>Skill build logic</h5><div class="skill-logic">
+              <p class="skill-logic-title">&quot;Repair KB Q&amp;A&quot; capability pack build logic (repair_kb · Retrieve)</p>
+              <ol>
+                <li><b>Which business data / knowledge:</b>Repair KB chunks (range, noise, pairing, charging, etc.); vehicle master optional</li>
+                <li><b>What processing:</b>Retrieve relevant chunks → inject into prompt → stepwise advice with citations</li>
+                <li><b>Which model / loop:</b>Retrieve loop: search + generate with required citations; state when no hit</li>
+                <li><b>Which tools:</b>Search KB chunks, fetch document, list KB domains</li>
+                <li><b>Output and downstream use:</b>Cited troubleshooting advice; reusable for App Q&amp;A</li>
+              </ol>
+            </div></div>
+              </div>
+            </article>
+            <article class="feat-judge">
+              <div class="feat-judge-title">
+                <strong>VoC Fault Clustering</strong>
+                <code>F-SVC-005</code>
+                <span class="pill pill-ghost">Phase 2</span>
+              </div>
+              <p class="feat-purpose">Cluster tickets for product / quality insights</p>
+              <div class="feat-grid tech-grid">
+                <div><h5>Control Loop</h5><p><b>Extract</b></p></div>
+                <div><h5>Tools (boundary)</h5><p>Tool class write_govern (structured). Extract fields/tags from text; write shared output when needed.</p></div>
+                <div><h5>Interaction mode</h5><p><b>Collaborative</b> — Input raw text, output schema fields; shared write is approval boundary</p></div>
+                <div class="feat-span"><h5>Skill build logic</h5><div class="skill-logic">
+              <p class="skill-logic-title">&quot;VoC Fault Clustering&quot; capability pack build logic (to mount · suggest Extract)</p>
+              <ol>
+                <li><b>Which business data / knowledge:</b>Business raw text or form text</li>
+                <li><b>What processing:</b>Extract and validate per agreed field schema</li>
+                <li><b>Which model / loop:</b>Extract loop</li>
+                <li><b>Which tools:</b>Structured extraction; write shared output when needed</li>
+                <li><b>Output and downstream use:</b>Cluster tickets for product / quality insights</li>
+              </ol>
+            </div></div>
+              </div>
+            </article>
+            <article class="feat-judge">
+              <div class="feat-judge-title">
+                <strong>Smart QA (SOP)</strong>
+                <code>F-SVC-008</code>
+                <span class="pill pill-ghost">Phase 3</span>
+              </div>
+              <p class="feat-purpose">Call transcript → SOP compliance extraction</p>
+              <div class="feat-grid tech-grid">
+                <div><h5>Control Loop</h5><p><b>Extract</b></p></div>
+                <div><h5>Tools (boundary)</h5><p>Tool class write_govern (structured). Extract fields/tags from text; write shared output when needed.</p></div>
+                <div><h5>Interaction mode</h5><p><b>Collaborative</b> — Input raw text, output schema fields; shared write is approval boundary</p></div>
+                <div class="feat-span"><h5>Skill build logic</h5><div class="skill-logic">
+              <p class="skill-logic-title">&quot;Smart QA (SOP)&quot; capability pack build logic (to mount · suggest Extract)</p>
+              <ol>
+                <li><b>Which business data / knowledge:</b>Business raw text or form text</li>
+                <li><b>What processing:</b>Extract and validate per agreed field schema</li>
+                <li><b>Which model / loop:</b>Extract loop</li>
+                <li><b>Which tools:</b>Structured extraction; write shared output when needed</li>
+                <li><b>Output and downstream use:</b>Call transcript → SOP compliance extraction</li>
+              </ol>
+            </div></div>
+              </div>
+            </article>
+            <article class="feat-judge">
+              <div class="feat-judge-title">
+                <strong>Multi-step Repair Assist</strong>
+                <code>F-SVC-003</code>
+                <span class="pill pill-ghost">Phase 1 · trial ready</span>
+              </div>
+              <p class="feat-purpose">Look up vehicle / ticket / knowledge then give actionable reply</p>
+              <div class="feat-grid tech-grid">
+                <div><h5>Control Loop</h5><p><b>Act</b></p></div>
+                <div><h5>Tools (boundary)</h5><p>Tool class read + write_govern. This feature uses: Read business entities (Customer, Vehicle, Vehicle list, Order, Order list, Inventory, Dealer, Store).</p></div>
+                <div><h5>Interaction mode</h5><p><b>Collaborative</b> — Business initiates multi-step lookup/fill; shared write requires allowlist</p></div>
+                <div class="feat-span"><h5>Skill build logic</h5><div class="skill-logic">
+              <p class="skill-logic-title">&quot;Multi-step Repair Assist&quot; capability pack build logic (crm_lookup · Act)</p>
+              <ol>
+                <li><b>Which business data / knowledge:</b>Customer, vehicle, order, inventory, dealer/store/SKU master data</li>
+                <li><b>What processing:</b>Look up entities by id → short factual summary</li>
+                <li><b>Which model / loop:</b>Act loop: orchestrate lookups, facts over prose</li>
+                <li><b>Which tools:</b>Customer/vehicle/order/inventory lookup tools</li>
+                <li><b>Output and downstream use:</b>Master-data verification for service or pre-renewal lookup</li>
+              </ol>
+            </div></div>
+              </div>
+            </article>
+        </div>
+        <h3 class="subhead">Dept AI business sequence</h3>
+        <div class="asset-card" style="max-width:100%"><p style="margin:0">Intake uses Retrieve for repair KB → parallel: Extract ticket fields ∥ Act verify customer/vehicle and write shared output → user ops runs Plan separately to read complaint tags for outreach gate.</p></div>
+        <h3 class="subhead">Shared digital assets (dept-related)</h3>
+        <div class="asset-card" style="max-width:100%"><p style="margin:0">Writes: ticket draft, complaint/risk tags, sentiment; declares user-ops renewal gate as consumer.</p></div>
+      </section>
+      <section class="logic-section dept-card">
+        <h2>User Ops / App <span class="dept-count-inline">5 features</span></h2>
+        <p class="sec-note">Per-feature Control Loop retained; Skill build logic uses data → processing → model → tools → output for business and engineering readers.</p>
+        <div class="feat-judge-list">
+            <article class="feat-judge">
+              <div class="feat-judge-title">
+                <strong>App Smart Q&amp;A MVP</strong>
+                <code>F-UO-009</code>
+                <span class="pill pill-ghost">Phase 1 · trial ready</span>
+              </div>
+              <p class="feat-purpose">In-app repair / usage Q&amp;A (reuses repair domain)</p>
+              <div class="feat-grid tech-grid">
+                <div><h5>Control Loop</h5><p><b>Retrieve</b></p></div>
+                <div><h5>Tools (boundary)</h5><p>Tool class knowledge. This feature uses: Search knowledge base (Search KB chunks, Fetch full doc, KB domain list).</p></div>
+                <div><h5>Interaction mode</h5><p><b>Collaborative</b> — Agent/staff asks; system retrieves and answers; key commitments escalate to human</p></div>
+                <div class="feat-span"><h5>Skill build logic</h5><div class="skill-logic">
+              <p class="skill-logic-title">&quot;App Smart Q&amp;A MVP&quot; capability pack build logic (repair_kb · Retrieve)</p>
+              <ol>
+                <li><b>Which business data / knowledge:</b>Repair KB chunks (range, noise, pairing, charging, etc.); vehicle master optional</li>
+                <li><b>What processing:</b>Retrieve relevant chunks → inject into prompt → stepwise advice with citations</li>
+                <li><b>Which model / loop:</b>Retrieve loop: search + generate with required citations; state when no hit</li>
+                <li><b>Which tools:</b>Search KB chunks, fetch document, list KB domains</li>
+                <li><b>Output and downstream use:</b>Cited troubleshooting advice; reusable for App Q&amp;A</li>
+              </ol>
+            </div></div>
+              </div>
+            </article>
+            <article class="feat-judge">
+              <div class="feat-judge-title">
+                <strong>Renewal AI Outreach Tasks</strong>
+                <code>F-UO-001</code>
+                <span class="pill pill-ghost">Phase 2</span>
+              </div>
+              <p class="feat-purpose">Look up renewal pool and intent, then organize outreach script</p>
+              <div class="feat-grid tech-grid">
+                <div><h5>Control Loop</h5><p><b>Plan</b></p></div>
+                <div><h5>Tools (boundary)</h5><p>Tool class write_govern. Read shared tags/outputs, then allow/tier; no direct outbound call.</p></div>
+                <div><h5>Interaction mode</h5><p><b>Approval</b> — Must read shared tags before allow/block; no silent outreach</p></div>
+                <div class="feat-span"><h5>Skill build logic</h5><div class="skill-logic">
+              <p class="skill-logic-title">&quot;Renewal AI Outreach Tasks&quot; capability pack build logic (to mount · suggest Plan)</p>
+              <ol>
+                <li><b>Which business data / knowledge:</b>Shared tags/outputs + related business records</li>
+                <li><b>What processing:</b>Read shared signals → rule or gate decision → allow/defer with reason</li>
+                <li><b>Which model / loop:</b>Plan loop</li>
+                <li><b>Which tools:</b>Read shared, gate checks, necessary business queries</li>
+                <li><b>Output and downstream use:</b>Look up renewal pool and intent, then organize outreach script</li>
+              </ol>
+            </div></div>
+              </div>
+            </article>
+            <article class="feat-judge">
+              <div class="feat-judge-title">
+                <strong>Agent Proactive Outreach (Complaint Gate)</strong>
+                <code>F-UO-017</code>
+                <span class="pill pill-ghost">Phase 1 · trial ready</span>
+              </div>
+              <p class="feat-purpose">Read shared complaint tags to decide outreach; give reason when blocked</p>
+              <div class="feat-grid tech-grid">
+                <div><h5>Control Loop</h5><p><b>Plan</b></p></div>
+                <div><h5>Tools (boundary)</h5><p>Tool class write_govern (read shared + gate). This feature uses: Read business entities (Renewal record, Behavior data, Renewal score, Renewal pool layer, Customer, Vehicle); Structure / write shared / gate (Read shared tags, Read shared output, Outreach block check).</p></div>
+                <div><h5>Interaction mode</h5><p><b>Approval</b> — Must read shared tags before allow/block; no silent outreach</p></div>
+                <div class="feat-span"><h5>Skill build logic</h5><div class="skill-logic">
+              <p class="skill-logic-title">&quot;Agent Proactive Outreach (Complaint Gate)&quot; capability pack build logic (renewal_plan · Plan)</p>
+              <ol>
+                <li><b>Which business data / knowledge:</b>Shared complaint/risk tags and outputs; renewal record and behavior when allowed</li>
+                <li><b>What processing:</b>Read shared tags and outreach block check → explain if blocked; if allowed score renewal pool and short plan</li>
+                <li><b>Which model / loop:</b>Plan loop: rule/tool gate first, then plan narrative</li>
+                <li><b>Which tools:</b>Read shared tags/outputs, outreach block check; renewal score and routing when allowed</li>
+                <li><b>Output and downstream use:</b>Allow or defer outreach + reason; when allowed include pool layer and outreach ladder (no auto dial)</li>
+              </ol>
+            </div></div>
+              </div>
+            </article>
+            <article class="feat-judge">
+              <div class="feat-judge-title">
+                <strong>Unified Smart CS</strong>
+                <code>F-UO-019</code>
+                <span class="pill pill-ghost">Phase 1 · trial ready</span>
+              </div>
+              <p class="feat-purpose">App-side multi-step master-data lookup then answer</p>
+              <div class="feat-grid tech-grid">
+                <div><h5>Control Loop</h5><p><b>Act</b></p></div>
+                <div><h5>Tools (boundary)</h5><p>Tool class read + write_govern. This feature uses: Read business entities (Customer, Vehicle, Vehicle list, Order, Order list, Inventory, Dealer, Store).</p></div>
+                <div><h5>Interaction mode</h5><p><b>Collaborative</b> — Business initiates multi-step lookup/fill; shared write requires allowlist</p></div>
+                <div class="feat-span"><h5>Skill build logic</h5><div class="skill-logic">
+              <p class="skill-logic-title">&quot;Unified Smart CS&quot; capability pack build logic (crm_lookup · Act)</p>
+              <ol>
+                <li><b>Which business data / knowledge:</b>Customer, vehicle, order, inventory, dealer/store/SKU master data</li>
+                <li><b>What processing:</b>Look up entities by id → short factual summary</li>
+                <li><b>Which model / loop:</b>Act loop: orchestrate lookups, facts over prose</li>
+                <li><b>Which tools:</b>Customer/vehicle/order/inventory lookup tools</li>
+                <li><b>Output and downstream use:</b>Master-data verification for service or pre-renewal lookup</li>
+              </ol>
+            </div></div>
+              </div>
+            </article>
+            <article class="feat-judge">
+              <div class="feat-judge-title">
+                <strong>Renewal / Complaint Score Gate</strong>
+                <code>F-UO-RULE</code>
+                <span class="pill pill-ghost">Phase 2</span>
+              </div>
+              <p class="feat-purpose">Rule + LLM score whether proactive outreach is allowed</p>
+              <div class="feat-grid tech-grid">
+                <div><h5>Control Loop</h5><p><b>Plan (extended Rule gate)</b></p></div>
+                <div><h5>Tools (boundary)</h5><p>Tool class write_govern. Read shared tags/outputs, then allow/tier; no direct outbound call.</p></div>
+                <div><h5>Interaction mode</h5><p><b>Approval</b> — Rule gate outputs pass/tier for human confirmation</p></div>
+                <div class="feat-span"><h5>Skill build logic</h5><div class="skill-logic">
+              <p class="skill-logic-title">&quot;Renewal / Complaint Score Gate&quot; capability pack build logic (to mount · suggest Plan (extended Rule gate))</p>
+              <ol>
+                <li><b>Which business data / knowledge:</b>Shared tags/outputs + related business records</li>
+                <li><b>What processing:</b>Read shared signals → rule or gate decision → allow/defer with reason</li>
+                <li><b>Which model / loop:</b>Plan loop</li>
+                <li><b>Which tools:</b>Read shared, gate checks, necessary business queries</li>
+                <li><b>Output and downstream use:</b>Rule + LLM score whether proactive outreach is allowed</li>
+              </ol>
+            </div></div>
+              </div>
+            </article>
+        </div>
+        <h3 class="subhead">Dept AI business sequence</h3>
+        <div class="asset-card" style="max-width:100%"><p style="margin:0">App-side Retrieve/Act for Q&amp;A and lookup → separate Plan reads shared complaint tags for allow/defer; real outbound tasks in phase 2, not auto-chained upstream.</p></div>
+        <h3 class="subhead">Shared digital assets (dept-related)</h3>
+        <div class="asset-card" style="max-width:100%"><p style="margin:0">Reads: shared complaint tags and outputs; writes: allow/defer outreach, reason, short renewal plan.</p></div>
+      </section>
+      <section class="logic-section dept-card">
+        <h2>User Research / VoC <span class="dept-count-inline">1 features</span></h2>
+        <p class="sec-note">Per-feature Control Loop retained; Skill build logic uses data → processing → model → tools → output for business and engineering readers.</p>
+        <div class="feat-judge-list">
+            <article class="feat-judge">
+              <div class="feat-judge-title">
+                <strong>Customer Voice Triage</strong>
+                <code>F-VOC-002</code>
+                <span class="pill pill-ghost">Phase 1 · trial ready</span>
+              </div>
+              <p class="feat-purpose">Organize customer voice into business tags, sentiment, and risk alerts</p>
+              <div class="feat-grid tech-grid">
+                <div><h5>Control Loop</h5><p><b>Extract</b></p></div>
+                <div><h5>Tools (boundary)</h5><p>Tool class write_govern (structured). Extract fields/tags from text; write shared output when needed.</p></div>
+                <div><h5>Interaction mode</h5><p><b>Collaborative</b> — Input raw text, output schema fields; shared write is approval boundary</p></div>
+                <div class="feat-span"><h5>Skill build logic</h5><div class="skill-logic">
+              <p class="skill-logic-title">&quot;Customer Voice Triage&quot; capability pack build logic (voc_entities · Extract)</p>
+              <ol>
+                <li><b>Which business data / knowledge:</b>Customer voice raw text</li>
+                <li><b>What processing:</b>Extract theme, sentiment, risk entities vs tag dictionary → write shared layer when needed</li>
+                <li><b>Which model / loop:</b>Extract loop</li>
+                <li><b>Which tools:</b>Structured extraction and validation; shared write path</li>
+                <li><b>Output and downstream use:</b>Structured VoC for service/renewal read</li>
+              </ol>
+            </div></div>
+              </div>
+            </article>
+        </div>
+        <h3 class="subhead">Dept AI business sequence</h3>
+        <div class="asset-card" style="max-width:100%"><p style="margin:0">Extract structures VoC into theme/sentiment → write shared layer → service and renewal read separately.</p></div>
+        <h3 class="subhead">Shared digital assets (dept-related)</h3>
+        <div class="asset-card" style="max-width:100%"><p style="margin:0">Writes: structured VoC (theme, entities, sentiment).</p></div>
+      </section>
+      <section class="logic-section dept-card">
+        <h2>Channel Office <span class="dept-count-inline">2 features</span></h2>
+        <p class="sec-note">Per-feature Control Loop retained; Skill build logic uses data → processing → model → tools → output for business and engineering readers.</p>
+        <div class="feat-judge-list">
+            <article class="feat-judge">
+              <div class="feat-judge-title">
+                <strong>Business Health / Alert Query</strong>
+                <code>F-OPS-012</code>
+                <span class="pill pill-ghost">Phase 1 · trial ready</span>
+              </div>
+              <p class="feat-purpose">Query health index, alerts, inspection slices</p>
+              <div class="feat-grid tech-grid">
+                <div><h5>Control Loop</h5><p><b>Act</b></p></div>
+                <div><h5>Tools (boundary)</h5><p>Tool class read + write_govern. This feature uses: Read business entities (Dealer, Dealer health, Alert, list_sales_metrics, list_retail_daily, Inspection, get_risk, Policy slice).</p></div>
+                <div><h5>Interaction mode</h5><p><b>Collaborative</b> — Business initiates multi-step lookup/fill; shared write requires allowlist</p></div>
+                <div class="feat-span"><h5>Skill build logic</h5><div class="skill-logic">
+              <p class="skill-logic-title">&quot;Business Health / Alert Query&quot; capability pack build logic (channel_ops · Act)</p>
+              <ol>
+                <li><b>Which business data / knowledge:</b>Dealer health, alerts, inspections, sales/retail daily, policy slices</li>
+                <li><b>What processing:</b>Pull health/alerts/inspections for ops question → dashboard-style brief</li>
+                <li><b>Which model / loop:</b>Act loop</li>
+                <li><b>Which tools:</b>Dealer health, alerts, inspections, sales and policy queries</li>
+                <li><b>Output and downstream use:</b>Ops brief (numbers + anomalies + next steps)</li>
+              </ol>
+            </div></div>
+              </div>
+            </article>
+            <article class="feat-judge">
+              <div class="feat-judge-title">
+                <strong>Channel Dashboard Merge (Planning)</strong>
+                <code>F-CH-PLAN</code>
+                <span class="pill pill-ghost">Phase 2</span>
+              </div>
+              <p class="feat-purpose">Merge business queries and policy wording into dashboard recommendations</p>
+              <div class="feat-grid tech-grid">
+                <div><h5>Control Loop</h5><p><b>Plan</b></p></div>
+                <div><h5>Tools (boundary)</h5><p>Tool class write_govern. Read shared tags/outputs, then allow/tier; no direct outbound call.</p></div>
+                <div><h5>Interaction mode</h5><p><b>Approval</b> — Must read shared tags before allow/block; no silent outreach</p></div>
+                <div class="feat-span"><h5>Skill build logic</h5><div class="skill-logic">
+              <p class="skill-logic-title">&quot;Channel Dashboard Merge (Planning)&quot; capability pack build logic (to mount · suggest Plan)</p>
+              <ol>
+                <li><b>Which business data / knowledge:</b>Shared tags/outputs + related business records</li>
+                <li><b>What processing:</b>Read shared signals → rule or gate decision → allow/defer with reason</li>
+                <li><b>Which model / loop:</b>Plan loop</li>
+                <li><b>Which tools:</b>Read shared, gate checks, necessary business queries</li>
+                <li><b>Output and downstream use:</b>Merge business queries and policy wording into dashboard recommendations</li>
+              </ol>
+            </div></div>
+              </div>
+            </article>
+        </div>
+        <h3 class="subhead">Dept AI business sequence</h3>
+        <div class="asset-card" style="max-width:100%"><p style="margin:0">Act pulls dealer health/alerts into brief → phase 2 dashboard rollup with human confirm before publish.</p></div>
+        <h3 class="subhead">Shared digital assets (dept-related)</h3>
+        <div class="asset-card" style="max-width:100%"><p style="margin:0">Reads: dealer health/alerts; writes: ops brief highlights.</p></div>
+      </section>
+      <section class="logic-section dept-card">
+        <h2>Ops Management · Orders / Policy <span class="dept-count-inline">5 features</span></h2>
+        <p class="sec-note">Per-feature Control Loop retained; Skill build logic uses data → processing → model → tools → output for business and engineering readers.</p>
+        <div class="feat-judge-list">
+            <article class="feat-judge">
+              <div class="feat-judge-title">
+                <strong>Policy Q&amp;A</strong>
+                <code>F-POL-RAG</code>
+                <span class="pill pill-ghost">Phase 1 · trial ready</span>
+              </div>
+              <p class="feat-purpose">Q&amp;A on warranty / rebate / renewal red-line policy text</p>
+              <div class="feat-grid tech-grid">
+                <div><h5>Control Loop</h5><p><b>Retrieve</b></p></div>
+                <div><h5>Tools (boundary)</h5><p>Tool class knowledge. This feature uses: Search knowledge base (Search KB chunks, Fetch full doc, KB domain list).</p></div>
+                <div><h5>Interaction mode</h5><p><b>Collaborative</b> — Agent/staff asks; system retrieves and answers; key commitments escalate to human</p></div>
+                <div class="feat-span"><h5>Skill build logic</h5><div class="skill-logic">
+              <p class="skill-logic-title">&quot;Policy Q&amp;A&quot; capability pack build logic (policy_kb · Retrieve)</p>
+              <ol>
+                <li><b>Which business data / knowledge:</b>Policy KB (warranty, rebate, outreach red lines, store standards)</li>
+                <li><b>What processing:</b>Retrieve policy clauses → generate guidance with citations</li>
+                <li><b>Which model / loop:</b>Retrieve loop; do not invent clauses not retrieved</li>
+                <li><b>Which tools:</b>Search KB chunks, fetch document, list KB domains</li>
+                <li><b>Output and downstream use:</b>Policy guidance with verifiable sources</li>
+              </ol>
+            </div></div>
+              </div>
+            </article>
+            <article class="feat-judge">
+              <div class="feat-judge-title">
+                <strong>Sales Policy Parsing</strong>
+                <code>F-OPS-004</code>
+                <span class="pill pill-ghost">Phase 2</span>
+              </div>
+              <p class="feat-purpose">Policy source text → rebate tier structure</p>
+              <div class="feat-grid tech-grid">
+                <div><h5>Control Loop</h5><p><b>Extract</b></p></div>
+                <div><h5>Tools (boundary)</h5><p>Tool class write_govern (structured). Extract fields/tags from text; write shared output when needed.</p></div>
+                <div><h5>Interaction mode</h5><p><b>Collaborative</b> — Input raw text, output schema fields; shared write is approval boundary</p></div>
+                <div class="feat-span"><h5>Skill build logic</h5><div class="skill-logic">
+              <p class="skill-logic-title">&quot;Sales Policy Parsing&quot; capability pack build logic (to mount · suggest Extract)</p>
+              <ol>
+                <li><b>Which business data / knowledge:</b>Business raw text or form text</li>
+                <li><b>What processing:</b>Extract and validate per agreed field schema</li>
+                <li><b>Which model / loop:</b>Extract loop</li>
+                <li><b>Which tools:</b>Structured extraction; write shared output when needed</li>
+                <li><b>Output and downstream use:</b>Policy source text → rebate tier structure</li>
+              </ol>
+            </div></div>
+              </div>
+            </article>
+            <article class="feat-judge">
+              <div class="feat-judge-title">
+                <strong>Smart Order Creation &amp; Review</strong>
+                <code>F-OPS-003</code>
+                <span class="pill pill-ghost">Phase 2</span>
+              </div>
+              <p class="feat-purpose">Check inventory → policy → alternatives → status recommendation</p>
+              <div class="feat-grid tech-grid">
+                <div><h5>Control Loop</h5><p><b>Act</b></p></div>
+                <div><h5>Tools (boundary)</h5><p>Tool class read + write_govern. Before launch complete tool list: which entities, shared write, knowledge lookup.</p></div>
+                <div><h5>Interaction mode</h5><p><b>Collaborative</b> — Business initiates multi-step lookup/fill; shared write requires allowlist</p></div>
+                <div class="feat-span"><h5>Skill build logic</h5><div class="skill-logic">
+              <p class="skill-logic-title">&quot;Smart Order Creation &amp; Review&quot; capability pack build logic (to mount · suggest Act)</p>
+              <ol>
+                <li><b>Which business data / knowledge:</b>Customer/order/channel master data relevant to feature</li>
+                <li><b>What processing:</b>Multi-step lookup and synthesis → actionable conclusion; declare shared-write consumers</li>
+                <li><b>Which model / loop:</b>Act loop</li>
+                <li><b>Which tools:</b>Read master data; shared write or tagging as needed</li>
+                <li><b>Output and downstream use:</b>Check inventory → policy → alternatives → status recommendation</li>
+              </ol>
+            </div></div>
+              </div>
+            </article>
+            <article class="feat-judge">
+              <div class="feat-judge-title">
+                <strong>Agent Order Review (Cross-department Line)</strong>
+                <code>F-X-004</code>
+                <span class="pill pill-ghost">Phase 2</span>
+              </div>
+              <p class="feat-purpose">Multi-step reasoning on order / production / rebate recommendations</p>
+              <div class="feat-grid tech-grid">
+                <div><h5>Control Loop</h5><p><b>Act</b></p></div>
+                <div><h5>Tools (boundary)</h5><p>Tool class read + write_govern. Before launch complete tool list: which entities, shared write, knowledge lookup.</p></div>
+                <div><h5>Interaction mode</h5><p><b>Collaborative</b> — Business initiates multi-step lookup/fill; shared write requires allowlist</p></div>
+                <div class="feat-span"><h5>Skill build logic</h5><div class="skill-logic">
+              <p class="skill-logic-title">&quot;Agent Order Review (Cross-department Line)&quot; capability pack build logic (to mount · suggest Act)</p>
+              <ol>
+                <li><b>Which business data / knowledge:</b>Customer/order/channel master data relevant to feature</li>
+                <li><b>What processing:</b>Multi-step lookup and synthesis → actionable conclusion; declare shared-write consumers</li>
+                <li><b>Which model / loop:</b>Act loop</li>
+                <li><b>Which tools:</b>Read master data; shared write or tagging as needed</li>
+                <li><b>Output and downstream use:</b>Multi-step reasoning on order / production / rebate recommendations</li>
+              </ol>
+            </div></div>
+              </div>
+            </article>
+            <article class="feat-judge">
+              <div class="feat-judge-title">
+                <strong>Order Review Tier Gate</strong>
+                <code>F-OPS-RULE</code>
+                <span class="pill pill-ghost">Phase 2</span>
+              </div>
+              <p class="feat-purpose">Rule-based rebate / inventory tier decision + LLM explanation</p>
+              <div class="feat-grid tech-grid">
+                <div><h5>Control Loop</h5><p><b>Plan (extended Rule gate)</b></p></div>
+                <div><h5>Tools (boundary)</h5><p>Tool class write_govern. Read shared tags/outputs, then allow/tier; no direct outbound call.</p></div>
+                <div><h5>Interaction mode</h5><p><b>Approval</b> — Rule gate outputs pass/tier for human confirmation</p></div>
+                <div class="feat-span"><h5>Skill build logic</h5><div class="skill-logic">
+              <p class="skill-logic-title">&quot;Order Review Tier Gate&quot; capability pack build logic (to mount · suggest Plan (extended Rule gate))</p>
+              <ol>
+                <li><b>Which business data / knowledge:</b>Shared tags/outputs + related business records</li>
+                <li><b>What processing:</b>Read shared signals → rule or gate decision → allow/defer with reason</li>
+                <li><b>Which model / loop:</b>Plan loop</li>
+                <li><b>Which tools:</b>Read shared, gate checks, necessary business queries</li>
+                <li><b>Output and downstream use:</b>Rule-based rebate / inventory tier decision + LLM explanation</li>
+              </ol>
+            </div></div>
+              </div>
+            </article>
+        </div>
+        <h3 class="subhead">Dept AI business sequence</h3>
+        <div class="asset-card" style="max-width:100%"><p style="margin:0">Retrieve for policy Q&amp;A ∥ Extract policy highlights → Act/Rule for review or tier gate.</p></div>
+        <h3 class="subhead">Shared digital assets (dept-related)</h3>
+        <div class="asset-card" style="max-width:100%"><p style="margin:0">Knowledge: policy; output: guidance and tier suggestions.</p></div>
+      </section>
+      <section class="logic-section dept-card">
+        <h2>Four Regional Zones <span class="dept-count-inline">2 features</span></h2>
+        <p class="sec-note">Per-feature Control Loop retained; Skill build logic uses data → processing → model → tools → output for business and engineering readers.</p>
+        <div class="feat-judge-list">
+            <article class="feat-judge">
+              <div class="feat-judge-title">
+                <strong>Pickup / Offline Q&amp;A Assist</strong>
+                <code>F-WZ-001</code>
+                <span class="pill pill-ghost">Phase 2</span>
+              </div>
+              <p class="feat-purpose">Store-side inventory + policy lookup with action checklist</p>
+              <div class="feat-grid tech-grid">
+                <div><h5>Control Loop</h5><p><b>Act</b></p></div>
+                <div><h5>Tools (boundary)</h5><p>Tool class read + write_govern. Before launch complete tool list: which entities, shared write, knowledge lookup.</p></div>
+                <div><h5>Interaction mode</h5><p><b>Collaborative</b> — Business initiates multi-step lookup/fill; shared write requires allowlist</p></div>
+                <div class="feat-span"><h5>Skill build logic</h5><div class="skill-logic">
+              <p class="skill-logic-title">&quot;Pickup / Offline Q&amp;A Assist&quot; capability pack build logic (to mount · suggest Act)</p>
+              <ol>
+                <li><b>Which business data / knowledge:</b>Customer/order/channel master data relevant to feature</li>
+                <li><b>What processing:</b>Multi-step lookup and synthesis → actionable conclusion; declare shared-write consumers</li>
+                <li><b>Which model / loop:</b>Act loop</li>
+                <li><b>Which tools:</b>Read master data; shared write or tagging as needed</li>
+                <li><b>Output and downstream use:</b>Store-side inventory + policy lookup with action checklist</li>
+              </ol>
+            </div></div>
+              </div>
+            </article>
+            <article class="feat-judge">
+              <div class="feat-judge-title">
+                <strong>Regional Order / Policy Tier Assist</strong>
+                <code>F-WZ-002</code>
+                <span class="pill pill-ghost">Phase 2</span>
+              </div>
+              <p class="feat-purpose">Regional order and policy AI assist</p>
+              <div class="feat-grid tech-grid">
+                <div><h5>Control Loop</h5><p><b>Act</b></p></div>
+                <div><h5>Tools (boundary)</h5><p>Tool class read + write_govern. Before launch complete tool list: which entities, shared write, knowledge lookup.</p></div>
+                <div><h5>Interaction mode</h5><p><b>Collaborative</b> — Business initiates multi-step lookup/fill; shared write requires allowlist</p></div>
+                <div class="feat-span"><h5>Skill build logic</h5><div class="skill-logic">
+              <p class="skill-logic-title">&quot;Regional Order / Policy Tier Assist&quot; capability pack build logic (to mount · suggest Act)</p>
+              <ol>
+                <li><b>Which business data / knowledge:</b>Customer/order/channel master data relevant to feature</li>
+                <li><b>What processing:</b>Multi-step lookup and synthesis → actionable conclusion; declare shared-write consumers</li>
+                <li><b>Which model / loop:</b>Act loop</li>
+                <li><b>Which tools:</b>Read master data; shared write or tagging as needed</li>
+                <li><b>Output and downstream use:</b>Regional order and policy AI assist</li>
+              </ol>
+            </div></div>
+              </div>
+            </article>
+        </div>
+        <h3 class="subhead">Dept AI business sequence</h3>
+        <div class="asset-card" style="max-width:100%"><p style="margin:0">Each feature runs separately; cross-feature only via shared layer in a new run.</p></div>
+        <h3 class="subhead">Shared digital assets (dept-related)</h3>
+        <div class="asset-card" style="max-width:100%"><p style="margin:0">Per feature declare who writes, who reads, which tags.</p></div>
+      </section>
+      <section class="logic-section dept-card">
+        <h2>New Retail <span class="dept-count-inline">2 features</span></h2>
+        <p class="sec-note">Per-feature Control Loop retained; Skill build logic uses data → processing → model → tools → output for business and engineering readers.</p>
+        <div class="feat-judge-list">
+            <article class="feat-judge">
+              <div class="feat-judge-title">
+                <strong>Multi-platform CS Auto-reply</strong>
+                <code>F-RET-001</code>
+                <span class="pill pill-ghost">Phase 2</span>
+              </div>
+              <p class="feat-purpose">Look up order / inventory / promotion then reply</p>
+              <div class="feat-grid tech-grid">
+                <div><h5>Control Loop</h5><p><b>Act</b></p></div>
+                <div><h5>Tools (boundary)</h5><p>Tool class read + write_govern. Before launch complete tool list: which entities, shared write, knowledge lookup.</p></div>
+                <div><h5>Interaction mode</h5><p><b>Collaborative</b> — Business initiates multi-step lookup/fill; shared write requires allowlist</p></div>
+                <div class="feat-span"><h5>Skill build logic</h5><div class="skill-logic">
+              <p class="skill-logic-title">&quot;Multi-platform CS Auto-reply&quot; capability pack build logic (to mount · suggest Act)</p>
+              <ol>
+                <li><b>Which business data / knowledge:</b>Customer/order/channel master data relevant to feature</li>
+                <li><b>What processing:</b>Multi-step lookup and synthesis → actionable conclusion; declare shared-write consumers</li>
+                <li><b>Which model / loop:</b>Act loop</li>
+                <li><b>Which tools:</b>Read master data; shared write or tagging as needed</li>
+                <li><b>Output and downstream use:</b>Look up order / inventory / promotion then reply</li>
+              </ol>
+            </div></div>
+              </div>
+            </article>
+            <article class="feat-judge">
+              <div class="feat-judge-title">
+                <strong>Online Platform Sales CS</strong>
+                <code>F-RET-002</code>
+                <span class="pill pill-ghost">Phase 2</span>
+              </div>
+              <p class="feat-purpose">E-commerce platform sales inquiry AI handling</p>
+              <div class="feat-grid tech-grid">
+                <div><h5>Control Loop</h5><p><b>Act</b></p></div>
+                <div><h5>Tools (boundary)</h5><p>Tool class read + write_govern. Before launch complete tool list: which entities, shared write, knowledge lookup.</p></div>
+                <div><h5>Interaction mode</h5><p><b>Collaborative</b> — Business initiates multi-step lookup/fill; shared write requires allowlist</p></div>
+                <div class="feat-span"><h5>Skill build logic</h5><div class="skill-logic">
+              <p class="skill-logic-title">&quot;Online Platform Sales CS&quot; capability pack build logic (to mount · suggest Act)</p>
+              <ol>
+                <li><b>Which business data / knowledge:</b>Customer/order/channel master data relevant to feature</li>
+                <li><b>What processing:</b>Multi-step lookup and synthesis → actionable conclusion; declare shared-write consumers</li>
+                <li><b>Which model / loop:</b>Act loop</li>
+                <li><b>Which tools:</b>Read master data; shared write or tagging as needed</li>
+                <li><b>Output and downstream use:</b>E-commerce platform sales inquiry AI handling</li>
+              </ol>
+            </div></div>
+              </div>
+            </article>
+        </div>
+        <h3 class="subhead">Dept AI business sequence</h3>
+        <div class="asset-card" style="max-width:100%"><p style="margin:0">Each feature runs separately; cross-feature only via shared layer in a new run.</p></div>
+        <h3 class="subhead">Shared digital assets (dept-related)</h3>
+        <div class="asset-card" style="max-width:100%"><p style="margin:0">Per feature declare who writes, who reads, which tags.</p></div>
+      </section>
+      <section class="logic-section dept-card">
+        <h2>Procurement Platform <span class="dept-count-inline">3 features</span></h2>
+        <p class="sec-note">Per-feature Control Loop retained; Skill build logic uses data → processing → model → tools → output for business and engineering readers.</p>
+        <div class="feat-judge-list">
+            <article class="feat-judge">
+              <div class="feat-judge-title">
+                <strong>Procurement Follow-up Bot</strong>
+                <code>F-PUR-001</code>
+                <span class="pill pill-ghost">Phase 2</span>
+              </div>
+              <p class="feat-purpose">Overdue PO chase + logistics confirmation</p>
+              <div class="feat-grid tech-grid">
+                <div><h5>Control Loop</h5><p><b>Act</b></p></div>
+                <div><h5>Tools (boundary)</h5><p>Tool class read + write_govern. Before launch complete tool list: which entities, shared write, knowledge lookup.</p></div>
+                <div><h5>Interaction mode</h5><p><b>Collaborative</b> — Business initiates multi-step lookup/fill; shared write requires allowlist</p></div>
+                <div class="feat-span"><h5>Skill build logic</h5><div class="skill-logic">
+              <p class="skill-logic-title">&quot;Procurement Follow-up Bot&quot; capability pack build logic (to mount · suggest Act)</p>
+              <ol>
+                <li><b>Which business data / knowledge:</b>Customer/order/channel master data relevant to feature</li>
+                <li><b>What processing:</b>Multi-step lookup and synthesis → actionable conclusion; declare shared-write consumers</li>
+                <li><b>Which model / loop:</b>Act loop</li>
+                <li><b>Which tools:</b>Read master data; shared write or tagging as needed</li>
+                <li><b>Output and downstream use:</b>Overdue PO chase + logistics confirmation</li>
+              </ol>
+            </div></div>
+              </div>
+            </article>
+            <article class="feat-judge">
+              <div class="feat-judge-title">
+                <strong>Smart Follow-up</strong>
+                <code>F-PUR-003</code>
+                <span class="pill pill-ghost">Phase 2</span>
+              </div>
+              <p class="feat-purpose">Purchase order follow-up automation</p>
+              <div class="feat-grid tech-grid">
+                <div><h5>Control Loop</h5><p><b>Act</b></p></div>
+                <div><h5>Tools (boundary)</h5><p>Tool class read + write_govern. Before launch complete tool list: which entities, shared write, knowledge lookup.</p></div>
+                <div><h5>Interaction mode</h5><p><b>Collaborative</b> — Business initiates multi-step lookup/fill; shared write requires allowlist</p></div>
+                <div class="feat-span"><h5>Skill build logic</h5><div class="skill-logic">
+              <p class="skill-logic-title">&quot;Smart Follow-up&quot; capability pack build logic (to mount · suggest Act)</p>
+              <ol>
+                <li><b>Which business data / knowledge:</b>Customer/order/channel master data relevant to feature</li>
+                <li><b>What processing:</b>Multi-step lookup and synthesis → actionable conclusion; declare shared-write consumers</li>
+                <li><b>Which model / loop:</b>Act loop</li>
+                <li><b>Which tools:</b>Read master data; shared write or tagging as needed</li>
+                <li><b>Output and downstream use:</b>Purchase order follow-up automation</li>
+              </ol>
+            </div></div>
+              </div>
+            </article>
+            <article class="feat-judge">
+              <div class="feat-judge-title">
+                <strong>Procurement Chase Reminder</strong>
+                <code>F-PUR-004</code>
+                <span class="pill pill-ghost">Phase 2</span>
+              </div>
+              <p class="feat-purpose">Multi-step reasoning triggers procurement follow-up reminder</p>
+              <div class="feat-grid tech-grid">
+                <div><h5>Control Loop</h5><p><b>Act</b></p></div>
+                <div><h5>Tools (boundary)</h5><p>Tool class read + write_govern. Before launch complete tool list: which entities, shared write, knowledge lookup.</p></div>
+                <div><h5>Interaction mode</h5><p><b>Collaborative</b> — Business initiates multi-step lookup/fill; shared write requires allowlist</p></div>
+                <div class="feat-span"><h5>Skill build logic</h5><div class="skill-logic">
+              <p class="skill-logic-title">&quot;Procurement Chase Reminder&quot; capability pack build logic (to mount · suggest Act)</p>
+              <ol>
+                <li><b>Which business data / knowledge:</b>Customer/order/channel master data relevant to feature</li>
+                <li><b>What processing:</b>Multi-step lookup and synthesis → actionable conclusion; declare shared-write consumers</li>
+                <li><b>Which model / loop:</b>Act loop</li>
+                <li><b>Which tools:</b>Read master data; shared write or tagging as needed</li>
+                <li><b>Output and downstream use:</b>Multi-step reasoning triggers procurement follow-up reminder</li>
+              </ol>
+            </div></div>
+              </div>
+            </article>
+        </div>
+        <h3 class="subhead">Dept AI business sequence</h3>
+        <div class="asset-card" style="max-width:100%"><p style="margin:0">Each feature runs separately; cross-feature only via shared layer in a new run.</p></div>
+        <h3 class="subhead">Shared digital assets (dept-related)</h3>
+        <div class="asset-card" style="max-width:100%"><p style="margin:0">Per feature declare who writes, who reads, which tags.</p></div>
+      </section>
+      <section class="logic-section dept-card">
+        <h2>IoT / Vehicle Head Unit <span class="dept-count-inline">2 features</span></h2>
+        <p class="sec-note">Per-feature Control Loop retained; Skill build logic uses data → processing → model → tools → output for business and engineering readers.</p>
+        <div class="feat-judge-list">
+            <article class="feat-judge">
+              <div class="feat-judge-title">
+                <strong>Production Line / QA Visual Inspection</strong>
+                <code>F-IOT-VISION</code>
+                <span class="pill pill-ghost">Phase 2</span>
+              </div>
+              <p class="feat-purpose">Image understanding → defect tags for rule-merge alerts</p>
+              <div class="feat-grid tech-grid">
+                <div><h5>Control Loop</h5><p><b>Extract (extended Vision)</b></p></div>
+                <div><h5>Tools (boundary)</h5><p>Perception input (image/bench) → defect tags reported; tools mostly read/annotate.</p></div>
+                <div><h5>Interaction mode</h5><p><b>Reporting</b> — Defect/status tags reported to quality; no direct enforcement loop</p></div>
+                <div class="feat-span"><h5>Skill build logic</h5><div class="skill-logic">
+              <p class="skill-logic-title">&quot;Production Line / QA Visual Inspection&quot; capability pack build logic (to mount · suggest Extract (extended Vision))</p>
+              <ol>
+                <li><b>Which business data / knowledge:</b>Production-line images / bench test data</li>
+                <li><b>What processing:</b>Detect defects or status → generate tags and report to quality</li>
+                <li><b>Which model / loop:</b>Vision extension (Extract perception side)</li>
+                <li><b>Which tools:</b>Perception input and annotation output (phased)</li>
+                <li><b>Output and downstream use:</b>Image understanding → defect tags for rule-merge alerts</li>
+              </ol>
+            </div></div>
+              </div>
+            </article>
+            <article class="feat-judge">
+              <div class="feat-judge-title">
+                <strong>Telemetry Proactive Service</strong>
+                <code>F-IOT-003</code>
+                <span class="pill pill-ghost">Phase 3</span>
+              </div>
+              <p class="feat-purpose">Look up alerts / mileage → recommend actions → write output</p>
+              <div class="feat-grid tech-grid">
+                <div><h5>Control Loop</h5><p><b>Act</b></p></div>
+                <div><h5>Tools (boundary)</h5><p>Tool class read + write_govern. Before launch complete tool list: which entities, shared write, knowledge lookup.</p></div>
+                <div><h5>Interaction mode</h5><p><b>Collaborative</b> — Business initiates multi-step lookup/fill; shared write requires allowlist</p></div>
+                <div class="feat-span"><h5>Skill build logic</h5><div class="skill-logic">
+              <p class="skill-logic-title">&quot;Telemetry Proactive Service&quot; capability pack build logic (to mount · suggest Act)</p>
+              <ol>
+                <li><b>Which business data / knowledge:</b>Customer/order/channel master data relevant to feature</li>
+                <li><b>What processing:</b>Multi-step lookup and synthesis → actionable conclusion; declare shared-write consumers</li>
+                <li><b>Which model / loop:</b>Act loop</li>
+                <li><b>Which tools:</b>Read master data; shared write or tagging as needed</li>
+                <li><b>Output and downstream use:</b>Look up alerts / mileage → recommend actions → write output</li>
+              </ol>
+            </div></div>
+              </div>
+            </article>
+        </div>
+        <h3 class="subhead">Dept AI business sequence</h3>
+        <div class="asset-card" style="max-width:100%"><p style="margin:0">Each feature runs separately; cross-feature only via shared layer in a new run.</p></div>
+        <h3 class="subhead">Shared digital assets (dept-related)</h3>
+        <div class="asset-card" style="max-width:100%"><p style="margin:0">Per feature declare who writes, who reads, which tags.</p></div>
+      </section>
+      <section class="logic-section dept-card">
+        <h2>Data Research Institute <span class="dept-count-inline">2 features</span></h2>
+        <p class="sec-note">Per-feature Control Loop retained; Skill build logic uses data → processing → model → tools → output for business and engineering readers.</p>
+        <div class="feat-judge-list">
+            <article class="feat-judge">
+              <div class="feat-judge-title">
+                <strong>Smart Data Query</strong>
+                <code>F-DAT-003</code>
+                <span class="pill pill-ghost">Phase 2</span>
+              </div>
+              <p class="feat-purpose">Clarify metrics → query semantic layer → return numbers</p>
+              <div class="feat-grid tech-grid">
+                <div><h5>Control Loop</h5><p><b>Act</b></p></div>
+                <div><h5>Tools (boundary)</h5><p>Tool class read + write_govern. Before launch complete tool list: which entities, shared write, knowledge lookup.</p></div>
+                <div><h5>Interaction mode</h5><p><b>Collaborative</b> — Business initiates multi-step lookup/fill; shared write requires allowlist</p></div>
+                <div class="feat-span"><h5>Skill build logic</h5><div class="skill-logic">
+              <p class="skill-logic-title">&quot;Smart Data Query&quot; capability pack build logic (to mount · suggest Act)</p>
+              <ol>
+                <li><b>Which business data / knowledge:</b>Customer/order/channel master data relevant to feature</li>
+                <li><b>What processing:</b>Multi-step lookup and synthesis → actionable conclusion; declare shared-write consumers</li>
+                <li><b>Which model / loop:</b>Act loop</li>
+                <li><b>Which tools:</b>Read master data; shared write or tagging as needed</li>
+                <li><b>Output and downstream use:</b>Clarify metrics → query semantic layer → return numbers</li>
+              </ol>
+            </div></div>
+              </div>
+            </article>
+            <article class="feat-judge">
+              <div class="feat-judge-title">
+                <strong>BI Semantic Layer + Smart Data Query (Shared)</strong>
+                <code>F-X-002</code>
+                <span class="pill pill-ghost">Phase 2</span>
+              </div>
+              <p class="feat-purpose">Unified data query and auto-report foundation</p>
+              <div class="feat-grid tech-grid">
+                <div><h5>Control Loop</h5><p><b>Act</b></p></div>
+                <div><h5>Tools (boundary)</h5><p>Tool class read + write_govern. Before launch complete tool list: which entities, shared write, knowledge lookup.</p></div>
+                <div><h5>Interaction mode</h5><p><b>Collaborative</b> — Business initiates multi-step lookup/fill; shared write requires allowlist</p></div>
+                <div class="feat-span"><h5>Skill build logic</h5><div class="skill-logic">
+              <p class="skill-logic-title">&quot;BI Semantic Layer + Smart Data Query (Shared)&quot; capability pack build logic (to mount · suggest Act)</p>
+              <ol>
+                <li><b>Which business data / knowledge:</b>Customer/order/channel master data relevant to feature</li>
+                <li><b>What processing:</b>Multi-step lookup and synthesis → actionable conclusion; declare shared-write consumers</li>
+                <li><b>Which model / loop:</b>Act loop</li>
+                <li><b>Which tools:</b>Read master data; shared write or tagging as needed</li>
+                <li><b>Output and downstream use:</b>Unified data query and auto-report foundation</li>
+              </ol>
+            </div></div>
+              </div>
+            </article>
+        </div>
+        <h3 class="subhead">Dept AI business sequence</h3>
+        <div class="asset-card" style="max-width:100%"><p style="margin:0">Each feature runs separately; cross-feature only via shared layer in a new run.</p></div>
+        <h3 class="subhead">Shared digital assets (dept-related)</h3>
+        <div class="asset-card" style="max-width:100%"><p style="margin:0">Per feature declare who writes, who reads, which tags.</p></div>
+      </section>
+      <section class="logic-section dept-card">
+        <h2>HR Management Platform <span class="dept-count-inline">1 features</span></h2>
+        <p class="sec-note">Per-feature Control Loop retained; Skill build logic uses data → processing → model → tools → output for business and engineering readers.</p>
+        <div class="feat-judge-list">
+            <article class="feat-judge">
+              <div class="feat-judge-title">
+                <strong>Employee AI Assistant · Policy Q&amp;A</strong>
+                <code>F-HR-001</code>
+                <span class="pill pill-ghost">Phase 1 · trial ready</span>
+              </div>
+              <p class="feat-purpose">HR policy / agent SOP RAG Q&amp;A</p>
+              <div class="feat-grid tech-grid">
+                <div><h5>Control Loop</h5><p><b>Retrieve</b></p></div>
+                <div><h5>Tools (boundary)</h5><p>Tool class knowledge. This feature uses: Search knowledge base (Search KB chunks, Fetch full doc, KB domain list).</p></div>
+                <div><h5>Interaction mode</h5><p><b>Collaborative</b> — Agent/staff asks; system retrieves and answers; key commitments escalate to human</p></div>
+                <div class="feat-span"><h5>Skill build logic</h5><div class="skill-logic">
+              <p class="skill-logic-title">&quot;Employee AI Assistant · Policy Q&amp;A&quot; capability pack build logic (hr_rules · Retrieve)</p>
+              <ol>
+                <li><b>Which business data / knowledge:</b>HR regulations and agent QA SOP knowledge base</li>
+                <li><b>What processing:</b>Retrieve policy/SOP points → answer; escalate individual discipline to human</li>
+                <li><b>Which model / loop:</b>Retrieve loop</li>
+                <li><b>Which tools:</b>Search KB chunks, fetch document, list KB domains</li>
+                <li><b>Output and downstream use:</b>Regulation/QA answers with citations</li>
+              </ol>
+            </div></div>
+              </div>
+            </article>
+        </div>
+        <h3 class="subhead">Dept AI business sequence</h3>
+        <div class="asset-card" style="max-width:100%"><p style="margin:0">Each feature runs separately; cross-feature only via shared layer in a new run.</p></div>
+        <h3 class="subhead">Shared digital assets (dept-related)</h3>
+        <div class="asset-card" style="max-width:100%"><p style="margin:0">Per feature declare who writes, who reads, which tags.</p></div>
+      </section>
+      <section class="logic-section dept-card">
+        <h2>Cross-department Shared Layer <span class="dept-count-inline">6 features</span></h2>
+        <p class="sec-note">Per-feature Control Loop retained; Skill build logic uses data → processing → model → tools → output for business and engineering readers.</p>
+        <div class="feat-judge-list">
+            <article class="feat-judge">
+              <div class="feat-judge-title">
+                <strong>Smart Expense · Three-way Match Extraction</strong>
+                <code>F-FIN-001</code>
+                <span class="pill pill-ghost">Phase 3</span>
+              </div>
+              <p class="feat-purpose">Extract fields from invoice / contract / goods receipt</p>
+              <div class="feat-grid tech-grid">
+                <div><h5>Control Loop</h5><p><b>Extract</b></p></div>
+                <div><h5>Tools (boundary)</h5><p>Tool class write_govern (structured). Extract fields/tags from text; write shared output when needed.</p></div>
+                <div><h5>Interaction mode</h5><p><b>Collaborative</b> — Input raw text, output schema fields; shared write is approval boundary</p></div>
+                <div class="feat-span"><h5>Skill build logic</h5><div class="skill-logic">
+              <p class="skill-logic-title">&quot;Smart Expense · Three-way Match Extraction&quot; capability pack build logic (to mount · suggest Extract)</p>
+              <ol>
+                <li><b>Which business data / knowledge:</b>Business raw text or form text</li>
+                <li><b>What processing:</b>Extract and validate per agreed field schema</li>
+                <li><b>Which model / loop:</b>Extract loop</li>
+                <li><b>Which tools:</b>Structured extraction; write shared output when needed</li>
+                <li><b>Output and downstream use:</b>Extract fields from invoice / contract / goods receipt</li>
+              </ol>
+            </div></div>
+              </div>
+            </article>
+            <article class="feat-judge">
+              <div class="feat-judge-title">
+                <strong>Master Data Lookup</strong>
+                <code>F-X-CRM</code>
+                <span class="pill pill-ghost">Phase 1 · trial ready</span>
+              </div>
+              <p class="feat-purpose">Unified customer · vehicle · order · ticket ID lookup</p>
+              <div class="feat-grid tech-grid">
+                <div><h5>Control Loop</h5><p><b>Act</b></p></div>
+                <div><h5>Tools (boundary)</h5><p>Tool class read + write_govern. This feature uses: Read business entities (Customer, Vehicle, Vehicle list, Order, Order list, Inventory, Dealer, Store).</p></div>
+                <div><h5>Interaction mode</h5><p><b>Collaborative</b> — Business initiates multi-step lookup/fill; shared write requires allowlist</p></div>
+                <div class="feat-span"><h5>Skill build logic</h5><div class="skill-logic">
+              <p class="skill-logic-title">&quot;Master Data Lookup&quot; capability pack build logic (crm_lookup · Act)</p>
+              <ol>
+                <li><b>Which business data / knowledge:</b>Customer, vehicle, order, inventory, dealer/store/SKU master data</li>
+                <li><b>What processing:</b>Look up entities by id → short factual summary</li>
+                <li><b>Which model / loop:</b>Act loop: orchestrate lookups, facts over prose</li>
+                <li><b>Which tools:</b>Customer/vehicle/order/inventory lookup tools</li>
+                <li><b>Output and downstream use:</b>Master-data verification for service or pre-renewal lookup</li>
+              </ol>
+            </div></div>
+              </div>
+            </article>
+            <article class="feat-judge">
+              <div class="feat-judge-title">
+                <strong>Shared Store Write</strong>
+                <code>F-X-WRITE</code>
+                <span class="pill pill-ghost">Phase 1 · trial ready</span>
+              </div>
+              <p class="feat-purpose">Write results to shared store for other capabilities to read</p>
+              <div class="feat-grid tech-grid">
+                <div><h5>Control Loop</h5><p><b>Act</b></p></div>
+                <div><h5>Tools (boundary)</h5><p>Tool class read + write_govern. This feature uses: Structure / write shared / gate (Write shared output, Read shared output, get_ai_output).</p></div>
+                <div><h5>Interaction mode</h5><p><b>Collaborative</b> — Business initiates multi-step lookup/fill; shared write requires allowlist</p></div>
+                <div class="feat-span"><h5>Skill build logic</h5><div class="skill-logic">
+              <p class="skill-logic-title">&quot;Shared Store Write&quot; capability pack build logic (shared_write · Act)</p>
+              <ol>
+                <li><b>Which business data / knowledge:</b>Structured payload from business caller</li>
+                <li><b>What processing:</b>Validate write scope → write shared output and return id for separate consumer run</li>
+                <li><b>Which model / loop:</b>Act shared-write step; tool calls and permissions drive logic</li>
+                <li><b>Which tools:</b>Write/read shared output</li>
+                <li><b>Output and downstream use:</b>Shared output id consumable cross-department</li>
+              </ol>
+            </div></div>
+              </div>
+            </article>
+            <article class="feat-judge">
+              <div class="feat-judge-title">
+                <strong>Shared Tags / Output Read</strong>
+                <code>F-X-READ</code>
+                <span class="pill pill-ghost">Phase 2</span>
+              </div>
+              <p class="feat-purpose">Cross-Skill consumption; block incorrect outreach</p>
+              <div class="feat-grid tech-grid">
+                <div><h5>Control Loop</h5><p><b>Act</b></p></div>
+                <div><h5>Tools (boundary)</h5><p>Tool class read + write_govern. Before launch complete tool list: which entities, shared write, knowledge lookup.</p></div>
+                <div><h5>Interaction mode</h5><p><b>Collaborative</b> — Business initiates multi-step lookup/fill; shared write requires allowlist</p></div>
+                <div class="feat-span"><h5>Skill build logic</h5><div class="skill-logic">
+              <p class="skill-logic-title">&quot;Shared Tags / Output Read&quot; capability pack build logic (to mount · suggest Act)</p>
+              <ol>
+                <li><b>Which business data / knowledge:</b>Customer/order/channel master data relevant to feature</li>
+                <li><b>What processing:</b>Multi-step lookup and synthesis → actionable conclusion; declare shared-write consumers</li>
+                <li><b>Which model / loop:</b>Act loop</li>
+                <li><b>Which tools:</b>Read master data; shared write or tagging as needed</li>
+                <li><b>Output and downstream use:</b>Cross-Skill consumption; block incorrect outreach</li>
+              </ol>
+            </div></div>
+              </div>
+            </article>
+            <article class="feat-judge">
+              <div class="feat-judge-title">
+                <strong>Capability Catalog Search</strong>
+                <code>F-X-CAP</code>
+                <span class="pill pill-ghost">Phase 2</span>
+              </div>
+              <p class="feat-purpose">Discover existing Skills; avoid duplicate Agent builds</p>
+              <div class="feat-grid tech-grid">
+                <div><h5>Control Loop</h5><p><b>Act</b></p></div>
+                <div><h5>Tools (boundary)</h5><p>Tool class read + write_govern. Before launch complete tool list: which entities, shared write, knowledge lookup.</p></div>
+                <div><h5>Interaction mode</h5><p><b>Collaborative</b> — Business initiates multi-step lookup/fill; shared write requires allowlist</p></div>
+                <div class="feat-span"><h5>Skill build logic</h5><div class="skill-logic">
+              <p class="skill-logic-title">&quot;Capability Catalog Search&quot; capability pack build logic (to mount · suggest Act)</p>
+              <ol>
+                <li><b>Which business data / knowledge:</b>Customer/order/channel master data relevant to feature</li>
+                <li><b>What processing:</b>Multi-step lookup and synthesis → actionable conclusion; declare shared-write consumers</li>
+                <li><b>Which model / loop:</b>Act loop</li>
+                <li><b>Which tools:</b>Read master data; shared write or tagging as needed</li>
+                <li><b>Output and downstream use:</b>Discover existing Skills; avoid duplicate Agent builds</li>
+              </ol>
+            </div></div>
+              </div>
+            </article>
+            <article class="feat-judge">
+              <div class="feat-judge-title">
+                <strong>Channel Business Query (Shared Data Source)</strong>
+                <code>F-X-CH</code>
+                <span class="pill pill-ghost">Phase 1 · trial ready</span>
+              </div>
+              <p class="feat-purpose">Business and compliance from same data source</p>
+              <div class="feat-grid tech-grid">
+                <div><h5>Control Loop</h5><p><b>Act</b></p></div>
+                <div><h5>Tools (boundary)</h5><p>Tool class read + write_govern. This feature uses: Read business entities (Dealer, Dealer health, Alert, list_sales_metrics, list_retail_daily, Inspection, get_risk, Policy slice).</p></div>
+                <div><h5>Interaction mode</h5><p><b>Collaborative</b> — Business initiates multi-step lookup/fill; shared write requires allowlist</p></div>
+                <div class="feat-span"><h5>Skill build logic</h5><div class="skill-logic">
+              <p class="skill-logic-title">&quot;Channel Business Query (Shared Data Source)&quot; capability pack build logic (channel_ops · Act)</p>
+              <ol>
+                <li><b>Which business data / knowledge:</b>Dealer health, alerts, inspections, sales/retail daily, policy slices</li>
+                <li><b>What processing:</b>Pull health/alerts/inspections for ops question → dashboard-style brief</li>
+                <li><b>Which model / loop:</b>Act loop</li>
+                <li><b>Which tools:</b>Dealer health, alerts, inspections, sales and policy queries</li>
+                <li><b>Output and downstream use:</b>Ops brief (numbers + anomalies + next steps)</li>
+              </ol>
+            </div></div>
+              </div>
+            </article>
+        </div>
+        <h3 class="subhead">Dept AI business sequence</h3>
+        <div class="asset-card" style="max-width:100%"><p style="margin:0">Handles shared output/tag read-write; capability catalog lookup to avoid duplicate dept builds.</p></div>
+        <h3 class="subhead">Shared digital assets (dept-related)</h3>
+        <div class="asset-card" style="max-width:100%"><p style="margin:0">Platform assets: tag dictionary, shared AI outputs, capability catalog, unified tool registry.</p></div>
+      </section>
+
+      <section class="logic-section" style="border:none;padding:0;background:transparent;box-shadow:none">
+        <div class="innov-float">
+          <div class="innov-badge">Highlight</div>
+          <h3>Platform unity: 4 Control Loops + 3 tool classes + shared store</h3>
+          <p class="innov-claim">
+            Loops: Retrieve / Act / Extract / Plan; tools: read master / knowledge / write shared & gate;
+            Cross-dept via shared outputs and tag dictionary. Value: anti-silo, unified observability, loop-based cost control, auditable shared writes.
+          </p>
+        </div>
+      </section>
+
+      <section class="logic-section phase-roadmap-sec">
+        <h2>Phase 1 / 2 / 3 · roadmap</h2>
+        <p class="sec-note">Phase 1 connects foundation and cross-dept sharing; phases 2–3 extend by feature with measurable KPIs.</p>
+        <div class="phase-roadmap">
+          <article class="phase-panel phase1">
+            <header class="phase-panel-head">
+              <span class="phase-num">01</span>
+              <div>
+                <h4>Phase 1 · Foundation interconnect</h4>
+                <p>Must deliver · trial ready</p>
+              </div>
+            </header>
+            <div class="phase-block">
+              <h5>Platform deliverables</h5>
+              <div class="phase-chips">
+                <span>4 Control Loops runnable</span>
+                <span>Unified tool registry (read / knowledge / write shared)</span>
+                <span>Single data-fetch channel</span>
+                <span>Shared layer: tag dictionary + AI outputs</span>
+              </div>
+            </div>
+            <div class="phase-block">
+              <h5>Cross-dept acceptance</h5>
+              <p>Service-written complaint tags are readable by user-ops Plan and block correctly; same tools reused across dept capability packs.</p>
+            </div>
+            <div class="phase-block">
+              <h5>Trial-ready features · 15</h5>
+              <div class="phase-feat-grid"><div class="phase-feat"><strong>Smart Ticket Fill</strong><span class="phase-feat-dept">Service Division</span><span class="phase-feat-kpi">Single-run acceptance · faster business closure</span></div><div class="phase-feat"><strong>Smart Ticket Fill · Extraction</strong><span class="phase-feat-dept">Service Division</span><span class="phase-feat-kpi">Single-run acceptance · faster business closure</span></div><div class="phase-feat"><strong>Smart Assist Reply · RAG</strong><span class="phase-feat-dept">Service Division</span><span class="phase-feat-kpi">Single-run acceptance · faster business closure</span></div><div class="phase-feat"><strong>Repair KB Q&amp;A</strong><span class="phase-feat-dept">Service Division</span><span class="phase-feat-kpi">Single-run acceptance · faster business closure</span></div><div class="phase-feat"><strong>Policy Q&amp;A</strong><span class="phase-feat-dept">Ops Management · Orders/Policy</span><span class="phase-feat-kpi">Self-serve Q&amp;A ↑ · earlier anomaly detection</span></div><div class="phase-feat"><strong>App Smart Q&amp;A MVP</strong><span class="phase-feat-dept">User Ops/App</span><span class="phase-feat-kpi">Inappropriate outreach incidents = 0 (gate extension)</span></div><div class="phase-feat"><strong>Customer Voice Triage</strong><span class="phase-feat-dept">User Research/VoC</span><span class="phase-feat-kpi">Tag coverage ↑</span></div><div class="phase-feat"><strong>Multi-step Repair Assist</strong><span class="phase-feat-dept">Service Division</span><span class="phase-feat-kpi">Single-run acceptance · faster business closure</span></div><div class="phase-feat"><strong>Agent Proactive Outreach (Complaint Gate)</strong><span class="phase-feat-dept">User Ops/App</span><span class="phase-feat-kpi">Inappropriate outreach incidents = 0 (gate extension)</span></div><div class="phase-feat"><strong>Unified Smart CS</strong><span class="phase-feat-dept">User Ops/App</span><span class="phase-feat-kpi">Inappropriate outreach incidents = 0 (gate extension)</span></div><div class="phase-feat"><strong>Business Health / Alert Query</strong><span class="phase-feat-dept">Channel Office</span><span class="phase-feat-kpi">Self-serve Q&amp;A ↑ · earlier anomaly detection</span></div><div class="phase-feat"><strong>Employee AI Assistant · Policy Q&amp;A</strong><span class="phase-feat-dept">HR Management Platform</span><span class="phase-feat-kpi">Self-serve Q&amp;A ↑ · earlier anomaly detection</span></div><div class="phase-feat"><strong>Master Data Lookup</strong><span class="phase-feat-dept">Cross-department Shared Layer</span><span class="phase-feat-kpi">Stable shared reads, auditable</span></div><div class="phase-feat"><strong>Shared Store Write</strong><span class="phase-feat-dept">Cross-department Shared Layer</span><span class="phase-feat-kpi">Stable shared reads, auditable</span></div><div class="phase-feat"><strong>Channel Business Query (Shared Data Source)</strong><span class="phase-feat-dept">Cross-department Shared Layer</span><span class="phase-feat-kpi">Stable shared reads, auditable</span></div></div>
+            </div>
+            <div class="phase-block phase-kpi">
+              <h5>Current KPI</h5>
+              <ol>
+                <li>Open-complaint sample: renewal gate block hit rate = 100%</li>
+                <li>All tool calls via unified registry, no private data bypass</li>
+                <li>Tag dictionary covers complaint / risk tags</li>
+                <li>Key runs traceable in ops console by run id</li>
+                <li>Complaint fill and renewal gate are separate runs, no auto chain</li>
+              </ol>
+            </div>
+          </article>
+
+          <article class="phase-panel">
+            <header class="phase-panel-head">
+              <span class="phase-num">02</span>
+              <div>
+                <h4>Phase 2 · Dept feature expansion</h4>
+                <p>Mount by dept · measurable ROI</p>
+              </div>
+            </header>
+            <div class="phase-block">
+              <h5>Platform progress</h5>
+              <div class="phase-chips">
+                <span>Complete flow playbooks</span>
+                <span>Extend Act / Extract capability packs</span>
+                <span>Outbound tasks still not chained upstream</span>
+              </div>
+            </div>
+            <div class="phase-block">
+              <h5>Features this phase · 20</h5>
+              <div class="phase-feat-grid"><div class="phase-feat"><strong>VoC Fault Clustering</strong><span class="phase-feat-dept">Service Division</span><span class="phase-feat-kpi">Single-run acceptance · faster business closure</span></div><div class="phase-feat"><strong>Sales Policy Parsing</strong><span class="phase-feat-dept">Ops Management · Orders/Policy</span><span class="phase-feat-kpi">Self-serve Q&amp;A ↑ · earlier anomaly detection</span></div><div class="phase-feat"><strong>Renewal AI Outreach Tasks</strong><span class="phase-feat-dept">User Ops/App</span><span class="phase-feat-kpi">Inappropriate outreach incidents = 0 (gate extension)</span></div><div class="phase-feat"><strong>Smart Order Creation &amp; Review</strong><span class="phase-feat-dept">Ops Management · Orders/Policy</span><span class="phase-feat-kpi">Self-serve Q&amp;A ↑ · earlier anomaly detection</span></div><div class="phase-feat"><strong>Agent Order Review (Cross-department Line)</strong><span class="phase-feat-dept">Ops Management · Orders/Policy</span><span class="phase-feat-kpi">Self-serve Q&amp;A ↑ · earlier anomaly detection</span></div><div class="phase-feat"><strong>Pickup / Offline Q&amp;A Assist</strong><span class="phase-feat-dept">Four Regional Zones</span><span class="phase-feat-kpi">Self-serve Q&amp;A ↑ · earlier anomaly detection</span></div><div class="phase-feat"><strong>Regional Order / Policy Tier Assist</strong><span class="phase-feat-dept">Four Regional Zones</span><span class="phase-feat-kpi">Self-serve Q&amp;A ↑ · earlier anomaly detection</span></div><div class="phase-feat"><strong>Channel Dashboard Merge (Planning)</strong><span class="phase-feat-dept">Channel Office</span><span class="phase-feat-kpi">Self-serve Q&amp;A ↑ · earlier anomaly detection</span></div><div class="phase-feat"><strong>Order Review Tier Gate</strong><span class="phase-feat-dept">Ops Management · Orders/Policy</span><span class="phase-feat-kpi">Self-serve Q&amp;A ↑ · earlier anomaly detection</span></div><div class="phase-feat"><strong>Renewal / Complaint Score Gate</strong><span class="phase-feat-dept">User Ops/App</span><span class="phase-feat-kpi">Inappropriate outreach incidents = 0 (gate extension)</span></div><div class="phase-feat"><strong>Production Line / QA Visual Inspection</strong><span class="phase-feat-dept">IoT/Vehicle Head Unit</span><span class="phase-feat-kpi">Miss-rate baseline / miss rate ↓</span></div><div class="phase-feat"><strong>Multi-platform CS Auto-reply</strong><span class="phase-feat-dept">New Retail</span><span class="phase-feat-kpi">Auto-reply share ↑</span></div><div class="phase-feat"><strong>Online Platform Sales CS</strong><span class="phase-feat-dept">New Retail</span><span class="phase-feat-kpi">Auto-reply share ↑</span></div><div class="phase-feat"><strong>Procurement Follow-up Bot</strong><span class="phase-feat-dept">Procurement Platform</span><span class="phase-feat-kpi">Follow-up timeliness ↑</span></div><div class="phase-feat"><strong>Smart Follow-up</strong><span class="phase-feat-dept">Procurement Platform</span><span class="phase-feat-kpi">Follow-up timeliness ↑</span></div><div class="phase-feat"><strong>Procurement Chase Reminder</strong><span class="phase-feat-dept">Procurement Platform</span><span class="phase-feat-kpi">Follow-up timeliness ↑</span></div><div class="phase-feat"><strong>Smart Data Query</strong><span class="phase-feat-dept">Data Research Institute</span><span class="phase-feat-kpi">Self-serve analytics ↑</span></div><div class="phase-feat"><strong>BI Semantic Layer + Smart Data Query (Shared)</strong><span class="phase-feat-dept">Data Research Institute</span><span class="phase-feat-kpi">Self-serve analytics ↑</span></div><div class="phase-feat"><strong>Shared Tags / Output Read</strong><span class="phase-feat-dept">Cross-department Shared Layer</span><span class="phase-feat-kpi">Stable shared reads, auditable</span></div><div class="phase-feat"><strong>Capability Catalog Search</strong><span class="phase-feat-dept">Cross-department Shared Layer</span><span class="phase-feat-kpi">Stable shared reads, auditable</span></div></div>
+            </div>
+            <div class="phase-block phase-kpi">
+              <h5>Combined KPI</h5>
+              <ol>
+                <li>New capability pack rollout ≤ 50% of silo project time</li>
+                <li>Policy / channel self-serve Q&A share up</li>
+                <li>Duplicate tool implementations → zero</li>
+              </ol>
+            </div>
+          </article>
+
+          <article class="phase-panel">
+            <header class="phase-panel-head">
+              <span class="phase-num">03</span>
+              <div>
+                <h4>Phase 3 · Perception and evaluation</h4>
+                <p>Quality loop · compliance baseline</p>
+              </div>
+            </header>
+            <div class="phase-block">
+              <h5>Platform progress</h5>
+              <div class="phase-chips">
+                <span>Vision extension slot</span>
+                <span>Gold eval set</span>
+                <span>Audit reports</span>
+                <span>No enterprise-wide single orchestrator</span>
+              </div>
+            </div>
+            <div class="phase-block">
+              <h5>Features this phase · 3</h5>
+              <div class="phase-feat-grid"><div class="phase-feat"><strong>Smart QA (SOP)</strong><span class="phase-feat-dept">Service Division</span><span class="phase-feat-kpi">Single-run acceptance · faster business closure</span></div><div class="phase-feat"><strong>Smart Expense · Three-way Match Extraction</strong><span class="phase-feat-dept">Cross-department Shared Layer</span><span class="phase-feat-kpi">Stable shared reads, auditable</span></div><div class="phase-feat"><strong>Telemetry Proactive Service</strong><span class="phase-feat-dept">IoT/Vehicle Head Unit</span><span class="phase-feat-kpi">Miss-rate baseline / miss rate ↓</span></div></div>
+            </div>
+            <div class="phase-block phase-kpi">
+              <h5>Combined KPI</h5>
+              <ol>
+                <li>QC miss rate and downtime response meet baseline</li>
+                <li>Compliance sampling pass rate met</li>
+                <li>Key lines have reviewable eval baseline</li>
+              </ol>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <div class="logic-footer-nav">
+        <a href="/logic/architecture">← Part 1</a>
+        <a href="/logic/risk">Go to Part 3 →</a>
+      </div>
+
+    </div>
+
+  </body>
+</html>

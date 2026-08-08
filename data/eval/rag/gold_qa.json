@@ -1,0 +1,201 @@
+{
+  "version": "v1",
+  "description": "Qingshu Mobility RAG gold Q&A (synthetic knowledge); for scripts/eval_rag.py / smoke_rag.py",
+  "thresholds": {
+    "run_ok_rate": 1.0,
+    "hit_doc_recall": 0.8,
+    "cite_present_rate": 1.0,
+    "keyword_hit_rate": 0.7,
+    "domain_isolation_rate": 1.0,
+    "cross_domain_safe_rate": 1.0
+  },
+  "cases": [
+    {
+      "id": "RAG-REP-001",
+      "skill_id": "repair_kb",
+      "suite": "core",
+      "query": "How to troubleshoot range below rated?",
+      "gold": {
+        "expect_hit": true,
+        "kb_domain": "repair",
+        "doc_id_any_of": ["repair__range-anomaly-troubleshooting"],
+        "must_contain_any": ["range", "SOH", "OTA", "full charge", "charge"],
+        "notes": "Phase 1 Demo primary question"
+      }
+    },
+    {
+      "id": "RAG-REP-002",
+      "skill_id": "repair_kb",
+      "suite": "core",
+      "query": "What to do when App pairing fails?",
+      "gold": {
+        "expect_hit": true,
+        "kb_domain": "repair",
+        "doc_id_any_of": ["repair__app-pairing-failure"],
+        "must_contain_any": ["pair", "Bluetooth", "unpair", "renew", "smart"]
+      }
+    },
+    {
+      "id": "RAG-REP-003",
+      "skill_id": "repair_kb",
+      "suite": "extended",
+      "query": "Why motor noise with speed limit?",
+      "gold": {
+        "expect_hit": true,
+        "kb_domain": "repair",
+        "doc_id_any_of": ["repair__motor-noise-and-speed-limit"],
+        "must_contain_any": ["motor", "noise", "speed limit", "limit"]
+      }
+    },
+    {
+      "id": "RAG-REP-004",
+      "skill_id": "repair_kb",
+      "suite": "extended",
+      "query": "Should I replace brake pads for brake noise?",
+      "gold": {
+        "expect_hit": true,
+        "kb_domain": "repair",
+        "doc_id_any_of": ["repair__brake-noise-and-pads"],
+        "must_contain_any": ["brake", "noise", "pad"]
+      }
+    },
+    {
+      "id": "RAG-REP-005",
+      "skill_id": "repair_kb",
+      "suite": "extended",
+      "query": "How to handle poor charging port contact?",
+      "gold": {
+        "expect_hit": true,
+        "kb_domain": "repair",
+        "doc_id_any_of": ["repair__charging-port-and-charger-compatibility"],
+        "must_contain_any": ["charg", "charger", "contact", "port"]
+      }
+    },
+    {
+      "id": "RAG-POL-001",
+      "skill_id": "policy_kb",
+      "suite": "core",
+      "query": "2026Q3 pickup rebate: how many units for gold tier?",
+      "gold": {
+        "expect_hit": true,
+        "kb_domain": "policy",
+        "doc_id_any_of": ["policy__2026Q3-pickup-rebate"],
+        "must_contain_any": ["1200", "gold", "4.2", "Gold"]
+      }
+    },
+    {
+      "id": "RAG-POL-002",
+      "skill_id": "policy_kb",
+      "suite": "extended",
+      "query": "Low battery SOH under warranty—what to do?",
+      "gold": {
+        "expect_hit": true,
+        "kb_domain": "policy",
+        "doc_id_any_of": ["policy__warranty-and-battery-policy"],
+        "must_contain_any": ["warranty", "battery", "SOH", "three"]
+      }
+    },
+    {
+      "id": "RAG-POL-003",
+      "skill_id": "policy_kb",
+      "suite": "extended",
+      "query": "What renewal outreach red lines must not be crossed?",
+      "gold": {
+        "expect_hit": true,
+        "kb_domain": "policy",
+        "doc_id_any_of": ["policy__renewal-outreach-red-lines"],
+        "must_contain_any": ["renew", "complaint", "outreach", "red line", "block"]
+      }
+    },
+    {
+      "id": "RAG-POL-004",
+      "skill_id": "policy_kb",
+      "suite": "extended",
+      "query": "How are store non-exclusive display and VI violations defined?",
+      "gold": {
+        "expect_hit": true,
+        "kb_domain": "policy",
+        "doc_id_any_of": ["policy__store-vi-and-non-exclusive-red-lines"],
+        "must_contain_any": ["VI", "non-exclusive", "store"]
+      }
+    },
+    {
+      "id": "RAG-HR-001",
+      "skill_id": "hr_rules",
+      "suite": "core",
+      "query": "What phrases must agents not say in QA?",
+      "gold": {
+        "expect_hit": true,
+        "kb_domain": "hr",
+        "doc_id_any_of": ["hr__agent-qa-sop-highlights"],
+        "must_contain_any": ["absolutely no problem", "QA", "risk"]
+      }
+    },
+    {
+      "id": "RAG-HR-002",
+      "skill_id": "hr_rules",
+      "suite": "extended",
+      "query": "How is employee leave policy defined?",
+      "gold": {
+        "expect_hit": true,
+        "kb_domain": "hr",
+        "doc_id_any_of": ["hr__employee-policy-qa-summary"],
+        "must_contain_any": ["leave", "annual", "approval"]
+      }
+    },
+    {
+      "id": "RAG-HR-003",
+      "skill_id": "hr_rules",
+      "suite": "extended",
+      "query": "Can I export customer phone numbers to a personal phone?",
+      "gold": {
+        "expect_hit": true,
+        "kb_domain": "hr",
+        "doc_id_any_of": ["hr__employee-policy-qa-summary"],
+        "must_contain_any": ["prohibit", "forbid", "phone", "information security", "mask"]
+      }
+    },
+    {
+      "id": "RAG-XDOM-001",
+      "skill_id": "repair_kb",
+      "suite": "cross_domain",
+      "query": "What is the employee leave policy? How to use annual leave?",
+      "gold": {
+        "expect_hit": false,
+        "kb_domain": "repair",
+        "cross_domain": true,
+        "forbid_doc_id_any_of": ["hr__employee-policy-qa-summary", "hr__agent-qa-sop-highlights"],
+        "must_contain_any": ["not covered", "knowledge base", "repair", "cannot", "outside", "beyond", "HR", "human"],
+        "notes": "Cross-domain: repair Skill asks HR"
+      }
+    },
+    {
+      "id": "RAG-XDOM-002",
+      "skill_id": "policy_kb",
+      "suite": "cross_domain",
+      "query": "How to fix motor noise and speed limit?",
+      "gold": {
+        "expect_hit": false,
+        "kb_domain": "policy",
+        "cross_domain": true,
+        "forbid_doc_id_any_of": ["repair__motor-noise-and-speed-limit"],
+        "must_contain_any": ["not covered", "knowledge base", "policy", "cannot", "outside", "beyond", "repair"],
+        "notes": "Cross-domain: policy Skill asks repair"
+      }
+    },
+    {
+      "id": "RAG-XDOM-003",
+      "skill_id": "hr_rules",
+      "suite": "cross_domain",
+      "query": "2026Q3 pickup rebate: how many units for diamond tier?",
+      "gold": {
+        "expect_hit": false,
+        "kb_domain": "hr",
+        "cross_domain": true,
+        "forbid_doc_id_any_of": ["policy__2026Q3-pickup-rebate"],
+        "must_contain_any": ["not covered", "knowledge base", "policy", "HR", "cannot", "outside", "beyond"],
+        "notes": "Cross-domain: HR Skill asks rebate"
+      }
+    }
+  ]
+}

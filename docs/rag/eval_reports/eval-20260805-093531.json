@@ -1,0 +1,331 @@
+{
+  "version": "v1",
+  "built_at": "2026-08-05T09:35:31Z",
+  "suite": "all",
+  "elapsed_s": 51.03,
+  "passed": true,
+  "failures": [],
+  "thresholds": {
+    "run_ok_rate": 1.0,
+    "hit_doc_recall": 0.8,
+    "cite_present_rate": 1.0,
+    "keyword_hit_rate": 0.7,
+    "domain_isolation_rate": 1.0,
+    "cross_domain_safe_rate": 1.0
+  },
+  "metrics": {
+    "n": 15,
+    "run_ok_rate": 1.0,
+    "hit_doc_recall": 1.0,
+    "hit_n": 12,
+    "cite_present_rate": 1.0,
+    "cite_n": 12,
+    "keyword_hit_rate": 1.0,
+    "keyword_n": 15,
+    "domain_isolation_rate": 1.0,
+    "cross_domain_safe_rate": 1.0,
+    "cross_domain_n": 3
+  },
+  "rows": [
+    {
+      "id": "RAG-REP-001",
+      "skill_id": "repair_kb",
+      "suite": "core",
+      "ok": true,
+      "stop_reason": "cited_answer",
+      "elapsed_s": 4.64,
+      "expect_hit": true,
+      "doc_hit": true,
+      "cited_docs": [
+        "repair__range-anomaly-troubleshooting"
+      ],
+      "cited_domains": [
+        "repair"
+      ],
+      "keyword_hit": true,
+      "domain_isolation_ok": true,
+      "cross_domain_ok": null,
+      "answer_preview": "[Question Review] You are inquiring about: How to troubleshoot when the vehicle's battery life is lower than the nominal value.  [Troubleshooting/handling suggestions based on the knowledge base] According to the \"Battery Life Abnormality Troubleshooting Manual (Qingshu Travel·Synthetic Knowledge)\", it is recommended to follow the following three steps: 1. **Standard three-step technique**: First confirm the \"full charge standard\", check the \"OTA version\", and check the \"battery health (SOH)\". 2. **Quickly distinguish between phenomena and actions** (based on the fragment [3]): - If the full battery mileage is approximately nominal"
+    },
+    {
+      "id": "RAG-REP-002",
+      "skill_id": "repair_kb",
+      "suite": "core",
+      "ok": true,
+      "stop_reason": "cited_answer",
+      "elapsed_s": 3.29,
+      "expect_hit": true,
+      "doc_hit": true,
+      "cited_docs": [
+        "repair__App failed to bind car",
+        "repair__range-anomaly-troubleshooting"
+      ],
+      "cited_domains": [
+        "repair"
+      ],
+      "keyword_hit": true,
+      "domain_isolation_ok": true,
+      "cross_domain_ok": null,
+      "answer_preview": "[Restatement of the Problem] You are inquiring about: How to troubleshoot and handle when the App fails to bind a car.  [Troubleshooting/Processing Suggestions Based on the Knowledge Base] According to the document \"App Vehicle Binding Failed\" in the knowledge base, it is recommended to follow the following steps: 1. **Check the vehicle attributes first**: Confirm whether the VIN is a smart car (`is_smart_vehicle=true`); if a non-smart vehicle is misled into the smart car binding process, the process needs to be corrected. 2. **Check service status**: Confirm that the vehicle has 4G"
+    },
+    {
+      "id": "RAG-REP-003",
+      "skill_id": "repair_kb",
+      "suite": "extended",
+      "ok": true,
+      "stop_reason": "cited_answer",
+      "elapsed_s": 5.01,
+      "expect_hit": true,
+      "doc_hit": true,
+      "cited_docs": [
+        "repair__brake noise and brake pads",
+        "repair__Motor abnormal noise and speed limit"
+      ],
+      "cited_domains": [
+        "repair"
+      ],
+      "keyword_hit": true,
+      "domain_isolation_ok": true,
+      "cross_domain_ok": null,
+      "answer_preview": "[Problem Review] Your feedback is: the motor makes abnormal noise and the vehicle is subject to a speed limit. I would like to know the possible reasons and how to deal with it.  [Troubleshooting/Handling Suggestions Based on the Knowledge Base] According to the search content of \"Motor Abnormal Noise and Speed ​​Limit\" in the knowledge base, this symptom combination (periodic abnormal noise of the hub motor during acceleration + instrument prompts speed limit to 15km/h + occasional \"Drive System Protection\" pop-up window) has a clear troubleshooting path. It is recommended to follow the following steps: 1. **Read fault code**: Prioritize attention to `MCU_OC_02"
+    },
+    {
+      "id": "RAG-REP-004",
+      "skill_id": "repair_kb",
+      "suite": "extended",
+      "ok": true,
+      "stop_reason": "cited_answer",
+      "elapsed_s": 4.31,
+      "expect_hit": true,
+      "doc_hit": true,
+      "cited_docs": [
+        "repair__brake noise and brake pads",
+        "repair__Motor abnormal noise and speed limit"
+      ],
+      "cited_domains": [
+        "repair"
+      ],
+      "keyword_hit": true,
+      "domain_isolation_ok": true,
+      "cross_domain_ok": null,
+      "answer_preview": "[Question Review] You are asking whether the brake pads need to be replaced when there is abnormal noise in the brakes.  [Troubleshooting/Handling Suggestions Based on the Knowledge Base] According to the judgment criteria of the \"Guidelines for Brake Noise and Brake Pad Replacement (Synthesis)\" of the knowledge base, whether the brake noise requires replacement of the brake pads cannot just look at \"no sound\", but must be judged based on the scene: 1. **First distinguish the type of abnormal noise** - There is a metal friction sound during light braking, but normal during heavy braking → This indicates that the brake pads are worn in place and require focused inspection.      - rain"
+    },
+    {
+      "id": "RAG-REP-005",
+      "skill_id": "repair_kb",
+      "suite": "extended",
+      "ok": true,
+      "stop_reason": "cited_answer",
+      "elapsed_s": 4.01,
+      "expect_hit": true,
+      "doc_hit": true,
+      "cited_docs": [
+        "repair__The charging port is compatible with the charger",
+        "repair__Motor abnormal noise and speed limit",
+        "repair__range-anomaly-troubleshooting"
+      ],
+      "cited_domains": [
+        "repair"
+      ],
+      "keyword_hit": true,
+      "domain_isolation_ok": true,
+      "cross_domain_ok": null,
+      "answer_preview": "**1. Restatement of the problem (one sentence)** You are asking about how to deal with poor contact at the charging port.  **2. Based on the troubleshooting/processing suggestions in the knowledge base (step-by-step)** According to the troubleshooting guidelines of \"Charging Port and Charger Compatibility\" and \"Troubleshooting Abnormal Battery Life\" in the knowledge base, it is recommended to follow the following steps: - **Step 1: Exchange chargers of the same specifications for testing**. First rule out the possibility of current limitation or failure of the charger itself (quote excerpts 1 and 2). - **Step 2: Check the charging port pins**. Check whether the pins are burned"
+    },
+    {
+      "id": "RAG-POL-001",
+      "skill_id": "policy_kb",
+      "suite": "core",
+      "ok": true,
+      "stop_reason": "cited_answer",
+      "elapsed_s": 3.38,
+      "expect_hit": true,
+      "doc_hit": true,
+      "cited_docs": [
+        "policy__2026Q3 delivery rebate",
+        "policy__Store VI and non-exclusive red line"
+      ],
+      "cited_domains": [
+        "policy"
+      ],
+      "keyword_hit": true,
+      "domain_isolation_ok": true,
+      "cross_domain_ok": null,
+      "answer_preview": "**Conclusion**: In the 2026Q3 delivery rebate policy, the **gold medal tier requires monthly cumulative delivery of ≥1,200 units**, and the rebate point is **4.2%**.  **Key points of policy caliber**: - Version number: `2026Q3-Pickup rebate-V3` (Qingshu Travel synthetic caliber) - Gold medal level: monthly cumulative delivery **≥1200 units**, rebate point **4.2%** - Related gear reference: Bronze medal ≥300 units (2.0%), Silver medal ≥800"
+    },
+    {
+      "id": "RAG-POL-002",
+      "skill_id": "policy_kb",
+      "suite": "extended",
+      "ok": true,
+      "stop_reason": "cited_answer",
+      "elapsed_s": 4.5,
+      "expect_hit": true,
+      "doc_hit": true,
+      "cited_docs": [
+        "policy__Three guarantees and battery policy"
+      ],
+      "cited_domains": [
+        "policy"
+      ],
+      "keyword_hit": true,
+      "domain_isolation_ok": true,
+      "cross_domain_ok": null,
+      "answer_preview": "**Conclusion**: The battery SOH is low during the three-guarantee period. It is necessary to distinguish the battery type and cause of damage before judging whether it falls within the three-guarantee range. Lithium batteries can be evaluated according to the \"SOH≥80%\" warranty policy, but man-made damage is clearly not covered by the three-guarantee.  --- **Key points of policy caliber** 1. **Battery warranty scope (differentiated by type)** - Lead-acid battery: 6-month capacity warranty; - Lithium battery: 12-month or SOH≥80% warranty policy (indicative caliber); -"
+    },
+    {
+      "id": "RAG-POL-003",
+      "skill_id": "policy_kb",
+      "suite": "extended",
+      "ok": true,
+      "stop_reason": "cited_answer",
+      "elapsed_s": 3.83,
+      "expect_hit": true,
+      "doc_hit": true,
+      "cited_docs": [
+        "policy__renewal reaches red line",
+        "policy__Store VI and non-exclusive red line"
+      ],
+      "cited_domains": [
+        "policy"
+      ],
+      "keyword_hit": true,
+      "domain_isolation_ok": true,
+      "cross_domain_ok": null,
+      "answer_preview": "### 1. Question restatement You are asking about the compliance red lines that cannot be touched in the \"renewal contact\" scenario.  ### 2. Key points of the policy caliber (red line/scope of application) Based on the search fragment, the red line for renewal is as follows (Qingshu Travel synthetic caliber): - **Red line 1: Users with outstanding complaints are prohibited from reaching** Users with the tag `TAG-open-complaint` are **prohibited** from automatic outbound calls and discount push (fragment 1, fragment 2).  - **Red Line 2: Reaching the frequency limit"
+    },
+    {
+      "id": "RAG-POL-004",
+      "skill_id": "policy_kb",
+      "suite": "extended",
+      "ok": true,
+      "stop_reason": "cited_answer",
+      "elapsed_s": 3.73,
+      "expect_hit": true,
+      "doc_hit": true,
+      "cited_docs": [
+        "policy__Store VI and non-exclusive red line"
+      ],
+      "cited_domains": [
+        "policy"
+      ],
+      "keyword_hit": true,
+      "domain_isolation_ok": true,
+      "cross_domain_ok": null,
+      "answer_preview": "### 1. Question review You are asking about the identification standards for \"non-exclusive\" and \"VI violations\" in stores.  ### 2. Key points of the policy caliber (based on the search fragment) According to the \"Store VI and Non-exclusive Red Line (Synthetic)\" policy, the identification caliber is as follows: - **Non-exclusive (TAG-non-exclusive-display)**: Mixing and selling of unauthorized competing vehicles in the same business area. - **VI violation (TAG-vi-violation)**: Changing the main color and standard font of the door header without authorization. - **Other violations"
+    },
+    {
+      "id": "RAG-HR-001",
+      "skill_id": "hr_rules",
+      "suite": "core",
+      "ok": true,
+      "stop_reason": "cited_answer",
+      "elapsed_s": 2.23,
+      "expect_hit": true,
+      "doc_hit": true,
+      "cited_docs": [
+        "hr__Employee system Q&A summary",
+        "hr__Key points of agent quality inspection SOP"
+      ],
+      "cited_domains": [
+        "hr"
+      ],
+      "keyword_hit": true,
+      "domain_isolation_ok": true,
+      "cross_domain_ok": null,
+      "answer_preview": "[Restatement of the problem] You want to know the risky words that agents should not say during quality inspection.  [System/SOP Points] According to the \"Agent Quality Inspection SOP Points\" (synthetic caliber), the following words are risk words, and if they are hit, the quality inspection will fail and enter the coaching list: - \"Absolutely no problem\" - \"Guaranteed to fix it in three days\" - \"Officially a full refund\" In addition, the required items for quality inspection clearly require **Avoid absolute promises**, such as \"certainly\" and \"absolutely no problem\" and other expressions.  【Quote】 - kb_chu"
+    },
+    {
+      "id": "RAG-HR-002",
+      "skill_id": "hr_rules",
+      "suite": "extended",
+      "ok": true,
+      "stop_reason": "cited_answer",
+      "elapsed_s": 2.33,
+      "expect_hit": true,
+      "doc_hit": true,
+      "cited_docs": [
+        "hr__Employee system Q&A summary"
+      ],
+      "cited_domains": [
+        "hr"
+      ],
+      "keyword_hit": true,
+      "domain_isolation_ok": true,
+      "cross_domain_ok": null,
+      "answer_preview": "1. **Restatement of Question** You are asking about the specific provisions of the employee leave system.  2. **Key points of the system** According to the knowledge base search fragment, currently only the following content related to leave is covered: - Annual leave is calculated according to the seniority ladder; - Personal leave needs to be approved by the direct superior.      The remaining types of leave (such as sick leave, marriage leave, maternity leave, etc.) and the specific days and procedures are not covered by the knowledge base.  3. **Quote** - kb_chu"
+    },
+    {
+      "id": "RAG-HR-003",
+      "skill_id": "hr_rules",
+      "suite": "extended",
+      "ok": true,
+      "stop_reason": "cited_answer",
+      "elapsed_s": 2.36,
+      "expect_hit": true,
+      "doc_hit": true,
+      "cited_docs": [
+        "hr__Employee system Q&A summary"
+      ],
+      "cited_domains": [
+        "hr"
+      ],
+      "keyword_hit": true,
+      "domain_isolation_ok": true,
+      "cross_domain_ok": null,
+      "answer_preview": "[Restatement of the problem] You asked whether you can export the customer's mobile phone number to a private mobile phone.  [Key points of the system or SOP] According to the information security regulations in the knowledge base: - **It is prohibited to export real user mobile phone numbers** (and complete VIN) to private devices. - The QS0 synthetic chassis number and desensitized mobile phone number are only allowed to be used in Demo/training scenarios. - It is also prohibited to send screenshots of customer original voices to external communities.  Therefore, exporting a customer’s real mobile phone number to a private mobile phone is expressly prohibited. If needed for cultivating"
+    },
+    {
+      "id": "RAG-XDOM-001",
+      "skill_id": "repair_kb",
+      "suite": "cross_domain",
+      "ok": true,
+      "stop_reason": "no_hit_answered",
+      "elapsed_s": 1.95,
+      "expect_hit": false,
+      "doc_hit": null,
+      "cited_docs": [],
+      "cited_domains": [],
+      "keyword_hit": true,
+      "domain_isolation_ok": true,
+      "cross_domain_ok": true,
+      "answer_preview": "[Restatement of the question] You are asking about the employee leave system and annual leave rules.  [Troubleshooting/Processing Suggestions Based on the Knowledge Base] After searching, no fragments about the employee leave system or annual leave rules were found in the current maintenance knowledge base (repair domain). This type of content falls within the scope of the human resources system and is not covered by the maintenance knowledge area of ​​this Skill.  [Quote] - No relevant kb_chunk_id was retrieved (Quote: None) [Suggested next step] It is recommended that you go to"
+    },
+    {
+      "id": "RAG-XDOM-002",
+      "skill_id": "policy_kb",
+      "suite": "cross_domain",
+      "ok": true,
+      "stop_reason": "cited_answer",
+      "elapsed_s": 2.7,
+      "expect_hit": false,
+      "doc_hit": null,
+      "cited_docs": [
+        "policy__Three guarantees and battery policy"
+      ],
+      "cited_domains": [
+        "policy"
+      ],
+      "keyword_hit": true,
+      "domain_isolation_ok": true,
+      "cross_domain_ok": true,
+      "answer_preview": "[Problem Review] The user asked \"How to repair the abnormal noise of the motor and the speed limit\", which is a repair caliber issue within the three-guarantee/battery policy area.  [Key points of policy caliber] - According to the search fragment, motors are among the \"main components\" (motors, controllers, instruments) in the three guarantees policy. - Three guarantee period: **12 months from the date of invoice or 10,000 kilometers** (whichever comes first). - During the three-guarantee period, if the motor fails, it can be repaired for free**; if it is a serious failure, you can apply for replacement**. - about\""
+    },
+    {
+      "id": "RAG-XDOM-003",
+      "skill_id": "hr_rules",
+      "suite": "cross_domain",
+      "ok": true,
+      "stop_reason": "no_hit_answered",
+      "elapsed_s": 2.74,
+      "expect_hit": false,
+      "doc_hit": null,
+      "cited_docs": [],
+      "cited_domains": [],
+      "keyword_hit": true,
+      "domain_isolation_ok": true,
+      "cross_domain_ok": true,
+      "answer_preview": "[Question Review] You are asking about the threshold for the number of units to be picked up corresponding to the \"Diamond Tier\" in the 2026Q3 pick-up rebate.  [System/SOP Points] No entries regarding \"2026Q3 Delivery Rebate Diamond Level\" were found in the knowledge base. This question involves **Rebate Policy**, which belongs to the policy/business domain (policy_kb) and is not within the search domain (hr) of this Skill, and the current search fragment has no hits.  Therefore, I cannot provide a specific threshold for the number of diamond units, and I do not recommend that you rely on this"
+    }
+  ]
+}

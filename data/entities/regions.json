@@ -1,0 +1,58 @@
+[
+  {
+    "region_id": "REG-320115",
+    "province": "Jiangsu",
+    "city": "Nanjing",
+    "county_code": "320115",
+    "county_name": "Jiangning District"
+  },
+  {
+    "region_id": "REG-320505",
+    "province": "Jiangsu",
+    "city": "Suzhou",
+    "county_code": "320505",
+    "county_name": "Huqiu District"
+  },
+  {
+    "region_id": "REG-330106",
+    "province": "Zhejiang",
+    "city": "Hangzhou",
+    "county_code": "330106",
+    "county_name": "Xihu District"
+  },
+  {
+    "region_id": "REG-330212",
+    "province": "Zhejiang",
+    "city": "Ningbo",
+    "county_code": "330212",
+    "county_name": "Yinzhou District"
+  },
+  {
+    "region_id": "REG-340104",
+    "province": "Anhui",
+    "city": "Hefei",
+    "county_code": "340104",
+    "county_name": "Shushan District"
+  },
+  {
+    "region_id": "REG-370102",
+    "province": "Shandong",
+    "city": "Jinan",
+    "county_code": "370102",
+    "county_name": "Lixia District"
+  },
+  {
+    "region_id": "REG-510107",
+    "province": "Sichuan",
+    "city": "Chengdu",
+    "county_code": "510107",
+    "county_name": "Wuhou District"
+  },
+  {
+    "region_id": "REG-440106",
+    "province": "Guangdong",
+    "city": "Guangzhou",
+    "county_code": "440106",
+    "county_name": "Tianhe District"
+  }
+]

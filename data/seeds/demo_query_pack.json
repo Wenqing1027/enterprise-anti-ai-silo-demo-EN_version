@@ -1,0 +1,28 @@
+{
+  "sample_vins": [
+    "QS04C4B876FB6485C",
+    "QS07EECA68A02B4B1",
+    "QS0F6877611EC5D77",
+    "QS067F41FDC245974",
+    "QS06975037BE9CE3F"
+  ],
+  "sample_customer_ids": [
+    "CUS-10001",
+    "CUS-10002",
+    "CUS-10003",
+    "CUS-10004",
+    "CUS-10005"
+  ],
+  "sample_dealer_ids": [
+    "DLR-3001",
+    "DLR-3002",
+    "DLR-3003",
+    "DLR-3004",
+    "DLR-3005"
+  ],
+  "kb_smoke_queries": [
+    "Lithium range only half of rated—how to troubleshoot",
+    "2026Q3 silver tier pickup rebate rate",
+    "Can we AI-call users with open complaints for renewal"
+  ]
+}

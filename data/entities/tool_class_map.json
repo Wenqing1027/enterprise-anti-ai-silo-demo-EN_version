@@ -1,0 +1,112 @@
+{
+  "version": "v2",
+  "tool_classes": [
+    "read",
+    "knowledge",
+    "write_govern"
+  ],
+  "knowledge_tools": [
+    "get_kb_document",
+    "list_kb_domains",
+    "search_kb"
+  ],
+  "write_govern_tools": [
+    "check_outreach_block",
+    "get_ai_output",
+    "get_capability",
+    "list_capabilities",
+    "list_run_logs",
+    "log_step",
+    "read_ai_outputs",
+    "read_shared_tags",
+    "write_ai_output"
+  ],
+  "note": "Tools not in above tables default tool_class=read; domain in ToolSpec.category.",
+  "description": "Platform tool governance three ledgers. Runtime source shared/tools/governance.py; maps to ToolSpec.tool_class at registration.",
+  "tool_class_meta": {
+    "read": {
+      "name": "Read (business read-only)",
+      "blurb": "Read-only queries and rule evaluation for master data / transactions / service / renewal / channel / IoT."
+    },
+    "knowledge": {
+      "name": "Knowledge (retrieval)",
+      "blurb": "Knowledge retrieval and doc read; primary Retrieve loop."
+    },
+    "write_govern": {
+      "name": "Write/Govern (shared write and governance)",
+      "blurb": "Write shared output, read shared tags, outreach gate, capability catalog, run logs."
+    }
+  },
+  "counts": {
+    "read": 36,
+    "knowledge": 3,
+    "write_govern": 9
+  },
+  "by_class": {
+    "read": [
+      "extract_ticket_fields",
+      "get_customer",
+      "get_dealer",
+      "get_dealer_health",
+      "get_order",
+      "get_org",
+      "get_policy",
+      "get_renewal",
+      "get_risk",
+      "get_sku",
+      "get_store",
+      "get_tag",
+      "get_telemetry",
+      "get_ticket",
+      "get_user_behavior",
+      "get_vehicle",
+      "list_alerts",
+      "list_campaigns",
+      "list_color_plans",
+      "list_competitors",
+      "list_inspections",
+      "list_inventory",
+      "list_orders",
+      "list_quality_checks",
+      "list_regions",
+      "list_retail_daily",
+      "list_sales_metrics",
+      "list_stores",
+      "list_tags",
+      "list_tickets",
+      "list_vehicles",
+      "list_voc",
+      "route_renewal_pool",
+      "score_renewal",
+      "simulate_rebate_tier",
+      "suggest_voc_tags"
+    ],
+    "knowledge": [
+      "get_kb_document",
+      "list_kb_domains",
+      "search_kb"
+    ],
+    "write_govern": [
+      "check_outreach_block",
+      "get_ai_output",
+      "get_capability",
+      "list_capabilities",
+      "list_run_logs",
+      "log_step",
+      "read_ai_outputs",
+      "read_shared_tags",
+      "write_ai_output"
+    ]
+  },
+  "total": 48,
+  "domains_secondary": [
+    "channel",
+    "commerce",
+    "iot",
+    "knowledge",
+    "master",
+    "renewal",
+    "service",
+    "shared"
+  ]
+}

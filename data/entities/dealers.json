@@ -1,0 +1,222 @@
+[
+  {
+    "dealer_id": "DLR-3001",
+    "dealer_name": "QingshuNanjing Tier-1 Network 2",
+    "legal_person": "Qin Bowei",
+    "open_account_date": "2022-10-09",
+    "developer_name": "Chen Yutong",
+    "org_id": "WZ-EAST",
+    "province": "Jiangsu",
+    "city": "Nanjing",
+    "county_code": "320115"
+  },
+  {
+    "dealer_id": "DLR-3002",
+    "dealer_name": "QingshuSuzhou Tier-1 Network 3",
+    "legal_person": "Yang Haoran",
+    "open_account_date": "2026-02-15",
+    "developer_name": "He Mingxuan",
+    "org_id": "WZ-EAST",
+    "province": "Jiangsu",
+    "city": "Suzhou",
+    "county_code": "320505"
+  },
+  {
+    "dealer_id": "DLR-3003",
+    "dealer_name": "QingshuHangzhou Tier-1 Network 1",
+    "legal_person": "Kong Chengze",
+    "open_account_date": "2024-10-06",
+    "developer_name": "Zheng Wanqing",
+    "org_id": "WZ-SOUTH",
+    "province": "Zhejiang",
+    "city": "Hangzhou",
+    "county_code": "330106"
+  },
+  {
+    "dealer_id": "DLR-3004",
+    "dealer_name": "QingshuNingbo Tier-1 Network 2",
+    "legal_person": "Wei Chengze",
+    "open_account_date": "2024-06-10",
+    "developer_name": "Qian Jianning",
+    "org_id": "WZ-WEST",
+    "province": "Zhejiang",
+    "city": "Ningbo",
+    "county_code": "330212"
+  },
+  {
+    "dealer_id": "DLR-3005",
+    "dealer_name": "QingshuHefei Tier-1 Network 3",
+    "legal_person": "Cao Zhiqiang",
+    "open_account_date": "2025-09-20",
+    "developer_name": "Chu Jiayi",
+    "org_id": "WZ-NORTH",
+    "province": "Anhui",
+    "city": "Hefei",
+    "county_code": "340104"
+  },
+  {
+    "dealer_id": "DLR-3006",
+    "dealer_name": "QingshuJinan Tier-1 Network 1",
+    "legal_person": "Jiang Haoran",
+    "open_account_date": "2024-06-10",
+    "developer_name": "You Jiayi",
+    "org_id": "WZ-EAST",
+    "province": "Shandong",
+    "city": "Jinan",
+    "county_code": "370102"
+  },
+  {
+    "dealer_id": "DLR-3007",
+    "dealer_name": "QingshuChengdu Tier-1 Network 2",
+    "legal_person": "Yan Tianyou",
+    "open_account_date": "2023-10-19",
+    "developer_name": "Wei Yinuo",
+    "org_id": "WZ-EAST",
+    "province": "Sichuan",
+    "city": "Chengdu",
+    "county_code": "510107"
+  },
+  {
+    "dealer_id": "DLR-3008",
+    "dealer_name": "QingshuGuangzhou Tier-1 Network 3",
+    "legal_person": "Yang Xinyi",
+    "open_account_date": "2026-04-25",
+    "developer_name": "Lü Ruoxi",
+    "org_id": "WZ-SOUTH",
+    "province": "Guangdong",
+    "city": "Guangzhou",
+    "county_code": "440106"
+  },
+  {
+    "dealer_id": "DLR-3009",
+    "dealer_name": "QingshuNanjing Tier-1 Network 1",
+    "legal_person": "Chen Zhiqiang",
+    "open_account_date": "2025-10-16",
+    "developer_name": "Jin Siyuan",
+    "org_id": "WZ-WEST",
+    "province": "Jiangsu",
+    "city": "Nanjing",
+    "county_code": "320115"
+  },
+  {
+    "dealer_id": "DLR-3010",
+    "dealer_name": "QingshuSuzhou Tier-1 Network 2",
+    "legal_person": "Chu Jingxing",
+    "open_account_date": "2023-01-25",
+    "developer_name": "Chu Jiayi",
+    "org_id": "WZ-NORTH",
+    "province": "Jiangsu",
+    "city": "Suzhou",
+    "county_code": "320505"
+  },
+  {
+    "dealer_id": "DLR-3011",
+    "dealer_name": "QingshuHangzhou Tier-1 Network 3",
+    "legal_person": "Shi Ruoxi",
+    "open_account_date": "2023-07-03",
+    "developer_name": "Chen Siyuan",
+    "org_id": "WZ-EAST",
+    "province": "Zhejiang",
+    "city": "Hangzhou",
+    "county_code": "330106"
+  },
+  {
+    "dealer_id": "DLR-3012",
+    "dealer_name": "QingshuNingbo Tier-1 Network 1",
+    "legal_person": "Shi Junjie",
+    "open_account_date": "2022-07-17",
+    "developer_name": "Kong Wanqing",
+    "org_id": "WZ-EAST",
+    "province": "Zhejiang",
+    "city": "Ningbo",
+    "county_code": "330212"
+  },
+  {
+    "dealer_id": "DLR-3013",
+    "dealer_name": "QingshuHefei Tier-1 Network 2",
+    "legal_person": "Shi Jianning",
+    "open_account_date": "2022-11-25",
+    "developer_name": "Zhu Yutong",
+    "org_id": "WZ-SOUTH",
+    "province": "Anhui",
+    "city": "Hefei",
+    "county_code": "340104"
+  },
+  {
+    "dealer_id": "DLR-3014",
+    "dealer_name": "QingshuJinan Tier-1 Network 3",
+    "legal_person": "Sun Jiayi",
+    "open_account_date": "2023-04-20",
+    "developer_name": "Jin Wanqing",
+    "org_id": "WZ-WEST",
+    "province": "Shandong",
+    "city": "Jinan",
+    "county_code": "370102"
+  },
+  {
+    "dealer_id": "DLR-3015",
+    "dealer_name": "QingshuChengdu Tier-1 Network 1",
+    "legal_person": "Yang Yuyan",
+    "open_account_date": "2022-09-11",
+    "developer_name": "Wei Qingyang",
+    "org_id": "WZ-NORTH",
+    "province": "Sichuan",
+    "city": "Chengdu",
+    "county_code": "510107"
+  },
+  {
+    "dealer_id": "DLR-3016",
+    "dealer_name": "QingshuGuangzhou Tier-1 Network 2",
+    "legal_person": "Lü Zixuan",
+    "open_account_date": "2023-07-04",
+    "developer_name": "You Jianning",
+    "org_id": "WZ-EAST",
+    "province": "Guangdong",
+    "city": "Guangzhou",
+    "county_code": "440106"
+  },
+  {
+    "dealer_id": "DLR-3017",
+    "dealer_name": "QingshuNanjing Tier-1 Network 3",
+    "legal_person": "Zheng Zhiqiang",
+    "open_account_date": "2023-12-10",
+    "developer_name": "Zhang Zhiqiang",
+    "org_id": "WZ-EAST",
+    "province": "Jiangsu",
+    "city": "Nanjing",
+    "county_code": "320115"
+  },
+  {
+    "dealer_id": "DLR-3018",
+    "dealer_name": "QingshuSuzhou Tier-1 Network 1",
+    "legal_person": "Qin Qingyang",
+    "open_account_date": "2025-04-16",
+    "developer_name": "Sun Chengze",
+    "org_id": "WZ-SOUTH",
+    "province": "Jiangsu",
+    "city": "Suzhou",
+    "county_code": "320505"
+  },
+  {
+    "dealer_id": "DLR-3019",
+    "dealer_name": "QingshuHangzhou Tier-1 Network 2",
+    "legal_person": "Li Yinuo",
+    "open_account_date": "2025-03-10",
+    "developer_name": "Cao Qingyang",
+    "org_id": "WZ-WEST",
+    "province": "Zhejiang",
+    "city": "Hangzhou",
+    "county_code": "330106"
+  },
+  {
+    "dealer_id": "DLR-3020",
+    "dealer_name": "QingshuNingbo Tier-1 Network 3",
+    "legal_person": "Jiang Jingxing",
+    "open_account_date": "2022-10-26",
+    "developer_name": "Jiang Zixuan",
+    "org_id": "WZ-NORTH",
+    "province": "Zhejiang",
+    "city": "Ningbo",
+    "county_code": "330212"
+  }
+]
