@@ -156,6 +156,61 @@ def _ui(name: str) -> Path:
     return path
 
 
+def _demo_video_local_path() -> Path:
+    return UI_DIR / "media" / "demo-walkthrough-en.mp4"
+
+
+def _fetch_demo_video_from_private_github() -> Path | None:
+    """Fetch walkthrough video from private media repo (not in public Git)."""
+    token = (os.getenv("GH_MEDIA_TOKEN") or os.getenv("GITHUB_TOKEN") or "").strip()
+    if not token:
+        return None
+    dest = _demo_video_local_path()
+    if dest.is_file() and dest.stat().st_size > 0:
+        return dest
+    dest.parent.mkdir(parents=True, exist_ok=True)
+    repo = (os.getenv("DEMO_VIDEO_REPO") or "Wenqing1027/qingshu-demo-media-private").strip()
+    path_in_repo = (os.getenv("DEMO_VIDEO_PATH") or "demo-walkthrough-en.mp4").strip()
+    url = f"https://api.github.com/repos/{repo}/contents/{path_in_repo}"
+    try:
+        import urllib.request
+
+        req = urllib.request.Request(
+            url,
+            headers={
+                "Authorization": f"Bearer {token}",
+                "Accept": "application/vnd.github.raw",
+                "X-GitHub-Api-Version": "2022-11-28",
+                "User-Agent": "qingshu-demo-en",
+            },
+        )
+        with urllib.request.urlopen(req, timeout=120) as resp:  # noqa: S310
+            data = resp.read()
+        if not data:
+            return None
+        dest.write_bytes(data)
+        return dest
+    except Exception:  # noqa: BLE001
+        return None
+
+
+@app.get("/media/demo-walkthrough.mp4")
+def demo_walkthrough_video() -> FileResponse:
+    """Walkthrough video: local file first; else private-repo fetch via GH_MEDIA_TOKEN."""
+    path = _demo_video_local_path()
+    if not (path.is_file() and path.stat().st_size > 0):
+        path = _fetch_demo_video_from_private_github() or path
+    if not (path.is_file() and path.stat().st_size > 0):
+        raise HTTPException(
+            status_code=404,
+            detail="demo video missing: set GH_MEDIA_TOKEN on Render to fetch from private media repo",
+        )
+    return FileResponse(
+        path,
+        media_type="video/mp4",
+        filename="Qingshu-Demo-Walkthrough.mp4",
+    )
+
 class ReactRunOptions(BaseModel):
     return_steps: bool = True
 
@@ -261,11 +316,11 @@ def meta() -> dict[str, Any]:
         "agent_types_ready_legacy": [
             to_legacy(x) for x in loops["agent_types_ready"] if to_legacy(x)
         ],
-        "business_ui": "/business?department=service",
+        "business_ui": "/business-en?department=service&feature=F-SVC-001",
         "ops_ui": "/ops",
         "ops_embed": "/ops/embed",
         "embed": {
-            "business": "/business?department=service",
+            "business": "/business-en?department=service&feature=F-SVC-001",
             "ops_iframe": "/ops/embed",
             "primary_api": "POST /v1/react/runs",
             "extraction_api": "POST /v1/extraction/runs",
@@ -1184,9 +1239,47 @@ def ai_outputs_read(
 
 
 # ---- UI routes ----
+# English demo primary entry: /business-en (keeps /business as alias for compatibility)
+
+
+@app.get("/business-en", response_class=HTMLResponse)
+def business_en_page() -> FileResponse:
+    return FileResponse(_ui("business.html"))
+
+
+@app.get("/ops-en", response_class=HTMLResponse)
+def ops_en_page() -> FileResponse:
+    return FileResponse(_ui("ops.html"))
+
+
+@app.get("/ops-en/embed", response_class=HTMLResponse)
+def ops_en_embed_page() -> FileResponse:
+    return FileResponse(_ui("ops.html"))
+
+
+@app.get("/logic-en", response_class=HTMLResponse)
+def logic_en_page() -> FileResponse:
+    return FileResponse(_ui("logic.html"))
+
+
+@app.get("/logic-en/architecture", response_class=HTMLResponse)
+def logic_en_architecture_page() -> FileResponse:
+    return FileResponse(_ui("logic-architecture.html"))
+
+
+@app.get("/logic-en/solution", response_class=HTMLResponse)
+def logic_en_solution_page() -> FileResponse:
+    return FileResponse(_ui("logic-solution.html"))
+
+
+@app.get("/logic-en/risk", response_class=HTMLResponse)
+def logic_en_risk_page() -> FileResponse:
+    return FileResponse(_ui("logic-risk.html"))
+
 
 @app.get("/business", response_class=HTMLResponse)
 def business_page() -> FileResponse:
+    """Alias of /business-en for local EN package runs."""
     return FileResponse(_ui("business.html"))
 
 
@@ -1222,22 +1315,19 @@ def logic_risk_page() -> FileResponse:
 
 @app.get("/ui", response_class=HTMLResponse)
 def ui_page() -> RedirectResponse:
-    return RedirectResponse(url="/business?department=service", status_code=307)
+    return RedirectResponse(
+        url="/business-en?department=service&feature=F-SVC-001", status_code=307
+    )
 
 
 @app.get("/embed", response_class=HTMLResponse)
 def embed_page() -> RedirectResponse:
-    return RedirectResponse(url="/business?department=service", status_code=307)
+    return RedirectResponse(
+        url="/business-en?department=service&feature=F-SVC-001", status_code=307
+    )
 
 
 @app.get("/")
-def root() -> dict[str, str]:
-    return {
-        "product": PRODUCT,
-        "business": "/business?department=service",
-        "ops": "/ops",
-        "ops_embed": "/ops/embed",
-        "logic": "/logic",
-        "docs": "/docs",
-        "health": "/health",
-    }
+def root() -> RedirectResponse:
+    """Open root in the browser → logic walkthrough (not raw JSON)."""
+    return RedirectResponse(url="/logic-en", status_code=307)

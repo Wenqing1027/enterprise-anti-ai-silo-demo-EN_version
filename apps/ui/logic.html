@@ -5,13 +5,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Qingshu Mobility · Logic overview</title>
     <link rel="stylesheet" href="/static/styles.css?v=20260808-logic4" />
-    <link rel="stylesheet" href="/static/logic.css?v=20260808-logic4" />
+    <link rel="stylesheet" href="/static/logic.css?v=20260810-logic5" />
   </head>
   <body class="page-logic">
     <nav class="mode-switch" aria-label="View switcher">
-      <a href="/business">Business Lead</a>
-      <a href="/ops">IT Ops</a>
-      <a class="active" href="/logic" aria-current="page">Logic Walkthrough</a>
+      <a href="/business-en">Business Lead</a>
+      <a href="/ops-en">IT Ops</a>
+      <a class="active" href="/logic-en" aria-current="page">Logic Walkthrough</a>
     </nav>
     <div class="shell shell-wide shell-logic">
       <header class="topbar">
@@ -24,10 +24,10 @@
         </div>
       </header>
       <nav class="logic-subnav" aria-label="Logic subpages">
-        <a class="active" href="/logic">Overview</a>
-        <a  href="/logic/architecture">Part 1 · Company architecture</a>
-        <a  href="/logic/solution">Part 2 · AI solution design</a>
-        <a  href="/logic/risk">Part 3 · Risk controls</a>
+        <a class="active" href="/logic-en">Overview</a>
+        <a  href="/logic-en/architecture">Part 1 · Company architecture</a>
+        <a  href="/logic-en/solution">Part 2 · AI solution design</a>
+        <a  href="/logic-en/risk">Part 3 · Risk controls</a>
       </nav>
       <div class="logic-hero">
         <p class="logic-lead">
@@ -60,7 +60,7 @@
               Clarify permissions, shared-write/outreach red lines, audit duty, in/out of scope for this phase. See Part 3.
             </p>
           </div>
-          <a class="route-card" href="/logic/architecture" style="text-decoration:none;color:inherit">
+          <a class="route-card" href="/logic-en/architecture" style="text-decoration:none;color:inherit">
             <h4>Start with Part 1</h4>
             <p class="card-note" style="margin:0">Dept map · four business lines · planned features vs KPIs</p>
           </a>
@@ -76,9 +76,31 @@
         </p>
       </div>
 
+      <section class="logic-section logic-video-section" aria-labelledby="walkthrough-title">
+        <h2 id="walkthrough-title">Demo walkthrough video</h2>
+        <p class="sec-note">
+          A few minutes covering logic pages → business UI → ops UI.
+          If playback stalls, wait a moment or
+          <a href="/media/demo-walkthrough.mp4" download="Qingshu-Demo-Walkthrough.mp4">download the video</a>
+          to watch locally.
+        </p>
+        <div class="logic-video-wrap">
+          <video
+            class="logic-video"
+            controls
+            preload="metadata"
+            playsinline
+            src="/media/demo-walkthrough.mp4#t=0.1"
+          >
+            Your browser does not support video playback.
+            <a href="/media/demo-walkthrough.mp4">Download the video</a> instead.
+          </video>
+        </div>
+      </section>
+
       <div class="logic-footer-nav">
         <span></span>
-        <a href="/logic/architecture">Go to Part 1 →</a>
+        <a href="/logic-en/architecture">Go to Part 1 →</a>
       </div>
 
     </div>
