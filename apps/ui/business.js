@@ -594,9 +594,27 @@ function stripRedundantCitations(text, citeTitles) {
   return s.trim();
 }
 
+/** Hide DeepSeek DSML tool markup if it leaks into final_answer */
+function stripDsmlMarkup(text) {
+  let s = String(text || "").replace(/\uFF5C/g, "|");
+  s = s.replace(
+    /<?\s*\|\s*\|\s*DSML\s*\|\s*\|\s*(?:tool_calls|function_calls)\s*>[\s\S]*?(?:<\/\s*\|\s*\|\s*DSML\s*\|\s*\|\s*(?:tool_calls|function_calls)\s*>|$)/gi,
+    ""
+  );
+  s = s.replace(/<\/?\s*\|\s*\|\s*DSML\s*\|\s*\|\s*[^>]*>/gi, "");
+  s = s.replace(/<\/?\|DSML\|[^>]*>/gi, "");
+  return s.trim();
+}
+
 /** Strip tech IDs; keep business-readable text */
 function softenAnswerText(text, citations) {
   let s = String(text || "");
+  if (/DSML/i.test(s) && /invoke/i.test(s)) {
+    s = stripDsmlMarkup(s);
+    if (!s) {
+      s = "Model returned unexecuted tool markup. Please click Try it again.";
+    }
+  }
   const map = buildCiteMap(citations);
   const titles = relevantCiteTitles(text, citations);
 

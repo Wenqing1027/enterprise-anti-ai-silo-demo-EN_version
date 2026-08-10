@@ -20,13 +20,15 @@ from agents.react.tool_calls import (
     allows_empty_args,
     assistant_tool_call_message,
     extract_tool_calls,
+    looks_like_dsml,
+    strip_dsml,
     tool_result_message,
 )
 from shared.llm.client import DeepSeekClient, get_llm_client
 from shared.tools.base import ToolContext
 from shared.tools.registry import ToolRegistry, default_registry
 
-# ， allowed （ tools）
+# Extra final-answer rounds after success criteria (tools disabled)
 SUCCESS_FINAL_ROUNDS = 1
 
 
@@ -100,7 +102,7 @@ class ReactAgent:
                 ok=False,
                 skill_id=skill_id,
                 run_id=rid,
-                final_answer="Skill  allowed_tools",
+                final_answer="Skill has no allowed_tools configured",
                 stop_reason="config_error",
             )
 
@@ -133,7 +135,7 @@ class ReactAgent:
 
         client = self.llm or get_llm_client()
 
-        # max_steps 「 tools 」； +1 ，
+        # max_steps only covers tool rounds; +1 final-answer round runs outside the loop
         for step_i in range(1, max_steps + 1):
             try:
                 resp = client.chat(messages, tools=tools, tool_choice="auto")
@@ -153,12 +155,27 @@ class ReactAgent:
 
             if not parsed_calls:
                 answer = (getattr(msg, "content", None) or "").strip()
+                # Model sometimes dumps DSML tool markup as plain text; never show it as final answer.
+                if looks_like_dsml(answer):
+                    return ReactResult(
+                        ok=False,
+                        skill_id=skill_id,
+                        run_id=rid,
+                        final_answer=(
+                            "Model returned unexecuted tool markup (DSML). "
+                            "Please click Try it again."
+                        ),
+                        stop_reason="tool_parse_error",
+                        steps=steps,
+                        success_flags=flags,
+                    )
+                answer = strip_dsml(answer) or answer
                 reason = "success" if self._success_met(skill, flags) else "final"
                 return ReactResult(
                     ok=True,
                     skill_id=skill_id,
                     run_id=rid,
-                    final_answer=answer or "（）",
+                    final_answer=answer or "(No answer)",
                     stop_reason=reason,
                     steps=steps,
                     success_flags=flags,
@@ -170,7 +187,7 @@ class ReactAgent:
                     ok=False,
                     skill_id=skill_id,
                     run_id=rid,
-                    final_answer=count_v.message or "",
+                    final_answer=count_v.message or "Too many tool calls in one step",
                     stop_reason="security_stop",
                     steps=steps,
                     success_flags=flags,
@@ -223,7 +240,8 @@ class ReactAgent:
                             ok=False,
                             skill_id=skill_id,
                             run_id=rid,
-                            final_answer=pre.message or "，。",
+                            final_answer=pre.message
+                            or "Security precheck failed twice; stopped.",
                             stop_reason="security_stop",
                             steps=steps,
                             success_flags=flags,
@@ -257,7 +275,7 @@ class ReactAgent:
                         ok=False,
                         skill_id=skill_id,
                         run_id=rid,
-                        final_answer=outreach.message or "",
+                        final_answer=outreach.message or "Outreach blocked",
                         stop_reason="security_stop",
                         steps=steps,
                         success_flags={**flags, "outreach_blocked": True},
@@ -268,7 +286,7 @@ class ReactAgent:
                         ok=False,
                         skill_id=skill_id,
                         run_id=rid,
-                        final_answer="，。",
+                        final_answer="Repeated unauthorized tool calls; stopped.",
                         stop_reason="tool_denied",
                         steps=steps,
                         success_flags=flags,
@@ -278,7 +296,7 @@ class ReactAgent:
                         ok=False,
                         skill_id=skill_id,
                         run_id=rid,
-                        final_answer="，。",
+                        final_answer="Repeated invalid tool arguments; stopped.",
                         stop_reason="bad_args",
                         steps=steps,
                         success_flags=flags,
@@ -293,43 +311,64 @@ class ReactAgent:
                 {
                     "role": "user",
                     "content": (
-                        "（Shared output/lookup）。"
-                        "，。"
+                        "Success criteria met (shared output / lookup done). "
+                        "Do not call tools. Write the final answer in the required format only."
                     ),
                 }
             )
-            try:
-                resp = client.chat(messages, tools=None, tool_choice="none")
-            except Exception as exc:  # noqa: BLE001
-                return ReactResult(
-                    ok=True,
-                    skill_id=skill_id,
-                    run_id=rid,
-                    final_answer=f"， LLM : {exc}",
-                    stop_reason="success",
-                    steps=steps,
-                    success_flags=flags,
+            answer = ""
+            stop_reason = "success"
+            for _final_i in range(SUCCESS_FINAL_ROUNDS + 1):
+                try:
+                    resp = client.chat(messages, tools=None, tool_choice="none")
+                except Exception as exc:  # noqa: BLE001
+                    return ReactResult(
+                        ok=True,
+                        skill_id=skill_id,
+                        run_id=rid,
+                        final_answer=(
+                            f"Success criteria met, but final-answer LLM failed: {exc}"
+                        ),
+                        stop_reason="success",
+                        steps=steps,
+                        success_flags=flags,
+                    )
+                msg = resp.choices[0].message
+                parsed_calls = extract_tool_calls(msg)
+                answer = (getattr(msg, "content", None) or "").strip()
+                if looks_like_dsml(answer):
+                    answer = strip_dsml(answer)
+                if answer and not looks_like_dsml(answer):
+                    stop_reason = "success_forced" if parsed_calls else "success"
+                    break
+                # Model still emitted tool markup / empty prose — nudge once more
+                messages.append(
+                    {
+                        "role": "assistant",
+                        "content": answer or "(tool markup omitted)",
+                    }
                 )
-            msg = resp.choices[0].message
-            parsed_calls = extract_tool_calls(msg)
-            answer = (getattr(msg, "content", None) or "").strip()
-            if parsed_calls:
-                return ReactResult(
-                    ok=True,
-                    skill_id=skill_id,
-                    run_id=rid,
-                    final_answer=answer
-                    or "，，。",
-                    stop_reason="success_forced",
-                    steps=steps,
-                    success_flags=flags,
+                messages.append(
+                    {
+                        "role": "user",
+                        "content": (
+                            "Still no final answer text. "
+                            "Using only the tool observations already in this chat, "
+                            "write the briefing now. No tools, no markup."
+                        ),
+                    }
                 )
+                stop_reason = "success_forced"
             return ReactResult(
                 ok=True,
                 skill_id=skill_id,
                 run_id=rid,
-                final_answer=answer or "（）",
-                stop_reason="success",
+                final_answer=answer
+                or (
+                    "Success criteria met, but the model kept requesting tools "
+                    "in the final round. Please retry."
+                ),
+                stop_reason=stop_reason,
                 steps=steps,
                 success_flags=flags,
             )
@@ -338,7 +377,9 @@ class ReactAgent:
             ok=self._success_met(skill, flags),
             skill_id=skill_id,
             run_id=rid,
-            final_answer="，Based on。",
+            final_answer=(
+                "Reached max tool steps; please finish manually from collected evidence."
+            ),
             stop_reason="max_steps",
             steps=steps,
             success_flags=flags,

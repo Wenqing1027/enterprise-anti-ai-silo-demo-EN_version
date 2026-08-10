@@ -147,17 +147,19 @@ def sanitize_observation(
 def build_security_prompt_section(skill: SkillConfig) -> str:
     sec: SkillSecurity = skill.security
     lines = [
-        "【Boundaries】",
-        "- forbidden API Key /  / 。",
-        "- forbidden； VIN  QS0 。",
-        f"- {sec.max_tool_calls_per_step} tool_calls。",
+        "[Security boundaries]",
+        "- Do not output or echo API keys / passwords / plaintext phone numbers.",
+        "- Do not invent facts not returned by tools; synthetic VIN must use QS0 prefix.",
+        f"- At most {sec.max_tool_calls_per_step} tool_calls per step.",
     ]
     if sec.kb_domains_allow:
-        lines.append(f"- domain allowed：{', '.join(sec.kb_domains_allow)}。")
+        lines.append(f"- Knowledge domains allowed: {', '.join(sec.kb_domains_allow)}.")
     if sec.block_on_outreach:
-        lines.append("-  check_outreach_block ，。")
+        lines.append(
+            "- If check_outreach_block reports blocked, stop outreach wording immediately."
+        )
     if sec.prompt_forbid_extra.strip():
-        lines.append(f"- forbidden：{sec.prompt_forbid_extra.strip}")
+        lines.append(f"- Extra forbid: {sec.prompt_forbid_extra.strip()}")
     if skill.tone.forbid.strip():
-        lines.append(f"- （ ）：{skill.tone.forbid.strip}")
+        lines.append(f"- Tone forbid (restate): {skill.tone.forbid.strip()}")
     return "\n".join(lines)
