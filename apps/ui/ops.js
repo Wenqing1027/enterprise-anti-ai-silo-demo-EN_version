@@ -81,7 +81,7 @@ async function loadDash() {
   state.dash = await r.json();
 }
 
-/** SVG （，） */
+/** Lightweight SVG sparkline (no chart library) */
 function sparkline(points, opts = {}) {
   const w = opts.w || 280;
   const h = opts.h || 72;
@@ -127,9 +127,9 @@ function healthBlock(h) {
   const level = h?.level || "good";
   const score = h?.score ?? "—";
   return `<div class="ops-health ops-health-${escapeHtml(level)}">
-    <div class="ops-health-label"></div>
-    <div class="ops-health-score">${escapeHtml(String(score))}<span class="ops-health-unit"></span></div>
-    <div class="ops-health-meta"> ${escapeHtml(String(h?.success_rate_now ?? "—"))}% · RT ${escapeHtml(String(h?.latency_ms_now ?? "—"))} ms</div>
+    <div class="ops-health-label">Platform health</div>
+    <div class="ops-health-score">${escapeHtml(String(score))}<span class="ops-health-unit">pts</span></div>
+    <div class="ops-health-meta">Success ${escapeHtml(String(h?.success_rate_now ?? "—"))}% · RT ${escapeHtml(String(h?.latency_ms_now ?? "—"))} ms</div>
   </div>`;
 }
 
@@ -145,10 +145,10 @@ function formatMetricValue(v, unit) {
 
 function goldenGrid(signals, highlightTs) {
   const order = [
-    ["success_rate", ""],
-    ["latency_ms", "RT "],
-    ["throughput", ""],
-    ["error_count", ""],
+    ["success_rate", "Success rate"],
+    ["latency_ms", "RT latency"],
+    ["throughput", "Throughput"],
+    ["error_count", "Errors"],
   ];
   return `<div class="ops-golden">
     ${order
@@ -185,10 +185,10 @@ function eventsPanel(events, highlightTs) {
   const rows = events || [];
   return `<div class="ops-events ${highlightTs ? "ops-events-alert" : ""}">
     <div class="ops-events-head">
-      <strong> / </strong>
-      ${highlightTs ? '<span class="pill pill-warn">：</span>' : '<span class="pill pill-ghost">inspection</span>'}
+      <strong>Events / changes</strong>
+      ${highlightTs ? '<span class="pill pill-warn">Alert: metrics worsened after change</span>' : '<span class="pill pill-ghost">inspection</span>'}
     </div>
-    <p class="card-note">；「」。Scopedescription。</p>
+    <p class="card-note">A change alone is not an alert; metrics worsening after a change is. Impact scope explains the causal link.</p>
     <ul class="ops-event-list">
       ${
         rows
@@ -205,15 +205,15 @@ function eventsPanel(events, highlightTs) {
               <div class="ops-event-detail">${escapeHtml(e.detail || "")}</div>
               ${
                 e.impact_scope || e.impact
-                  ? `<div class="ops-impact">：${escapeHtml(e.impact_scope || "—")}${
+                  ? `<div class="ops-impact">Impact: ${escapeHtml(e.impact_scope || "—")}${
                       e.impact ? ` · ${escapeHtml(e.impact)}` : ""
                     }</div>`
                   : ""
               }
-              ${e.run_id ? `<button type="button" class="ghost mini" data-run="${escapeHtml(e.run_id)}"></button>` : ""}
+              ${e.run_id ? `<button type="button" class="ghost mini" data-run="${escapeHtml(e.run_id)}">Open call chain</button>` : ""}
             </li>`;
           })
-          .join("") || '<li class="card-note"></li>'
+          .join("") || '<li class="card-note">No events yet</li>'
       }
     </ul>
   </div>`;
@@ -226,20 +226,20 @@ function rcaCard(rca) {
     .join("");
   const q = rca.log_query || {};
   return `<div class="ops-rca">
-    <div class="ops-rca-head"><strong>${escapeHtml(rca.title || "")}</strong>
-      <span class="pill pill-ok"> ·  ${(Number(rca.confidence || 0) * 100).toFixed(0)}%</span>
+    <div class="ops-rca-head"><strong>${escapeHtml(rca.title || "Root cause")}</strong>
+      <span class="pill pill-ok">Rules engine · ${(Number(rca.confidence || 0) * 100).toFixed(0)}% conf.</span>
     </div>
     <div class="ops-rca-grid">
-      <p class="ops-rca-chain"><b>：</b>${escapeHtml(rca.summary || "")}</p>
-      <p><b>：</b>${escapeHtml(rca.suspect || "")}</p>
-      <p><b>：</b>${escapeHtml(rca.suggestion || "")}</p>
+      <p class="ops-rca-chain"><b>Inference:</b> ${escapeHtml(rca.summary || "")}</p>
+      <p><b>Suspect:</b> ${escapeHtml(rca.suspect || "")}</p>
+      <p><b>Suggestion:</b> ${escapeHtml(rca.suggestion || "")}</p>
     </div>
     ${evidence ? `<ul class="ops-evidence">${evidence}</ul>` : ""}
     <div class="ops-rca-actions">
       <button type="button" class="primary mini" id="btn-error-logs"
         data-q="${escapeHtml(q.q || "")}"
         data-status="${escapeHtml(q.status || "error")}"
-        data-runs="${escapeHtml((q.run_ids || rca.related_run_ids || []).join(","))}"></button>
+        data-runs="${escapeHtml((q.run_ids || rca.related_run_ids || []).join(","))}">View related error logs</button>
       ${(rca.related_run_ids || [])
         .slice(0, 3)
         .map(
@@ -260,8 +260,8 @@ function loopCards(cards) {
         const rate = c.success_rate == null ? "—" : c.success_rate + "%";
         return `<button type="button" class="ops-loop-card" data-scope="${escapeHtml(c.control_loop)}">
           <div class="ops-loop-name">${escapeHtml(c.name || c.control_loop)}</div>
-          <div class="ops-loop-meta">runs ${c.runs ?? 0} ·  ${escapeHtml(String(rate))}</div>
-          <div class="card-note">this →</div>
+          <div class="ops-loop-meta">runs ${c.runs ?? 0} · success ${escapeHtml(String(rate))}</div>
+          <div class="card-note">Open loop metrics and call chains →</div>
         </button>`;
       })
       .join("")}
@@ -269,7 +269,7 @@ function loopCards(cards) {
 }
 
 function callChainHtml(chain) {
-  if (!chain?.nodes?.length) return `<p class="card-note"></p>`;
+  if (!chain?.nodes?.length) return `<p class="card-note">No call-chain nodes</p>`;
   const sev = chain.severity || (chain.ok === false ? "error" : chain.slow ? "slow" : chain.blocked ? "blocked" : "ok");
   const nodes = chain.nodes
     .map((n) => {
@@ -287,18 +287,18 @@ function callChainHtml(chain) {
     .join('<div class="ops-chain-arrow">→</div>');
   const badge =
     sev === "error"
-      ? '<span class="pill" style="color:var(--danger)"></span>'
+      ? '<span class="pill" style="color:var(--danger)">error</span>'
       : sev === "slow"
-        ? '<span class="pill pill-warn"></span>'
+        ? '<span class="pill pill-warn">slow</span>'
         : sev === "blocked"
-          ? '<span class="pill pill-warn"></span>'
+          ? '<span class="pill pill-warn">blocked</span>'
           : '<span class="pill pill-ok">ok</span>';
   return `<div class="ops-chain ops-sev-${escapeHtml(sev)}">
     <div class="ops-chain-meta">
       <code>${escapeHtml(chain.run_id)}</code>
       · ${escapeHtml(chain.control_loop || "—")}
       · ${escapeHtml(String(chain.duration_ms ?? "—"))} ms
-      ${chain.demo ? '<span class="pill pill-ghost"></span>' : ""}
+      ${chain.demo ? '<span class="pill pill-ghost">demo sample</span>' : ""}
       ${badge}
     </div>
     <div class="ops-chain-flow">${nodes}</div>
@@ -316,12 +316,12 @@ function runsAndChains(dash) {
   const runs = dash.runs || [];
   const chains = dash.call_chains || [];
   return `<div class="ops-trace-block">
-    <h3 class="ops-h3"></h3>
-    <p class="card-note"> / ； Skill run = （ → Skill → step）。</p>
-    ${chains.map(callChainHtml).join("") || '<p class="card-note">。 Demo。</p>'}
-    <h3 class="ops-h3"> Run</h3>
+    <h3 class="ops-h3">Call chains</h3>
+    <p class="card-note">Error / slow scenes first; one Skill run = one chain (entry → Skill → steps).</p>
+    ${chains.map(callChainHtml).join("") || '<p class="card-note">No chains yet. Run a Demo on the business wall first.</p>'}
+    <h3 class="ops-h3">Recent runs</h3>
     <div class="table-wrap"><table class="ops-table">
-      <thead><tr><th>run_id</th><th></th><th>skills</th><th></th><th>status</th><th></th></tr></thead>
+      <thead><tr><th>run_id</th><th>loop</th><th>skills</th><th>duration</th><th>status</th><th></th></tr></thead>
       <tbody>
         ${
           runs
@@ -335,15 +335,15 @@ function runsAndChains(dash) {
                 st = '<span class="pill pill-warn">blocked</span>';
               else st = '<span class="pill pill-ok">ok</span>';
               return `<tr>
-                <td><code>${escapeHtml(r.run_id)}</code>${r.demo ? ' <span class="pill pill-ghost"></span>' : ""}</td>
+                <td><code>${escapeHtml(r.run_id)}</code>${r.demo ? ' <span class="pill pill-ghost">sample</span>' : ""}</td>
                 <td>${escapeHtml(r.control_loop || "—")}</td>
                 <td>${escapeHtml((r.skills || []).join(", ") || "—")}</td>
                 <td>${escapeHtml(String(r.duration_ms ?? "—"))}</td>
                 <td>${st}</td>
-                <td><button type="button" class="primary mini" data-run="${escapeHtml(r.run_id)}"></button></td>
+                <td><button type="button" class="primary mini" data-run="${escapeHtml(r.run_id)}">Chain</button></td>
               </tr>`;
             })
-            .join("") || `<tr><td colspan="6"></td></tr>`
+            .join("") || `<tr><td colspan="6">None yet</td></tr>`
         }
       </tbody>
     </table></div>
@@ -379,7 +379,7 @@ async function openErrorLogs({ q, status, runs }) {
   const box = document.getElementById("ops-log-box");
   if (!box) return;
   box.hidden = false;
-  box.innerHTML = `<p class="blurb">…</p>`;
+  box.innerHTML = `<p class="blurb">Loading error logs…</p>`;
   try {
     const params = new URLSearchParams();
     if (status) params.set("status", status);
@@ -404,7 +404,7 @@ async function openErrorLogs({ q, status, runs }) {
           step_name: s.step_name,
           step_status: s.step_status,
           detail: d,
-          source: t.summary?.demo ? "" : "run",
+          source: t.summary?.demo ? "demo sample" : "run",
         });
       }
     }
@@ -420,10 +420,10 @@ async function openErrorLogs({ q, status, runs }) {
     }
     if (!rows.length) {
       box.innerHTML =
-        '<p class="card-note">。/step。</p>';
+        '<p class="card-note">No matching logs. Open an error/slow call chain above to inspect step details.</p>';
       return;
     }
-    box.innerHTML = `<h3 class="ops-h3"></h3>
+    box.innerHTML = `<h3 class="ops-h3">Related error logs</h3>
       <ul class="ops-list">${rows
         .slice(0, 24)
         .map((r) => {
@@ -437,7 +437,7 @@ async function openErrorLogs({ q, status, runs }) {
             }>${escapeHtml(r.step_status || "")}</span>
             ${d.tool ? ` · tool=<code>${escapeHtml(d.tool)}</code>` : ""}
             ${msg ? ` · ${escapeHtml(String(msg))}` : ""}
-            ${r.source === "" ? ' <span class="pill pill-ghost"></span>' : ""}
+            ${r.source === "demo sample" ? ' <span class="pill pill-ghost">sample</span>' : ""}
           </li>`;
         })
         .join("")}</ul>`;
@@ -450,18 +450,18 @@ async function openErrorLogs({ q, status, runs }) {
 async function openTrace(runId) {
   const box = document.getElementById("trace-box");
   if (!box) return;
-  box.innerHTML = `<p class="blurb"> ${escapeHtml(runId)}…</p>`;
+  box.innerHTML = `<p class="blurb">Loading call chain ${escapeHtml(runId)}…</p>`;
   try {
     const data = await fetch(`/v1/ops/runs/${encodeURIComponent(runId)}`).then((r) => r.json());
     state.trace = data;
     syncUrl();
     if (!data.found) {
-      box.innerHTML = `<p class="status-line err"> run</p>`;
+      box.innerHTML = `<p class="status-line err">Run not found</p>`;
       return;
     }
     const steps = data.steps || [];
     box.innerHTML = `
-      <h3 class="ops-h3">detail</h3>
+      <h3 class="ops-h3">Chain detail</h3>
       ${callChainHtml(data.call_chain)}
       <ul class="ops-list">
         ${steps
@@ -497,9 +497,9 @@ function render() {
   el.panel.innerHTML = `
     <div class="ops-dash-head">
       <div>
-        <div class="hero-chip">${state.scope === "platform" ? "" : ""}</div>
+        <div class="hero-chip">${state.scope === "platform" ? "Platform overview" : "Control-loop subpage"}</div>
         <h2>${escapeHtml(scopeTitle)}</h2>
-        <p class="blurb">；；（run）。</p>
+        <p class="blurb">Live golden-signal curves; adjacent events highlight on anomalies; call chains below are the runtime evidence.</p>
       </div>
       ${healthBlock(dash.health)}
     </div>
@@ -522,10 +522,10 @@ async function boot() {
     await loadDash();
     render();
   } catch (e) {
-    el.panel.innerHTML = `<p class="status-line err">：${escapeHtml(e.message || e)}</p>`;
+    el.panel.innerHTML = `<p class="status-line err">Init failed: ${escapeHtml(e.message || e)}</p>`;
   }
   el.refresh?.addEventListener("click", async () => {
-    el.panel.innerHTML = `<p class="blurb">Refresh…</p>`;
+    el.panel.innerHTML = `<p class="blurb">Refreshing…</p>`;
     await loadDash();
     render();
   });
