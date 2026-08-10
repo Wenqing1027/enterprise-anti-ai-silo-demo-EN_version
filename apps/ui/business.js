@@ -666,33 +666,19 @@ function softenAnswerText(text, citations) {
     .replace(/\*\*Per\/\*\*/g, "**Troubleshooting advice**")
     .replace(/Per\//g, "Troubleshooting advice")
     .replace(/\*\*Problem restatement\*\*/g, "**Problem summary**")
-    .replace(/\*\*\*\*/g, "**Problem summary**")
-    .replace(//g, "Problem summary")
+    .replace(/Problem restatement/g, "Problem summary")
     .replace(/Battery health \(SOH\)/g, "Battery health")
-    .replace(/（SOH）/g, "Battery health")
+    .replace(/（SOH）/g, "")
     .replace(/OTA version/g, "System version")
     .replace(/OTA\s*version/g, "System version")
-    .replace(/（SOH）/g, "")
     .replace(/Smart vehicle \(smart vehicle\)/g, "Smart vehicle")
-    .replace(/whether（whether）/g, "Whether smart vehicle")
-    .replace(/whether\s*/g, "Whether smart vehicle")
     .replace(/Shared output/g, "Shared info")
     .replace(/shared layer/g, "Shared info")
-    .replace(/Suggested action/g, "Suggested action")
-    .replace(//g, "Suggested action")
-    .replace(/Store can/g, "Store can")
-    .replace(//g, "Store can")
-    .replace(/Suggest store/g, "Suggest store")
-    .replace(//g, "Suggest store")
     .replace(/This feature/g, "This feature")
     .replace(/ Skill/g, "This feature")
     .replace(/\bSkill\b/g, "feature")
     .replace(/（reference[:：]/g, " (Ref: ")
-    .replace(/（[:：]/g, " (Ref: ")
-    .replace(/reference[:：]\s*《/g, "Ref: ")
-    .replace(/[:：]\s*《/g, "Ref: ")
-    .replace(/：/g, "Ref: ")
-    .replace(/（：/g, " (Ref: ")
+    .replace(/reference[:：]\s*/gi, "Ref: ")
     .replace(/Related knowledge material/g, "Related knowledge")
     .replace(/related knowledge/g, "Related knowledge");
 
@@ -1083,7 +1069,11 @@ async function runFeature() {
   el.status.textContent = "Running…";
   el.status.className = "status-line";
   try {
-    const resp = await fetch(runEndpointFor(f), {
+    const endpoint = runEndpointFor(f);
+    if (!endpoint || typeof endpoint !== "string") {
+      throw new Error("Trial endpoint missing. Please refresh and retry.");
+    }
+    const resp = await fetch(endpoint, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
@@ -1095,10 +1085,31 @@ async function runFeature() {
       }),
     });
     const data = await resp.json();
-    if (!resp.ok) throw new Error(data.detail || JSON.stringify(data));
+    if (!resp.ok) {
+      const detail = data.detail;
+      const msg =
+        typeof detail === "string"
+          ? detail
+          : detail != null
+            ? JSON.stringify(detail)
+            : JSON.stringify(data);
+      throw new Error(msg);
+    }
     renderResult(data);
+    if (!data.ok) {
+      const why =
+        data.final_text || data.final_answer || data.error || "Trial failed";
+      el.status.textContent = `Not completed: ${String(why).slice(0, 180)}`;
+      el.status.className = "status-line err";
+    }
   } catch (e) {
-    el.status.textContent = `Could not finish: ${e.message || e}`;
+    const raw = String(e && e.message ? e.message : e);
+    const friendly =
+      /did not match the expected pattern/i.test(raw) ||
+      /Failed to fetch|NetworkError|Load failed/i.test(raw)
+        ? "Network or page URL issue. Refresh and retry; if it persists, the model service may be unreachable."
+        : raw;
+    el.status.textContent = `Could not finish: ${friendly}`;
     el.status.className = "status-line err";
   } finally {
     el.runBtn.disabled = false;
